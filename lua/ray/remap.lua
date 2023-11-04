@@ -47,3 +47,9 @@ vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+-- Disable arrows movement
+vim.keymap.set('', '<Up>', '<Nop>')
+vim.keymap.set('', '<Down>', '<Nop>')
+vim.keymap.set('', '<Left>', '<Nop>')
+vim.keymap.set('', '<Right>', '<Nop>')
