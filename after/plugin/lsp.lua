@@ -12,7 +12,8 @@ lsp.preset("recommended")
 -- lsp.setup_servers({'lua_ls', 'rust_analyzer', 'tsserver', "anakinls" })
 
 require('lspconfig').lua_ls.setup({})
-require('lspconfig').rust_analyzer.setup{
+require('lspconfig').svelte.setup{}
+require'lspconfig'.rust_analyzer.setup{
   settings = {
     ['rust-analyzer'] = {
       diagnostics = {
@@ -21,9 +22,8 @@ require('lspconfig').rust_analyzer.setup{
     }
   }
 }
-require('lspconfig').svelte.setup{}
 -- require('lspconfig').anakin_language_server.setup{}
--- require('lspconfig').pyright.setup{}
+require('lspconfig').pyright.setup{}
 require('lspconfig').ruff_lsp.setup{
   init_options = {
     settings = {
