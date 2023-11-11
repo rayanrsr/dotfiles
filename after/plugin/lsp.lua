@@ -13,7 +13,7 @@ lsp.preset("recommended")
 
 require('lspconfig').lua_ls.setup({})
 require('lspconfig').svelte.setup{}
-require'lspconfig'.rust_analyzer.setup{
+require('lspconfig').rust_analyzer.setup{
   settings = {
     ['rust-analyzer'] = {
       diagnostics = {
@@ -24,14 +24,14 @@ require'lspconfig'.rust_analyzer.setup{
 }
 -- require('lspconfig').anakin_language_server.setup{}
 require('lspconfig').pyright.setup{}
-require('lspconfig').ruff_lsp.setup{
-  init_options = {
-    settings = {
+--require('lspconfig').ruff_lsp.setup{
+--  init_options = {
+--    settings = {
       -- Any extra CLI arguments for `ruff` go here.
-      args = {},
-    }
-  }
-}
+--      args = {},
+--    }
+--  }
+--}
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
