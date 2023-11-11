@@ -35,7 +35,8 @@ plugins = {
 	{'hrsh7th/cmp-nvim-lsp'},
 	{'hrsh7th/nvim-cmp'},
 	{'lukas-reineke/lsp-format.nvim'},
-	{'L3MON4D3/LuaSnip'},
+    {'simrat39/rust-tools.nvim'},
+    {'L3MON4D3/LuaSnip'},
     {'rmagatti/auto-session'},
     {'numToStr/Navigator.nvim'},
 }
