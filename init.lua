@@ -26,6 +26,7 @@ plugins = {
     },
 	{'theprimeagen/harpoon'},
 	{'mbbill/undotree'},
+	{'github/copilot.vim'},
 	{'tpope/vim-fugitive'},
 	{'williamboman/mason.nvim'},
 	{'williamboman/mason-lspconfig.nvim'},
@@ -42,4 +43,3 @@ require("lazy").setup(plugins, opts)
 vim.cmd([[colorscheme rose-pine]])
 vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
 vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
-
