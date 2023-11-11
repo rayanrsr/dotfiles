@@ -65,6 +65,6 @@ else
   echo "Unsupported OS."
   exit 1
 fi
-
+pip install ruff-lsp
 echo "LSP installation script completed."
 
