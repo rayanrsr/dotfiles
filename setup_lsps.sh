@@ -22,6 +22,7 @@ if [ "$OS" = "Linux" ]; then
   sudo pacman -S rustup --noconfirm
   rustup default stable
   rustup component add rust-src
+  sudo pacman -S ruff-lsp --noconfirm
   sudo pacman -S ripgrep fd --noconfirm
 
   # Check for yay and install anakin-language-server
@@ -42,6 +43,7 @@ elif [ "$OS" = "Darwin" ]; then
 
   # Install npm and pip packages using Homebrew
   brew install npm
+  brew install ruff-lsp
   npm i -g vscode-langservers-extracted
   npm install -g typescript typescript-language-server
   npm i -g pyright

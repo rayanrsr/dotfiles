@@ -24,7 +24,7 @@ require('lspconfig').rust_analyzer.setup{
 require('lspconfig').svelte.setup{}
 -- require('lspconfig').anakin_language_server.setup{}
 -- require('lspconfig').pyright.setup{}
-require'lspconfig'.ruff_lsp.setup{
+require('lspconfig').ruff_lsp.setup{
   init_options = {
     settings = {
       -- Any extra CLI arguments for `ruff` go here.
