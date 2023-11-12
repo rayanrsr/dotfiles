@@ -111,6 +111,7 @@ plugins = {
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
+    {'jose-elias-alvarez/null-ls.nvim'},
     {'numToStr/Navigator.nvim'},
     {'prichrd/netrw.nvim'},
 }
