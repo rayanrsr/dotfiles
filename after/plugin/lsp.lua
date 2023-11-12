@@ -29,9 +29,6 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 
---lsp.skip_server_setup({'rust_analyzer'})
-
---lsp.setup()
 
 local rust_tools = require('rust-tools')
 
@@ -42,17 +39,23 @@ rust_tools.setup({
     end
   }
 })
--- require('lspconfig').anakin_language_server.setup{}
+--require('lspconfig').anakin_language_server.setup{}
 require('lspconfig').pyright.setup{}
---require('lspconfig').ruff_lsp.setup{
---  init_options = {
---    settings = {
+require('lspconfig').ruff_lsp.setup{
+  init_options = {
+    settings = {
       -- Any extra CLI arguments for `ruff` go here.
---      args = {},
---    }
---  }
---}
-
+      args = {},
+    }
+  }
+}
+require"lspconfig".pylsp.setup {
+    filetypes = {"python"},
+    settings = {
+        configurationSources = {"flake8"},
+	formatCommand = {"black"}
+    }
+}
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
