@@ -110,6 +110,7 @@ plugins = {
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
     {'numToStr/Navigator.nvim'},
+    {'prichrd/netrw.nvim'},
 }
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(plugins, opts)
