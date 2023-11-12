@@ -38,6 +38,7 @@ plugins = {
     {'simrat39/rust-tools.nvim'},
     {'L3MON4D3/LuaSnip'},
     {'rmagatti/auto-session'},
+    {'vim-lualine/lualine.nvim'},
     {'kmontocam/nvim-conda'},
 {'romgrk/barbar.nvim',
     dependencies = {
