@@ -1,5 +1,5 @@
-local rt = require("rust-tools")
-
+--local rt = require("rust-tools")
+--[=====[ 
 rt.setup({
   server = {
     on_attach = function(_, bufnr)
@@ -10,3 +10,4 @@ rt.setup({
     end,
   },
 })
+--]=====]

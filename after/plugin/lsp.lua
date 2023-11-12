@@ -13,15 +13,35 @@ lsp.preset("recommended")
 
 require('lspconfig').lua_ls.setup({})
 require('lspconfig').svelte.setup{}
-require('lspconfig').rust_analyzer.setup{
-  settings = {
-    ['rust-analyzer'] = {
-      diagnostics = {
-        enable = false;
-      }
-    }
+--require('lspconfig').rust_analyzer.setup{
+--  settings = {
+--    ['rust-analyzer'] = {
+--      diagnostics = {
+--        enable = false;
+--      }
+--    }
+--  }
+--}
+local lsp = require('lsp-zero').preset({})
+
+lsp.on_attach(function(client, bufnr)
+  lsp.default_keymaps({buffer = bufnr})
+end)
+
+
+--lsp.skip_server_setup({'rust_analyzer'})
+
+--lsp.setup()
+
+local rust_tools = require('rust-tools')
+
+rust_tools.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      vim.keymap.set('n', '<leader>ca', rust_tools.hover_actions.hover_actions, {buffer = bufnr})
+    end
   }
-}
+})
 -- require('lspconfig').anakin_language_server.setup{}
 require('lspconfig').pyright.setup{}
 --require('lspconfig').ruff_lsp.setup{
