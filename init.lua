@@ -40,7 +40,8 @@ plugins = {
     {'rmagatti/auto-session'},
     {'vim-lualine/lualine.nvim'},
     {'kmontocam/nvim-conda'},
-{'romgrk/barbar.nvim',
+    {'gelguy/wilder.nvim'},
+    {'romgrk/barbar.nvim',
     dependencies = {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
