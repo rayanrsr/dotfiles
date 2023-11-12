@@ -67,3 +67,18 @@ vim.keymap.set('', '<Up>', '<Nop>')
 vim.keymap.set('', '<Down>', '<Nop>')
 vim.keymap.set('', '<Left>', '<Nop>')
 vim.keymap.set('', '<Right>', '<Nop>')
+
+
+-- Debugger remaps
+vim.keymap.set("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>")
+vim.keymap.set("n", "<leader>dc", "<cmd>lua require'dap'.continue()<CR>")
+vim.keymap.set("n", "<leader>dr", "<cmd>lua require'dap'.repl.open()<CR>")
+vim.keymap.set("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<CR>")
+vim.keymap.set("n", "<leader>ds", "<cmd>lua require'dap'.step_over()<CR>")
+vim.keymap.set("n", "<leader>di", "<cmd>lua require'dap'.step_into()<CR>")
+vim.keymap.set("n", "<leader>do", "<cmd>lua require'dap'.step_out()<CR>")
+vim.keymap.set("n", "<leader>du", "<cmd>lua require'dap'.up()<CR>")
+vim.keymap.set("n", "<leader>dd", "<cmd>lua require'dap'.down()<CR>")
+vim.keymap.set("n", "<leader>de", "<cmd>lua require'dap'.disconnect()<CR>")
+vim.keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.close()<CR>")
+
