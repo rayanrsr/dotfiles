@@ -94,7 +94,7 @@ plugins = {
     {'simrat39/rust-tools.nvim', ft="rust", dependencies={'neovim/nvim-lspconfig'} },
     {'L3MON4D3/LuaSnip'},
     {'rmagatti/auto-session'},
-    {'vim-lualine/lualine.nvim'},
+    {'nvim-lualine/lualine.nvim'},
     {'kmontocam/nvim-conda'},
     {'gelguy/wilder.nvim'},
     {'romgrk/barbar.nvim',
