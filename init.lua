@@ -1,4 +1,5 @@
 require("ray")
+
 -- print("Let's start Lazy!")
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -111,7 +112,7 @@ plugins = {
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
-    {'jose-elias-alvarez/null-ls.nvim'},
+    {'jose-elias-alvarez/null-ls.nvim', dependencies={'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig'}},
     {'numToStr/Navigator.nvim'},
     {'prichrd/netrw.nvim'},
 }
