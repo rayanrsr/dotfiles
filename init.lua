@@ -38,6 +38,7 @@ plugins = {
     {'simrat39/rust-tools.nvim'},
     {'L3MON4D3/LuaSnip'},
     {'rmagatti/auto-session'},
+    {'kmontocam/nvim-conda'},
 {'romgrk/barbar.nvim',
     dependencies = {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
