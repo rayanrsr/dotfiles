@@ -98,6 +98,7 @@ plugins = {
     {'nvim-lualine/lualine.nvim'},
     {'kmontocam/nvim-conda'},
     {'gelguy/wilder.nvim'},
+    {'akinsho/git-conflict.nvim'},
     {'romgrk/barbar.nvim',
     dependencies = {
       'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
