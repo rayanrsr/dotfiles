@@ -113,7 +113,13 @@ plugins = {
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
-    {'jose-elias-alvarez/null-ls.nvim', dependencies={'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig'}},
+    {
+        "nvimdev/guard.nvim",
+    -- Builtin configuration, optional
+        dependencies = {
+        "nvimdev/guard-collection",
+    }
+    },
     {'numToStr/Navigator.nvim'},
     {'prichrd/netrw.nvim'},
 }
