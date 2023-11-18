@@ -27,6 +27,7 @@ plugins = {
     },
     {'mfussenegger/nvim-dap'},
     {'terrortylor/nvim-comment'},
+    {'nvim-treesitter-context'}.
     {
         'mfussenegger/nvim-dap-python',
         ft = {'python'},
