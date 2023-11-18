@@ -4,6 +4,15 @@
 OS="$(uname)"
 echo "Detected OS: $OS"
 
+# Function to get the Python command
+get_python_cmd() {
+  if command -v python3 &>/dev/null; then
+    echo "python3"
+  else
+    echo "python"
+  fi
+}
+
 # Installation and configuration steps that are common between Arch Linux and macOS
 install_common_packages() {
   echo "Installing Oh-My-Zsh..."
@@ -90,3 +99,11 @@ echo "Use the Obsidian theme for your terminal emulator of choice!"
 
 # Final message
 echo "Setup complete! Please restart your terminal for all changes to take effect."
+
+echo "Installing debugpy in a dedicated virtualenv..."
+mkdir -p "$HOME/.virtualenvs"
+cd "$HOME/.virtualenvs"
+PYTHON_CMD=$(get_python_cmd)
+$PYTHON_CMD -m venv debugpy
+$HOME/.virtualenvs/debugpy/bin/python -m pip install debugpy
+cd - # Go back to the previous directory
