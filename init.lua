@@ -26,6 +26,7 @@ plugins = {
     end
     },
     {'mfussenegger/nvim-dap'},
+    {'terrortylor/nvim-comment'},
     {
         'mfussenegger/nvim-dap-python',
         ft = {'python'},
