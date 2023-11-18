@@ -10,7 +10,15 @@ lsp.preset("recommended")
 -- Fix Undefined global 'vim'
 -- lsp.nvim_workspace()
 -- lsp.setup_servers({'lua_ls', 'rust_analyzer', 'tsserver', "anakinls" })
-
+require('lspconfig').eslint.setup({
+  --- ...
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
 require('lspconfig').lua_ls.setup({})
 require('lspconfig').svelte.setup{}
 --require('lspconfig').rust_analyzer.setup{

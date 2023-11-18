@@ -13,7 +13,9 @@ local ft = require('guard.filetype')
 ft('python'):fmt('black')
           :append('isort')
           :lint('ruff')
-
+ft('rust'):fmt('rustfmt')
+ft('javascript'):fmt('prettier')
+                :lint('eslint')
 -- Call setup() LAST!
 require('guard').setup({
     -- the only options for the setup function
