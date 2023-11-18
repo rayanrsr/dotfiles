@@ -82,3 +82,7 @@ vim.keymap.set("n", "<leader>dd", "<cmd>lua require'dap'.down()<CR>")
 vim.keymap.set("n", "<leader>de", "<cmd>lua require'dap'.disconnect()<CR>")
 vim.keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.close()<CR>")
 
+-- Mapping for dap ui
+vim.keymap.set("n", "<leader>dui", "<cmd>lua require'dapui'.toggle()<CR>")
+vim.keymap.set("n", "<leader>duh", "<cmd>lua require'dapui'.hover()<CR>")
+vim.keymap.set("n", "<leader>duf", "<cmd>lua require'dapui'.float_element()<CR>")
