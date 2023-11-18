@@ -36,6 +36,22 @@ install_common_packages() {
   wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
   sudo chmod +x Miniconda3-latest-Linux-x86_64.sh
   ./Miniconda3-latest-Linux-x86_64.sh
+
+  echo "Installing tmux..."
+  if [ "$OS" = "Linux" ]; then
+    sudo pacman -S --noconfirm tmux
+  elif [ "$OS" = "Darwin" ]; then
+    brew install tmux
+  fi
+  echo "Default keybindings for tmux: 'Ctrl-b' as the prefix key. For example, 'Ctrl-b c' to create a new window."
+
+  echo "Installing fzf..."
+  if [ "$OS" = "Linux" ]; then
+    sudo pacman -S --noconfirm fzf
+  elif [ "$OS" = "Darwin" ]; then
+    brew install fzf
+  fi
+  echo "Default keybindings for fzf: 'Ctrl-r' for command history search and 'Ctrl-t' for file search."
 }
 
 # Install packages depending on OS
@@ -74,4 +90,3 @@ echo "Use the Obsidian theme for your terminal emulator of choice!"
 
 # Final message
 echo "Setup complete! Please restart your terminal for all changes to take effect."
-
