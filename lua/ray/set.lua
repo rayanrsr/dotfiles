@@ -42,3 +42,6 @@ au('TextYankPost', {
     vim.highlight.on_yank { higroup='IncSearch', timeout=300 }
   end,
 })
+
+-- Set clipboard to unnamed
+vim.api.nvim_set_option("clipboard","unnamed")
