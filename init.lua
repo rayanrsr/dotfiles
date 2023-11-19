@@ -127,9 +127,16 @@ plugins = {
     },
     {'numToStr/Navigator.nvim'},
     {'prichrd/netrw.nvim'},
+    {
+      "folke/tokyonight.nvim",
+      lazy = false,
+      priority = 1000,
+      opts = {},
+    }
 }
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(plugins, opts)
-vim.cmd([[colorscheme rose-pine]])
+-- vim.cmd([[colorscheme rose-pine]])
+vim.cmd([[colorscheme tokyonight-night]])
 vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
 vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
