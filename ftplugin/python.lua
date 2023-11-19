@@ -1,4 +1,5 @@
 local function run_curr_python_file()
+    print("Running current python file...")
     -- Get file name in the current buffer
     local file_name = vim.api.nvim_buf_get_name(0)
 
@@ -15,8 +16,13 @@ local function run_curr_python_file()
     -- Press keys to run python command on current file
     vim.api.nvim_feedkeys(py_cmd, "t", false)
 end
+--
+-- vim.keymap.set('n', '<leader>5', '', { 
+--     desc = "Run .py file via toggle term", 
+--     callback = run_curr_python_file
+-- })
 
-vim.keymap.set({'n'}, '<A-r>', '', { 
+vim.keymap.set('n', '<leader>5', ':w<CR>:!python %<CR>', { 
     desc = "Run .py file via toggle term", 
-    callback = run_curr_python_file
+    -- callback = run_curr_python_file
 })
