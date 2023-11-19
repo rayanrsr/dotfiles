@@ -1,7 +1,7 @@
 require("ray")
 
 -- print("Let's start Lazy!")
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath("data" ) .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -21,13 +21,14 @@ plugins = {
           ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html", "rust", "typescript", "python"},
           sync_install = false,
           highlight = { enable = true },
-          indent = { enable = true },  
+          indent = { enable = true },
         })
     end
     },
     {'mfussenegger/nvim-dap'},
     {'terrortylor/nvim-comment'},
     {'nvim-treesitter/nvim-treesitter-context'},
+    {'akinsho/toggleterm.nvim'},
     {
         'mfussenegger/nvim-dap-python',
         ft = {'python'},
@@ -89,6 +90,19 @@ plugins = {
                 "isort",
             },
         },
+    },
+    {
+      "folke/which-key.nvim",
+      event = "VeryLazy",
+      init = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+      end,
+      opts = {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
     },
     {'averms/black-nvim'},
     {'mfussenegger/nvim-lint'},
