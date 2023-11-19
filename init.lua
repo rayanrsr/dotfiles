@@ -129,7 +129,6 @@ plugins = {
     }
     },
     {'numToStr/Navigator.nvim'},
-    {'prichrd/netrw.nvim'},
     {
       "folke/tokyonight.nvim",
       lazy = false,
