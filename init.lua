@@ -25,6 +25,7 @@ plugins = {
         })
     end
     },
+    {'nvim-tree/nvim-tree.lua'},
     {'mfussenegger/nvim-dap'},
     {'terrortylor/nvim-comment'},
     {'nvim-treesitter/nvim-treesitter-context'},
