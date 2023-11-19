@@ -114,6 +114,7 @@ plugins = {
 	{'lukas-reineke/lsp-format.nvim', dependencies = {'neovim/nvim-lspconfig'}},
     {'simrat39/rust-tools.nvim', ft="rust", dependencies={'neovim/nvim-lspconfig'} },
     {'L3MON4D3/LuaSnip'},
+    {'hrsh7th/cmp-path'},
     {'rmagatti/auto-session'},
     {'nvim-lualine/lualine.nvim'},
     {'kmontocam/nvim-conda'},
