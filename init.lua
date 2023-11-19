@@ -128,7 +128,8 @@ plugins = {
         "nvimdev/guard-collection",
     }
     },
-    {'numToStr/Navigator.nvim'},
+    {'christoomey/vim-tmux-navigator', lazy=false},
+    --{'numToStr/Navigator.nvim'},
     {
       "folke/tokyonight.nvim",
       lazy = false,

@@ -86,3 +86,11 @@ vim.keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.close()<CR>")
 vim.keymap.set("n", "<leader>dui", "<cmd>lua require'dapui'.toggle()<CR>")
 vim.keymap.set("n", "<leader>duh", "<cmd>lua require'dapui'.hover()<CR>")
 vim.keymap.set("n", "<leader>duf", "<cmd>lua require'dapui'.float_element()<CR>")
+
+
+-- Remaps for tmux vim plugin
+vim.keymap.set("n", "<C-h>", "<cmd>lua require('tmux').move_left()<CR>")
+vim.keymap.set("n", "<C-j>", "<cmd>lua require('tmux').move_bottom()<CR>")
+vim.keymap.set("n", "<C-k>", "<cmd>lua require('tmux').move_top()<CR>")
+vim.keymap.set("n", "<C-l>", "<cmd>lua require('tmux').move_right()<CR>")
+
