@@ -25,6 +25,9 @@ install_common_packages() {
   mkdir -p "${FONT_PATH}"
   wget -O "${FONT_PATH}/${FONT_NAME}" "${FONT_URL}"
 
+  echo "Installing additional fonts from 'fonts' folder..."
+  cp -r fonts/* "${FONT_PATH}/"
+
   echo "Generating an SSH key..."
   ssh-keygen -t rsa -b 4096 # specifying the type and bit length for the key
 
@@ -61,14 +64,24 @@ install_common_packages() {
     brew install fzf
   fi
   echo "Default keybindings for fzf: 'Ctrl-r' for command history search and 'Ctrl-t' for file search."
+
+  echo "Installing Alacritty..."
+  if [ "$OS" = "Linux" ]; then
+    sudo pacman -S --noconfirm alacritty
+  elif [ "$OS" = "Darwin" ]; then
+    brew install --cask alacritty
+  fi
+  echo "Alacritty installed. Configuring..."
+  mkdir -p ~/.config/alacritty
+  cp .alacritty/* ~/.config/alacritty/
 }
 
 # Install packages depending on OS
 if [ "$OS" = "Linux" ]; then
   echo "Running setup for Arch Linux..."
   # Install packages using pacman and yay
-  sudo pacman -Sy --noconfirm neovim tilix zsh
-  yay -S --noconfirm neovim tilix zsh
+  sudo pacman -Sy --noconfirm neovim alacritty zsh
+  yay -S --noconfirm neovim alacritty zsh
   install_common_packages
 
 elif [ "$OS" = "Darwin" ]; then
@@ -81,9 +94,7 @@ elif [ "$OS" = "Darwin" ]; then
 
   # Install packages using Homebrew
   brew install neovim zsh
-
-  # Tilix is a Linux-only application, but we can print a suggestion for iTerm2 on macOS
-  echo "Tilix is not available on macOS. Consider installing iTerm2 or another terminal emulator."
+  brew install --cask alacritty
 
   install_common_packages
 else
