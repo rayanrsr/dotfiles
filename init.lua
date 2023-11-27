@@ -66,6 +66,16 @@ plugins = {
         end,
     },
     {'theprimeagen/harpoon'},
+    {
+    "ThePrimeagen/refactoring.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("refactoring").setup()
+    end,
+  },
 	{'mbbill/undotree'},
 	{'github/copilot.vim'},
     -- Fugitive is a Git wrapper so awesome, it should be illegal
