@@ -145,7 +145,14 @@ plugins = {
       lazy = false,
       priority = 1000,
       opts = {},
-    }
+    },
+    {
+        "kdheepak/lazygit.nvim",
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+    },
 }
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(plugins, opts)

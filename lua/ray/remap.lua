@@ -94,3 +94,5 @@ vim.keymap.set("n", "<C-j>", "<cmd>lua require('tmux').move_bottom()<CR>")
 vim.keymap.set("n", "<C-k>", "<cmd>lua require('tmux').move_top()<CR>")
 vim.keymap.set("n", "<C-l>", "<cmd>lua require('tmux').move_right()<CR>")
 
+-- Remap lazygit.nvim to <leader>gg
+vim.keymap.set("n", "<leader>gg", "<cmd>lua require('lazygit').lazygit()<CR>")
