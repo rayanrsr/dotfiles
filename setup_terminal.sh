@@ -59,9 +59,10 @@ install_common_packages() {
 
   echo "Installing fzf..."
   if [ "$OS" = "Linux" ]; then
-    sudo pacman -S --noconfirm fzf
+    sudo pacman -S --noconfirm fzf lazygit
   elif [ "$OS" = "Darwin" ]; then
     brew install fzf
+    brew install lazygit
   fi
   echo "Default keybindings for fzf: 'Ctrl-r' for command history search and 'Ctrl-t' for file search."
 
