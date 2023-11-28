@@ -157,4 +157,10 @@ alias vimdiff="nvim -d"
 alias vi="nvim"
 alias oldvi="\vi"
 
+# add bpytop as an alias for both top and htop
+alias top="bpytop"
+alias htop="bpytop"
+
+# execute fastfetch at startup
+fastfetch
 #if [ "$TMUX" = "" ]; then exec tmux; fi
