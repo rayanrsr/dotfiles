@@ -5,10 +5,9 @@ FROM amazonlinux:latest
 RUN yum update -y && yum install -y git zsh tmux neovim
 
 # Clone your dotfiles repository
-RUN git clone https://github.com/rayanramoul/RayTerm/ ~/dotfiles
-
+RUN git clone https//github.com/rayanramoul/RayTerm/ ~/.config/nvim
 # Set up your environment
-RUN cd ~/dotfiles 
+RUN cd ~/.config/nvim
 RUN bash setup_all.sh
 
 # Set the default command to zsh
