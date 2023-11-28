@@ -4,69 +4,97 @@
 OS="$(uname)"
 echo "Detected OS: $OS"
 
+install_npm_packages() {
+    npm i -g vscode-langservers-extracted
+    npm install -g typescript typescript-language-server
+    npm i -g pyright
+}
+
 # Installation for Arch Linux
-if [ "$OS" = "Linux" ]; then
-  echo "Assuming Arch Linux or derivatives..."
-  # Install npm if not installed
-  if ! command -v npm &> /dev/null; then
-      sudo pacman -Sy npm --noconfirm
-  fi
+if [ "$OS" = "Linux" ] && [ -f /etc/arch-release ]; then
+    echo "Assuming Arch Linux or derivatives..."
+    # Install npm if not installed
+    if ! command -v npm &> /dev/null; then
+        pacman -Sy npm --noconfirm
+    fi
 
-  # Install language servers
-  sudo npm i -g vscode-langservers-extracted
-  sudo npm install -g typescript typescript-language-server
-  sudo npm i -g pyright
+    install_npm_packages
 
-  # Install other LSPs and tools via pacman or yay
-  sudo pacman -S lua-language-server --noconfirm
-  sudo pacman -S rustup --noconfirm
-  rustup default stable
-  rustup component add rust-src
-  sudo pacman -S ruff-lsp --noconfirm
-  sudo pacman -S ripgrep fd --noconfirm
+    # Install other LSPs and tools via pacman
+    pacman -S lua-language-server rustup ruff-lsp ripgrep fd --noconfirm
+    rustup default stable
+    rustup component add rust-src
 
-  # Check for yay and install anakin-language-server
-  if command -v yay &> /dev/null; then
-      yay -S anakin-language-server --noconfirm
-  else
-      echo "yay not found. You may need to install anakin-language-server manually."
-  fi
+    # Check for yay and install anakin-language-server
+    if command -v yay &> /dev/null; then
+        yay -S anakin-language-server --noconfirm
+    else
+        echo "yay not found. You may need to install anakin-language-server manually."
+    fi
+
+# Installation for Ubuntu or Amazon EC2
+elif [ "$OS" = "Linux" ]; then
+    echo "Assuming Ubuntu or Amazon EC2 (Amazon Linux)..."
+    # Determine package manager (apt for Ubuntu, yum for Amazon Linux)
+    if command -v apt &> /dev/null; then
+        PKG_MANAGER="apt"
+    elif command -v yum &> /dev/null; then
+        PKG_MANAGER="yum"
+    else
+        echo "Neither apt nor yum found. Exiting."
+        exit 1
+    fi
+
+    # Install npm if not installed
+    if ! command -v npm &> /dev/null; then
+        $PKG_MANAGER install npm -y
+    fi
+
+    install_npm_packages
+
+    # Install other LSPs and tools
+    $PKG_MANAGER install ripgrep fd-find -y
+    npm install -g ruff-lsp
+
+    # Rust tools
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    rustup default stable
+    rustup component add rust-src
+
+    # Python LSP
+    pip3 install 'python-language-server[all]'
 
 # Installation for macOS
 elif [ "$OS" = "Darwin" ]; then
-  echo "Installing on macOS..."
-  # Check if Homebrew is installed
-  if ! command -v brew &> /dev/null; then
-      echo "Homebrew not found. Please install it first."
-      exit 1
-  fi
+    echo "Installing on macOS..."
+    # Check if Homebrew is installed
+    if ! command -v brew &> /dev/null; then
+        echo "Homebrew not found. Please install it first."
+        exit 1
+    fi
 
-  # Install npm and pip packages using Homebrew
-  brew install npm
-  brew install ruff-lsp
-  npm i -g vscode-langservers-extracted
-  npm install -g typescript typescript-language-server
-  npm i -g pyright
+    brew install npm
+    install_npm_packages
 
-  # Install ripgrep and fd using Homebrew
-  brew install ripgrep fd
+    # Install ripgrep and fd using Homebrew
+    brew install ripgrep fd
 
-  # Install language servers using Homebrew or pip
-  # Lua language server (assuming Lua is installed)
-  brew install lua-language-server
+    # Lua language server
+    brew install lua-language-server
 
-  # Rust tools
-  brew install rustup
-  rustup-init -y --default-toolchain stable
-  rustup component add rust-src
+    # Rust tools
+    brew install rustup
+    rustup-init -y --default-toolchain stable
+    rustup component add rust-src
 
-  # Python LSP
-  pip3 install 'python-language-server[all]'
+    # Python LSP
+    pip3 install 'python-language-server[all]'
 
 else
-  echo "Unsupported OS."
-  exit 1
+    echo "Unsupported OS."
+    exit 1
 fi
+
 pip install ruff-lsp
 echo "LSP installation script completed."
 
