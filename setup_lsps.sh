@@ -62,7 +62,7 @@ elif [ "$OS" = "Linux" ]; then
     rustup component add rust-src
 
     # Python LSP
-    pip3 install 'python-language-server[all]'
+    python -m pip install 'python-language-server[all]'
 
 # Installation for macOS
 elif [ "$OS" = "Darwin" ]; then
@@ -88,13 +88,13 @@ elif [ "$OS" = "Darwin" ]; then
     rustup component add rust-src
 
     # Python LSP
-    pip3 install 'python-language-server[all]'
+    python -m pip install 'python-language-server[all]'
 
 else
     echo "Unsupported OS."
     exit 1
 fi
 
-pip install ruff-lsp
+python -m pip install ruff-lsp
 echo "LSP installation script completed."
 
