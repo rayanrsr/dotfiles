@@ -163,6 +163,10 @@ alias htop="bpytop"
 
 # add bat as an alias for cat
 alias cat="bat"
+
+# add lsd as an alias for ls
+alias ls="lsd"
+
 # execute fastfetch at startup
 fastfetch
 
