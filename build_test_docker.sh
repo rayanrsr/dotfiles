@@ -26,7 +26,7 @@ case $1 in
     osx)
         build_and_run "macos"
         ;;
-    amazon)
+    aws)
         build_and_run "aws"
         ;;
     *)

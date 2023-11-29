@@ -2,12 +2,19 @@
 FROM amazonlinux:latest
 
 # Install necessary tools
-RUN yum update -y && yum install -y git zsh tmux neovim
+RUN yum update -y && yum install -y git
 
+WORKDIR /root
+WORKDIR /root
+RUN git clone https://github.com/rayanramoul/RayTerm/ ~/.config/nvim
+
+# Set the working directory to where your dotfiles are
+WORKDIR /root/.config/nvim 
+RUN git clone https://github.com/rayanramoul/RayTerm/ ~/.config/nvim
+
+# Set the working directory to where your dotfiles are
+WORKDIR /root/.config/nvim 
 # Clone your dotfiles repository
-RUN git clone https//github.com/rayanramoul/RayTerm/ ~/.config/nvim
-# Set up your environment
-RUN cd ~/.config/nvim
 RUN bash setup_all.sh
 
 # Set the default command to zsh

@@ -66,7 +66,7 @@ elif [ "$OS" = "Linux" ]; then
 
     # Python LSP
     python3 -m pip install 'python-language-server[all]'
-
+    python -m pip install 'python-language-server[all]'
 # Installation for macOS
 elif [ "$OS" = "Darwin" ]; then
     echo "Installing on macOS..."
@@ -92,12 +92,13 @@ elif [ "$OS" = "Darwin" ]; then
 
     # Python LSP
     python3 -m pip install 'python-language-server[all]'
-
+    python -m pip install 'python-language-server[all]'
 else
     echo "Unsupported OS."
     exit 1
 fi
 
 python3 -m pip install ruff-lsp
+python -m pip install ruff-lsp
 echo "LSP installation script completed."
 
