@@ -57,12 +57,6 @@ elif [ "$OS" = "Linux" ]; then
 
     # Install other LSPs and tools
     $PKG_MANAGER install ripgrep fd-find -y
-    npm install -g ruff-lsp
-
-    # Rust tools
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    rustup default stable
-    rustup component add rust-src
 
     # Python LSP
     python3 -m pip install 'python-language-server[all]'
