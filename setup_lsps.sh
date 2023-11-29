@@ -38,6 +38,7 @@ elif [ "$OS" = "Linux" ]; then
     # Determine package manager (apt for Ubuntu, yum for Amazon Linux)
     if command -v apt &> /dev/null; then
         PKG_MANAGER="apt"
+        
     elif command -v yum &> /dev/null; then
         PKG_MANAGER="yum"
     else
@@ -47,7 +48,8 @@ elif [ "$OS" = "Linux" ]; then
 
     # Install npm if not installed
     if ! command -v npm &> /dev/null; then
-        $PKG_MANAGER install npm -y
+        $PKG_MANAGER install npm rustc -y
+        curl https://sh.rustup.rs -sSf | sh
     fi
 
     install_npm_packages
@@ -62,7 +64,7 @@ elif [ "$OS" = "Linux" ]; then
     rustup component add rust-src
 
     # Python LSP
-    python -m pip install 'python-language-server[all]'
+    python3 -m pip install 'python-language-server[all]'
 
 # Installation for macOS
 elif [ "$OS" = "Darwin" ]; then
@@ -88,13 +90,13 @@ elif [ "$OS" = "Darwin" ]; then
     rustup component add rust-src
 
     # Python LSP
-    python -m pip install 'python-language-server[all]'
+    python3 -m pip install 'python-language-server[all]'
 
 else
     echo "Unsupported OS."
     exit 1
 fi
 
-python -m pip install ruff-lsp
+python3 -m pip install ruff-lsp
 echo "LSP installation script completed."
 
