@@ -48,8 +48,9 @@ elif [ "$OS" = "Linux" ]; then
 
     # Install npm if not installed
     if ! command -v npm &> /dev/null; then
+        echo "Installing npm and rustc..."
         $PKG_MANAGER install npm rustc -y
-        curl https://sh.rustup.rs -sSf | sh
+        curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh  -s -- -y 
     fi
 
     install_npm_packages
