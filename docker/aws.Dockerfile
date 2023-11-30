@@ -4,9 +4,6 @@ FROM amazonlinux:latest
 # Install necessary tools
 RUN yum update -y && yum install -y git
 
-WORKDIR /root
-WORKDIR /root
-RUN git clone https://github.com/rayanramoul/RayTerm/ ~/.config/nvim
 
 # Set the working directory to where your dotfiles are
 WORKDIR /root/.config/nvim 
