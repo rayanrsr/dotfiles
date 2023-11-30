@@ -23,7 +23,7 @@ case $1 in
     ubuntu)
         build_and_run "ubuntu"
         ;;
-    osx)
+    macos)
         build_and_run "macos"
         ;;
     aws)
