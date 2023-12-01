@@ -47,7 +47,7 @@ rust_tools.setup({
     end
   }
 })
---require('lspconfig').anakin_language_server.setup{}
+require('lspconfig').anakin_language_server.setup{}
 require('lspconfig').pyright.setup{}
 require('lspconfig').ruff_lsp.setup{
   init_options = {
@@ -71,6 +71,13 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
   ['<C-y>'] = cmp.mapping.confirm({ select = true }),
   ["<C-Space>"] = cmp.mapping.complete(),
+})
+cmp.setup({
+  mapping = cmp_mappings,
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+  }
 })
 
 -- AUTO COMPLETION
