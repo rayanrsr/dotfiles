@@ -153,6 +153,12 @@ plugins = {
             "nvim-lua/plenary.nvim",
         },
     },
+    {
+      "karb94/neoscroll.nvim",
+      config = function ()
+        require('neoscroll').setup {}
+      end
+    }
 }
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(plugins, opts)
