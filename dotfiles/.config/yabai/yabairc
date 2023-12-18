@@ -43,9 +43,6 @@ yabai -m config                                 \
     mouse_drop_action            swap
 
 yabai -m config window_border on
-yabai -m config active_window_border_color 0xFF88C0D0
-yabai -m config normal_window_border_color 0x002E3440
-yabai -m config insert_feedback_color 0xFFA3BE8C
 
 function setup_space {
   local idx="$1"
@@ -93,3 +90,4 @@ yabai -m rule --add app="^Finder$" manage=off
 yabai -m config status_bar_icon_font         "FontAwesome:Regular:12.0"
 
 echo "yabai configuration loaded.."
+borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
