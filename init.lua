@@ -25,6 +25,7 @@ plugins = {
         })
     end
     },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     {'nvim-tree/nvim-tree.lua'},
     {'mfussenegger/nvim-dap'},
     {'terrortylor/nvim-comment'},
@@ -139,13 +140,6 @@ plugins = {
     }
     },
     {'christoomey/vim-tmux-navigator', lazy=false},
-    --{'numToStr/Navigator.nvim'},
-    {
-      "folke/tokyonight.nvim",
-      lazy = false,
-      priority = 1000,
-      opts = {},
-    },
     {
         "kdheepak/lazygit.nvim",
         -- optional for floating window border decoration
@@ -163,6 +157,8 @@ plugins = {
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup(plugins, opts)
 -- vim.cmd([[colorscheme rose-pine]])
-vim.cmd([[colorscheme tokyonight-night]])
+-- vim.cmd([[colorscheme tokyonight-night]])
+vim.cmd([[colorscheme catppuccin-mocha]])
 vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
+
 vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
