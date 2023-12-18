@@ -82,14 +82,17 @@ shift + alt - s : yabai --start-service
 shift + alt - r : yabai --restart-service
 
 # focus window to space #
-alt - 1 : yabai -m space --focus 1 || yabai -m space --focus prev;
-alt - 2 : yabai -m space --focus 2 || yabai -m space --focus prev;
-alt - 3 : yabai -m space --focus 3 || yabai -m space --focus prev;
-alt - 4 : yabai -m space --focus 4 || yabai -m space --focus prev;
-alt - 5 : yabai -m space --focus 5 || yabai -m space --focus prev;
-alt - 6 : yabai -m space --focus 6 || yabai -m space --focus prev;
-alt - 7 : yabai -m space --focus 7 || yabai -m space --focus prev;
-# hit alt + enter to open terminal
+
+
+# Assign specific hotkeys to focus individual spaces and go to the previous one
+alt - 1 : yabai -m space --focus 1 || yabai -m space --focus recent
+alt - 2 : yabai -m space --focus 2 || yabai -m space --focus recent
+alt - 3 : yabai -m space --focus 3 || yabai -m space --focus recent
+alt - 4 : yabai -m space --focus 4 || yabai -m space --focus recent
+alt - 5 : yabai -m space --focus 5 || yabai -m space --focus recent
+alt - 6 : yabai -m space --focus 6 || yabai -m space --focus recent
+alt - 7 : yabai -m space --focus 7 || yabai -m space --focus recent
+
 alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
 
 # close window shortcut
