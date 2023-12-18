@@ -19,22 +19,25 @@ alt - g: yabai -m display --focus east
 # -- Modifying the Layout --
 
 # rotate layout clockwise
-shift + alt - r : yabai -m space --rotate 270
+#shift + alt - r : yabai -m space --rotate 270
 
 # flip along y-axis
-shift + alt - y : yabai -m space --mirror y-axis
+#shift + alt - y : yabai -m space --mirror y-axis
 
 # flip along x-axis
-shift + alt - x : yabai -m space --mirror x-axis
+#shift + alt - x : yabai -m space --mirror x-axis
 
 # toggle window float
-shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+#shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 
 # -- Modifying Window Size --
 
 # maximize a window
-shift + alt - m : yabai -m window --toggle zoom-fullscreen
+alt - f : yabai -m window --toggle zoom-fullscreen
+# alternative
+#alt - f : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')"
+
 
 # balance out tree of windows (resize to occupy same area)
 shift + alt - e : yabai -m space --balance
@@ -79,13 +82,18 @@ shift + alt - s : yabai --start-service
 shift + alt - r : yabai --restart-service
 
 # focus window to space #
-alt - 1 : yabai -m space --focus 1;
-alt - 2 : yabai -m space --focus 2;
-alt - 3 : yabai -m space --focus 3;
-alt - 4 : yabai -m space --focus 4;
-alt - 5 : yabai -m space --focus 5;
-alt - 6 : yabai -m space --focus 6;
-alt - 7 : yabai -m space --focus 7;
-
+alt - 1 : yabai -m space --focus 1 || yabai -m space --focus prev;
+alt - 2 : yabai -m space --focus 2 || yabai -m space --focus prev;
+alt - 3 : yabai -m space --focus 3 || yabai -m space --focus prev;
+alt - 4 : yabai -m space --focus 4 || yabai -m space --focus prev;
+alt - 5 : yabai -m space --focus 5 || yabai -m space --focus prev;
+alt - 6 : yabai -m space --focus 6 || yabai -m space --focus prev;
+alt - 7 : yabai -m space --focus 7 || yabai -m space --focus prev;
 # hit alt + enter to open terminal
 alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
+
+# close window shortcut
+alt - q: yabai -m window --close
+
+# go to previous space
+alt - p: yabai -m space --focus prev

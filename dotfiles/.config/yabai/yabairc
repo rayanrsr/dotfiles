@@ -4,6 +4,7 @@ osascript -e 'tell application id "tracesOf.Uebersicht" to refresh'
 # it will be able to run the command without password
 
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+yabai -m signal --add event=application_front_switched action="~/.config/yabai/window_border.sh"
 sudo yabai --load-sa
 # yabai -m space --create
 # yabai -m space --create
@@ -41,11 +42,11 @@ yabai -m config                                 \
     mouse_action2                resize         \
     mouse_drop_action            swap
 
-# yabai -m config active_window_border_color   0xff7aa2f7
-# yabai -m config normal_window_border_color   0xff444b6a
-# yabai -m config active_window_border_color   0xff81A1C1
-# yabai -m config normal_window_border_color   0xff7A808C
-yabai -m config insert_feedback_color        0xff61afef
+yabai -m config window_border on
+yabai -m config active_window_border_color 0xFF88C0D0
+yabai -m config normal_window_border_color 0x002E3440
+yabai -m config insert_feedback_color 0xFFA3BE8C
+
 function setup_space {
   local idx="$1"
   local name="$2"
