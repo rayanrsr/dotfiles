@@ -93,7 +93,7 @@ alt - 7 : yabai -m space --focus 7 || yabai -m space --focus prev;
 alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
 
 # close window shortcut
-alt - q: yabai -m window --close
+shift + alt - q: yabai -m window --close
 
 # go to previous space
 alt - p: yabai -m space --focus prev
