@@ -79,7 +79,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting z)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting z fzf-zsh-plugin)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -168,6 +168,6 @@ alias cat="bat"
 alias ls="lsd"
 
 # execute fastfetch at startup
-fastfetch
 
 #if [ "$TMUX" = "" ]; then exec tmux; fi
+source ~/powerlevel10k/powerlevel10k.zsh-theme
