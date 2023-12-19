@@ -8,3 +8,13 @@
 - Creer un raccourci pour Window Terminal : l'executable se trouve ici : %LocalAppData%\Microsoft\WindowsApps, y aller, creer un shortcut sur le bureau, ouvrir les proprietes du shortcut et y associer le hotkey voulu (par exemple Alt + Entree)
 - Se debarasser de la task bar : https://github.com/valinet/ExplorerPatcher/releases
 
+
+## Setup Alacritty on Windows :
+### If using ArchWSL :
+wsl --set-default Arch
+
+To use WSL, go to %APPDATA%\alacritty\alacritty.yml, and set to use bash shell:
+
+shell:
+ program: "C:\\Windows\\System32\\wsl.exe"
+
