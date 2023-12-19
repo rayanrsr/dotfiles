@@ -149,7 +149,7 @@ binding_modes:
         bindings: ["J", "Down"]
       # Press enter/escape to return to default keybindings.
       - command: "binding mode none"
-        bindings: ["Escape", "Enter"]
+        bindings: ["Escape"]
 
 keybindings:
   # Shift focus in a given direction.
