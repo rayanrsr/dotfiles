@@ -1,3 +1,6 @@
+#shell:
+# program: "C:\\Windows\\System32\\wsl.exe"
+
 window:
   title: RayTerm
   dynamic_title: false
@@ -14,16 +17,16 @@ font:
     x: 0
     y: 1
   normal:
-    family: JetbrainsMono Nerd Font Mono
+    family: JetBrainsMono Nerd Font Propo
     style: Regular
   bold:
-    family: Jetbrains Mono
+    family: JetBrainsMono Nerd Font Propo
     style: Bold
   italic:
-    family: Jetbrains Mono
+    family: JetBrainsMono Nerd Font Propo
     style: Regular Italic
   bold_italic:
-    family: Jetbrains Mono
+    family: JetBrainsMono Nerd Font Propo
     style: Bold Italic
 # Colors (iTerm 2 default theme)
 colors:
