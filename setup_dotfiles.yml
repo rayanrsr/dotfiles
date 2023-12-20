@@ -1,0 +1,91 @@
+---
+- name: Set up dotfiles
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Set the base directory
+      set_fact:
+        base_dir: "{{ playbook_dir }}"
+
+    - name: Loop through files in dotfiles directory
+      include_tasks: |
+        tasks:
+          - name: Set file and target paths
+            set_fact:
+              filename: "{{ item.path | basename }}"
+              target_file: "{{ lookup('env', 'HOME') }}/{{ filename }}"
+
+          - name: Backup existing file or directory
+            when: target_file is file
+            command:
+              cmd: "mv {{ target_file }} {{ target_file }}.bak"
+
+          - name: Create symbolic link
+            file:
+              src: "{{ item.path }}"
+              dest: "{{ target_file }}"
+              state: link
+            register: link_result
+
+          - name: Display link status
+            debug:
+              var: link_result
+      loop: "{{ lookup('fileglob', base_dir + '/dotfiles/*') + lookup('fileglob', base_dir + '/dotfiles/.[^.]*') }}"
+      loop_control:
+        loop_var: item
+
+    - name: Loop through directories in dotfiles directory
+      include_tasks: |
+        tasks:
+          - name: Set directory and target paths
+            set_fact:
+              dirname: "{{ item.path | basename }}"
+              target_dir: "{{ lookup('env', 'HOME') }}/{{ dirname }}"
+
+          - name: Backup existing file or directory
+            when: target_dir is directory
+            command:
+              cmd: "mv {{ target_dir }} {{ target_dir }}.bak"
+
+          - name: Create symbolic link
+            file:
+              src: "{{ item.path }}"
+              dest: "{{ target_dir }}"
+              state: link
+            register: link_result
+
+          - name: Display link status
+            debug:
+              var: link_result
+      loop: "{{ lookup('fileglob', base_dir + '/dotfiles/*') }}"
+      loop_control:
+        loop_var: item
+
+    - name: Loop through directories in .config directory inside dotfiles
+      include_tasks: |
+        tasks:
+          - name: Set directory and target paths
+            set_fact:
+              dirname: "{{ item.path | basename }}"
+              target_dir: "{{ lookup('env', 'HOME') }}/.config/{{ dirname }}"
+
+          - name: Backup existing file or directory
+            when: target_dir is directory
+            command:
+              cmd: "mv {{ target_dir }} {{ target_dir }}.bak"
+
+          - name: Create symbolic link
+            file:
+              src: "{{ item.path }}"
+              dest: "{{ target_dir }}"
+              state: link
+            register: link_result
+
+          - name: Display link status
+            debug:
+              var: link_result
+      loop: "{{ lookup('fileglob', base_dir + '/dotfiles/.config/*') }}"
+      loop_control:
+        loop_var: item
+

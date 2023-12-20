@@ -21,4 +21,6 @@
 
     - name: Configure terminal settings
       include_tasks: configure_terminal.yml
-
+    
+    - name: Restore Dotfiles
+      include_tasks: setup_dotfiles.yml
