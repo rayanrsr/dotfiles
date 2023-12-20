@@ -17,6 +17,10 @@ echo "---------------------------------------------------------"
 
 #!/bin/bash
 
+
+
+#!/bin/bash
+
 # Function to install Ansible on Debian-based systems (e.g., Ubuntu)
 install_ansible_debian() {
     sudo apt update
@@ -39,47 +43,66 @@ install_ansible_macos() {
 }
 
 # Determine the OS
-OS=$(uname)
 
-# Install Ansible based on the detected OS
-case "$OS" in
-    Linux*)
-        if [ -f /etc/os-release ]; then
-            source /etc/os-release
-            case "$ID" in
-                debian|ubuntu)
-                    install_ansible_debian
-                    ;;
-                centos|rhel|fedora|amazon)
-                    install_ansible_redhat
-                    ;;
-                arch)
-                    install_ansible_arch
-                    ;;
-                *)
-                    echo "Unsupported Linux distribution: $ID"
-                    exit 1
-                    ;;
-            esac
-        else
-            echo "Unable to determine Linux distribution."
+OS=$(uname -a)
+
+# Check if "Microsoft" is present in the uname output, indicating WSL
+if echo "$OS" | grep -q "Microsoft"; then
+    # Determine the specific WSL distribution
+    WSL_DISTRO=$(wsl.exe -l -q | head -n 1)
+
+    case "$WSL_DISTRO" in
+        Ubuntu*)
+            install_ansible_debian
+
+            ;;
+        Arch*)
+            install_ansible_arch
+            ;;
+        *)
+            echo "Unsupported WSL distribution: $WSL_DISTRO"
             exit 1
-        fi
-        ;;
-    Darwin*)
-        install_ansible_macos
-        ;;
-    *)
-        echo "Unsupported operating system: $OS"
-        exit 1
-        ;;
-esac
+
+            ;;
+    esac
+else
+    # Install Ansible based on the detected OS
+    case "$OS" in
+        Linux*)
+            if [ -f /etc/os-release ]; then
+                source /etc/os-release
+                case "$ID" in
+                    debian|ubuntu)
+                        install_ansible_debian
+                        ;;
+                    centos|rhel|fedora|amazon)
+                        install_ansible_redhat
+                        ;;
+                    arch)
+                        install_ansible_arch
+                        ;;
+                    *)
+                        echo "Unsupported Linux distribution: $ID"
+                        exit 1
+                        ;;
+
+                esac
+            else
+                echo "Unable to determine Linux distribution."
+                exit 1
+
+            fi
+            ;;
+        Darwin*)
+
+            install_ansible_macos
+            ;;
+        *)
+            echo "Unsupported operating system: $OS"
+            exit 1
+            ;;
+    esac
+fi
 
 # Execute the Ansible playbook
 ansible-playbook -i localhost, setup_terminal.yml
-
-
-#bash setup_terminal.sh
-#bash setup_lsps.sh
-#bash setup_tmux.sh
-bash setup_dotfiles.sh
