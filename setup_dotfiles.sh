@@ -27,6 +27,14 @@ for file in "$base_dir/dotfiles"/* "$base_dir/dotfiles"/.[^.]*; do
         backup_and_link "$file" "$target_file"
     fi
 done
+# Now loop through directories in dotfiles directory
+for dir in "$base_dir/dotfiles"/*; do
+    if [ -d "$dir" ]; then
+        dirname=$(basename "$dir")
+        target_dir="$HOME/$dirname"
+        backup_and_link "$dir" "$target_dir"
+    fi
+done
 
 # Loop through directories in .config directory inside dotfiles
 config_dir="$base_dir/dotfiles/.config"

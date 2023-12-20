@@ -1,0 +1,31 @@
+---
+- name: Install Miniconda
+  become: yes
+  vars:
+    OS: "{{ OS | default('') }}"
+  tasks:
+    - name: Install Miniconda
+      block:
+        - name: Check if Conda is already installed
+          command: conda --version
+          register: conda_check
+          ignore_errors: yes
+
+        - name: Install Miniconda on Linux
+          block:
+            - name: Download Miniconda installer
+              get_url:
+                url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+                dest: /tmp/Miniconda3-latest-Linux-x86_64.sh
+
+            - name: Install Miniconda
+              command: bash /tmp/Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda3 creates=$HOME/miniconda3
+              when: OS == 'Linux'
+          become: yes
+
+        - name: Install Miniconda on macOS
+          block:
+            - name: Download Miniconda installer
+              get_url:
+                url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Mac
+

@@ -52,3 +52,6 @@ au('TextYankPost', {
 
 -- Set clipboard to unnamed
 vim.api.nvim_set_option("clipboard","unnamed")
+
+-- Set colorcolumn
+vim.api.nvim_set_option("colorcolumn","80")

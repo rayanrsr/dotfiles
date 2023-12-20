@@ -1,0 +1,24 @@
+---
+- name: Setup Terminal Environment
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Determine OS
+      set_fact:
+        OS: "{{ ansible_system }}"
+      when: ansible_system is defined
+
+    - name: Install wget and other common dependencies
+      include_tasks: install_common.yml
+
+    - name: Install OS-specific packages
+      include_tasks: install_os_packages.yml
+
+    - name: Install Miniconda
+      include_tasks: install_miniconda.yml
+
+    - name: Configure terminal settings
+      include_tasks: configure_terminal.yml
+

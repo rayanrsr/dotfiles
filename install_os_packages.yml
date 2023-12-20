@@ -1,0 +1,131 @@
+---
+- name: Install OS-specific packages
+  become: yes
+  vars:
+    OS: "{{ OS | default('') }}"
+  tasks:
+    - name: Install OS-specific packages on Debian-based systems (Ubuntu)
+      block:
+        - name: Install required packages
+          apt:
+            name: "{{ item }}"
+            state: present
+          with_items:
+            - fzf
+            - lazygit
+            - bat
+            - exa
+            - fd-find
+            - ripgrep
+            - ansible
+            - lsd
+            - bpytop
+          when: OS == 'Linux' and ansible_distribution == 'Ubuntu'
+      become: yes
+
+    - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
+      block:
+        - name: Install required packages
+          yum:
+            name: "{{ item }}"
+            state: present
+          with_items:
+            - zsh
+            - tmux
+            - fzf
+            - lazygit
+            - bat
+            - exa
+            - fd-find
+            - ripgrep
+            - ansible
+            - lsd
+            - fastfetch
+            - bpytop
+          when: OS == 'Linux' and ansible_distribution == 'Amazon'
+      become: yes
+
+    - name: Install OS-specific packages on Arch Linux
+      block:
+        - name: Install required packages
+          pacman:
+            name: "{{ item }}"
+            state: present
+          with_items:
+            - neovim
+            - zsh
+            - fzf
+            - tmux
+            - bpytop
+            - lsd
+            - fastfetch
+            - ansible
+            - bat
+            - exa
+            - fd
+            - ripgrep
+            - lazygit
+          when: OS == 'Linux' and ansible_distribution == 'Arch'
+      become: yes
+
+    - name: Install OS-specific packages on macOS using Homebrew
+      block:
+        - name: Install required packages
+          homebrew_installed:
+            name: "{{ item }}"
+          with_items:
+            - neovim
+            - zsh
+            - fzf
+            - tmux
+            - bpytop
+            - lsd
+            - fastfetch
+            - ansible
+            - bat
+            - exa
+            - fd
+            - ripgrep
+            - lazygit
+          when: OS == 'Darwin'
+          register: brew_check
+
+        - name: Install OS-specific packages on macOS if Homebrew is not installed
+          homebrew:
+            name: "{{ item }}"
+          with_items:
+            - neovim
+            - zsh
+            - fzf
+            - tmux
+            - bpytop
+            - lsd
+            - fastfetch
+            - ansible
+            - bat
+            - exa
+            - fd
+            - ripgrep
+            - lazygit
+          when: OS == 'Darwin' and brew_check.changed
+
+        - name: Install OS-specific packages on macOS if Homebrew is installed
+          debug:
+            msg: "{{ item }} is already installed via Homebrew"
+          with_items:
+            - neovim
+            - zsh
+            - fzf
+            - tmux
+            - bpytop
+            - lsd
+            - fastfetch
+            - ansible
+            - bat
+            - exa
+            - fd
+            - ripgrep
+            - lazygit
+          when: OS == 'Darwin' and not brew_check.changed
+      become: yes
+

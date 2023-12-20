@@ -8,13 +8,12 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/mast
 
 # Create a directory to clone the repository
 WORKDIR ~/ 
-RUN git clone https://github.com/rayanramoul/RayTerm/ ~/.config/nvim 
+RUN git clone https://github.com/rayanramoul/RayTerm/ 
 
 # Set the working directory to where your dotfiles are
-WORKDIR ~/.config/nvim
+WORKDIR ~/RayTerm
 
 # Run setup scripts from the dotfiles repositor
-RUN pwd
 RUN bash setup_all.sh 
 
 # Set the default command to zsh

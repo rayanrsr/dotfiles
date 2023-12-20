@@ -5,12 +5,12 @@ FROM amazonlinux:latest
 RUN yum update -y && yum install -y git
 
 
-# Set the working directory to where your dotfiles are
-WORKDIR /root/.config/nvim 
-RUN git clone https://github.com/rayanramoul/RayTerm/ ~/.config/nvim
+# Set the working directory to where your dotfiles are 
+WORKDIR ~/
+RUN git clone https://github.com/rayanramoul/RayTerm/
 
 # Set the working directory to where your dotfiles are
-WORKDIR /root/.config/nvim 
+WORKDIR ~/RayTerm
 # Clone your dotfiles repository
 RUN bash setup_all.sh
 
