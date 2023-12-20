@@ -105,4 +105,4 @@ else
 fi
 
 # Execute the Ansible playbook
-ansible-playbook -i localhost, setup_terminal.yml
+ansible-playbook -i localhost, ansible/setup_terminal.yml
