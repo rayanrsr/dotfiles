@@ -34,7 +34,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({"n", "v"}, "<leader>q", [["_d]])
 
 -- This is going to get me cancelled
 -- vim.keymap.set("i", "<C-c>", "<Esc>")
@@ -85,6 +85,7 @@ vim.keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.close()<CR>")
 -- Mapping for dap ui
 vim.keymap.set("n", "<leader>dui", "<cmd>lua require'dapui'.toggle()<CR>")
 vim.keymap.set("n", "<leader>duh", "<cmd>lua require'dapui'.hover()<CR>")
+vim.opt.colorcolumn = "80"
 vim.keymap.set("n", "<leader>duf", "<cmd>lua require'dapui'.float_element()<CR>")
 
 
@@ -96,3 +97,5 @@ vim.keymap.set("n", "<C-l>", "<cmd>lua require('tmux').move_right()<CR>")
 
 -- Remap lazygit.nvim to <leader>gg
 vim.keymap.set("n", "<leader>gg", "<cmd>lua require('lazygit').lazygit()<CR>")
+
+

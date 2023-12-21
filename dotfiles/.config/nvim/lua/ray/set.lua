@@ -35,7 +35,6 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "80"
 
 local ag = vim.api.nvim_create_augroup
 local au = vim.api.nvim_create_autocmd
@@ -54,4 +53,6 @@ au('TextYankPost', {
 vim.api.nvim_set_option("clipboard","unnamed")
 
 -- Set colorcolumn
-vim.api.nvim_set_option("colorcolumn","80")
+vim.api.nvim_set_option("colorcolumn","120")
+
+-- Set cursorline
