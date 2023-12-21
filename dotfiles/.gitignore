@@ -1,6 +1,5 @@
 .DS_Store
 StardewValley
-alacritty
 bpytop
 btop
 fish
@@ -13,6 +12,5 @@ neofetch
 qBittorrent
 simple-update-notifier
 spacebar
-tmux
 wandb
 yarn
