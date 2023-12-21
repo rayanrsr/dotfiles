@@ -1,4 +1,5 @@
 require("nvim-tree").setup({
+reload_on_open = true,
 actions = {
     open_file = {
       quit_on_open = true,
