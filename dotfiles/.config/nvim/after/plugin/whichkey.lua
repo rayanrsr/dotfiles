@@ -3,18 +3,6 @@ local wk = require("which-key")
 local opts = {
 key_labels = {
 
-  -- HARPOON Specific
-  ["1"] = "Harpoon 1",
-  ["2"] = "Harpoon 2",
-  ["3"] = "Harpoon 3",
-  ["4"] = "Harpoon 4",
-  ["5"] = "Harpoon 5",
-
-  -- DAP Specific
-  ["b"] = "Breakpoint",
-  ["l"] = "Run Last",
-  ["c"] = "Continue",
-  ["u"] = "UI Toggle",
 
   -- Leader (Space) Keybindings
   -- ["<leader>"] = "Leader (Space)",
@@ -34,7 +22,6 @@ key_labels = {
   -- ["<leader>dui"] = "Leader dui - DAP UI Toggle",
 }
 }
-wk.register(mappings, opts)
 wk.register({
 
   ["<leader>pv"] = { "<cmd>NvimTreeOpen<CR>", "Open File Tree" },
@@ -51,9 +38,9 @@ wk.register({
   ["<leader>q"] = { [["_d]], "Delete without Copying to System Clipboard" },
   ["<C-f>"] = { "<cmd>silent !tmux neww tmux-sessionizer<CR>", "Jump Between Projects" },
   ["<leader>f"] = { "<cmd>lua vim.lsp.buf.format()<CR>", "Format File" },
-  ["<C-k>"] = { "<cmd>cnext<CR>zz", "Quick Fix Next" },
-  ["<C-j>"] = { "<cmd>cprev<CR>zz", "Quick Fix Previous" },
-  ["<leader>k"] = { "<cmd>lnext<CR>zz", "Location List Next" },
+  -- ["<C-k>"] = { "<cmd>cnext<CR>zz", "Quick Fix Next" },
+  -- ["<C-j>"] = { "<cmd>cprev<CR>zz", "Quick Fix Previous" },
+   ["<leader>k"] = { "<cmd>lnext<CR>zz", "Location List Next" },
   ["<leader>j"] = { "<cmd>lprev<CR>zz", "Location List Previous" },
   ["<leader>s"] = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Search and Replace" },
   ["<leader>x"] = { "<cmd>!chmod +x %<CR>", "Make File Executable" },
@@ -83,7 +70,7 @@ wk.register({
 
   -- Remaps for tmux vim plugin
   ["<C-h>"] = { "<cmd>lua require('tmux').move_left()<CR>", "Tmux Move Left" },
-  ["<C-j>"] = { "<cmd>lua require('tmux').move_bottom()<CR>", "Tmux Move Bottom" },
+ ["<C-j>"] = { "<cmd>lua require('tmux').move_bottom()<CR>", "Tmux Move Bottom" },
   ["<C-k>"] = { "<cmd>lua require('tmux').move_top()<CR>", "Tmux Move Top" },
   ["<C-l>"] = { "<cmd>lua require('tmux').move_right()<CR>", "Tmux Move Right" },
 
