@@ -56,3 +56,4 @@ vim.api.nvim_set_option("clipboard","unnamed")
 vim.api.nvim_set_option("colorcolumn","120")
 
 -- Set cursorline
+

@@ -1,5 +1,10 @@
 require("nvim-tree").setup({
-  sort_by = "case_sensitive",
+actions = {
+    open_file = {
+      quit_on_open = true,
+    },
+  },
+    sort_by = "case_sensitive",
   view = {
     width = 30,
   },
