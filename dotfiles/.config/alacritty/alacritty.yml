@@ -12,21 +12,21 @@ cursor:
     blinking: on          # Supported => Never, off, on, Always
     vi_mode_style: Beam
 font:
-  size: 14 
+  size: 16 
   offset: 
     x: 0
     y: 1
   normal:
-    family: JetBrainsMono Nerd Font Propo
+    family: FiraCode Nerd Font
     style: Regular
   bold:
-    family: JetBrainsMono Nerd Font Propo
+    family: FiraCode Nerd Font
     style: Bold
   italic:
-    family: JetBrainsMono Nerd Font Propo
+    family: FiraCode Nerd Font
     style: Regular Italic
   bold_italic:
-    family: JetBrainsMono Nerd Font Propo
+    family: FiraCode Nerd Font
     style: Bold Italic
 # Colors (iTerm 2 default theme)
 colors:
