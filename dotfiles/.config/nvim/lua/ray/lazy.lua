@@ -11,6 +11,11 @@ return {
         })
     end
     },
+{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {},
+    config = function()
+            require("ibl").setup()
+    end,
+},
 {"norcalli/nvim-colorizer.lua"},
     {
   'nvimdev/dashboard-nvim',
