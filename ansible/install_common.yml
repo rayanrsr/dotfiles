@@ -1,6 +1,6 @@
 ---
 - name: Install wget and other common dependencies
-  connection: localhost
+  hosts: localhost
   become: yes
   vars:
     OS: "{{ OS | default('') }}"

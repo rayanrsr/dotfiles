@@ -1,9 +1,6 @@
 ---
 - name: Install Miniconda
-  become: yes
-  vars:
-    OS: "{{ OS | default('') }}"
-  connection: local
+  hosts: local
   tasks:
     - name: Install Miniconda
       block:

@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     OS: "{{ OS | default('') }}"
-  connection: local
+  hosts: localhost
   tasks:
     - name: Set the base directory
       set_fact:
