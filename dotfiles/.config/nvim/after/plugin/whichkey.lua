@@ -95,7 +95,6 @@ wk.register({
   ["<leader>gF"] = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format" },
   ["<leader>gS"] = { "<cmd>lua vim.lsp.buf.document_symbol()<CR>", "Document Symbols" },
   ["<leader>gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Declaration" },
-  ["<leader>gI"] = { "<cmd>lua vim
   
 })
 wk.setup(opts)
