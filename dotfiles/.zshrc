@@ -168,7 +168,11 @@ alias ls="lsd"
 # execute fastfetch at startup
 
 #if [ "$TMUX" = "" ]; then exec tmux; fi
-bindkey -s '^f' '$(fzf)\n'
+#bindkey -s '^f' '$(fzf)\n'
+bindkey -s '^f' 'selected_dir=$(find ~/Documents -maxdepth 8 -type d | fzf); [ -n "$selected_dir" ] && cd "$selected_dir"\n'
+
+
+
 # now Ctrl + e will execute ~/scripts/tmux_sessionizer.sh
 bindkey -s '^e' '~/scripts/tmux-sessionizer.sh\n'
 
