@@ -1,5 +1,18 @@
 #/bin/bash
 # Display an ASCII header
+echo "---------------------------------------------------------"
+echo "$$$$$$                      "
+echo "$$  __$$\                     "
+echo "$$ |  $$ | \$\$\$\$\$\$\\  $$\   $$\\ "
+echo "$$$$$$$  | \\____$$\\ $$ |  $$ |"
+echo "$$  __$$<  \$\$\$\$\$\$\$ |$$ |  $$ |"
+echo "$$ |  $$ |$$  __$$ |$$ |  $$ |"
+echo "$$ |  $$ |\\$$$$$$$ |\\$$$$$$$ |"
+echo "\__|  \__| \\_______| \\____$$ |"
+echo "                    $$\   $$ |"
+echo "                    \\$$$$$$  |"
+echo "                     \\______/ "
+echo "---------------------------------------------------------"
 
 
 #!/bin/bash
@@ -65,7 +78,8 @@ else
                     centos|rhel|fedora|amazon)
                         install_ansible_redhat
                         ;;
-                    arch)
+                    # if arch or manjaro
+                    arch|manjaro)
                         install_ansible_arch
                         ;;
                     *)
