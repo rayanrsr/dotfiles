@@ -1,7 +1,9 @@
 ---
 - name: Install wget and other common dependencies
+  hosts: localhost
   become: yes
-  connection: local
+  vars:
+    OS: "{{ OS | default('') }}"
   tasks:
     - name: Install wget
       block:
@@ -38,5 +40,4 @@
           debug:
             msg: "wget is already installed via Homebrew"
           when: OS == 'Darwin' and not brew_check.changed
-      become: yes
 
