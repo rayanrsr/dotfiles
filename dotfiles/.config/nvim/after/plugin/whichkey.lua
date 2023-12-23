@@ -77,5 +77,25 @@ wk.register({
   -- Remap lazygit.nvim to <leader>gg
   ["<leader>gg"] = { "<cmd>lua require('lazygit').lazygit()<CR>", "Open LazyGit" },
   
+  
+  ['[d'] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
+  [']d'] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Previous Diagnostic" },
+  ["<leader>vd"] = { "<cmd>lua vim.diagnostic.open_float(0, { scope = 'line' })<CR>", "Diagnostic Details" },
+  ["<leader>vca"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
+  ["<leader>vrr"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "References" },
+  ["<leader>vrn"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
+  ["<leader>vws"] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", "Workspace Symbols" },
+  ["gd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to Definition" },
+  ["K"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
+  ["<C-h>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help" },
+  ["<leader>g0"] = { "<cmd>lua vim.lsp.buf.document_symbol()<CR>", "Document Symbols" },
+  ["<leader>gW"] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", "Workspace Symbols" },
+  ["<leader>gA"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
+  ["<leader>gR"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "References" },
+  ["<leader>gF"] = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format" },
+  ["<leader>gS"] = { "<cmd>lua vim.lsp.buf.document_symbol()<CR>", "Document Symbols" },
+  ["<leader>gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Declaration" },
+  ["<leader>gI"] = { "<cmd>lua vim
+  
 })
 wk.setup(opts)
