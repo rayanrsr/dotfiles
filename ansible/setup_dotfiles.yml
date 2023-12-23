@@ -2,7 +2,9 @@
 - name: Set up dotfiles
   hosts: localhost
   gather_facts: false
-
+  vars:
+    OS: "{{ OS | default('') }}"
+  connection: local
   tasks:
     - name: Set the base directory
       set_fact:

@@ -3,6 +3,7 @@
   become: yes
   vars:
     OS: "{{ OS | default('') }}"
+  connection: local
   tasks:
     - name: Install OS-specific packages on Debian-based systems (Ubuntu)
       block:
