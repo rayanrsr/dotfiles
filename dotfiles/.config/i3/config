@@ -62,7 +62,7 @@ bindsym $mod+Shift+q kill
 exec --no-startup-id feh --bg-fill /home/$USER/Images/Wallpaper.jpg
 exec_always xset -dpms
 exec_always compton -f
-bindsym $mod+d exec --no-startup-id rofi -show run 
+bindsym $mod+space exec --no-startup-id rofi -show run
 # -theme onedark -lines 5 -opacity "60"
 
 
