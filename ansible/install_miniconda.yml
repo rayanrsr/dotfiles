@@ -1,6 +1,6 @@
 ---
 - name: Install Miniconda
-  hosts: local
+  hosts: localhost
   gather_facts: yes
   tasks:
   - name: Download Miniconda installer on x86_64 Linux
