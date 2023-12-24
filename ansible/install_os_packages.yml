@@ -7,7 +7,6 @@
   tasks:
     - name: Install OS-specific packages on Debian-based systems (Ubuntu)
       block:
-        - name: Install required packages
           apt:
             name: "{{ item }}"
             state: present
@@ -26,7 +25,6 @@
 
     - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
       block:
-        - name: Install required packages
           yum:
             name: "{{ item }}"
             state: present
@@ -48,7 +46,6 @@
 
     - name: Install OS-specific packages on Arch Linux
       block:
-        - name: Install required packages
           pacman:
             name: "{{ item }}"
             state: present
@@ -71,7 +68,6 @@
 
     - name: Install OS-specific packages on macOS using Homebrew
       block:
-        - name: Install required packages
           homebrew_installed:
             name: "{{ item }}"
           with_items:
@@ -91,7 +87,6 @@
           when: OS == 'Darwin'
           register: brew_check
 
-        - name: Install OS-specific packages on macOS if Homebrew is not installed
           homebrew:
             name: "{{ item }}"
           with_items:
@@ -110,7 +105,6 @@
             - lazygit
           when: OS == 'Darwin' and brew_check.changed
 
-        - name: Install OS-specific packages on macOS if Homebrew is installed
           debug:
             msg: "{{ item }} is already installed via Homebrew"
           with_items:
