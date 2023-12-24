@@ -176,6 +176,5 @@ bindkey -s '^f' 'selected_dir=$(find ~/Documents -maxdepth 8 -type d | fzf); [ -
 # now Ctrl + e will execute ~/scripts/tmux_sessionizer.sh
 bindkey -s '^e' '~/scripts/tmux-sessionizer.sh\n'
 
-cd ~
 conda activate base
 
