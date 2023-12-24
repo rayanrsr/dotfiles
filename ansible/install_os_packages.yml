@@ -1,9 +1,8 @@
 ---
 - name: Install OS-specific packages
   become: yes
-  vars:
-    OS: "{{ OS | default('') }}"
   hosts: localhost
+  gather_facts: yes
   tasks:
   - name: Install OS-specific packages on Debian-based systems (Ubuntu)
     apt:
@@ -19,7 +18,8 @@
       - ansible
       - lsd
       - bpytop
-    when: OS == 'Linux' and ansible_distribution == 'Ubuntu'
+    # when system is using apt
+    when: ansible_pkg_mgr == 'apt' 
     become: yes
 
   - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
@@ -39,7 +39,7 @@
       - lsd
       - fastfetch
       - bpytop
-    when: OS == 'Linux' and ansible_distribution == 'Amazon'
+    when: ansible_pkg_mgr == 'yum'
     become: yes
 
   - name: Install OS-specific packages on Arch Linux
@@ -60,7 +60,7 @@
       - fd
       - ripgrep
       - lazygit
-    when: OS == 'Linux' and ansible_distribution == 'Arch'
+    when: ansible_pkg_mgr == 'pacman'
     become: yes
 
   - name: Install OS-specific packages on macOS using Homebrew
@@ -80,4 +80,4 @@
       - fd
       - ripgrep
       - lazygit
-    when: OS == 'Darwin' and brew_check.changed
+    when: ansible_pkg_mgr == 'homebrew' 
