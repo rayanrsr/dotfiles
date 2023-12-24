@@ -10,7 +10,6 @@
       state: present
     with_items:
       - fzf
-      - lazygit
       - bat
       - exa
       - fd-find
@@ -19,6 +18,11 @@
       - lsd
       - bpytop
     # when system is using apt
+    when: ansible_pkg_mgr == 'apt' 
+    become: yes
+
+  - name: Execute Install Missing Dependencies
+    shell: bash ansible/debian_install.sh 
     when: ansible_pkg_mgr == 'apt' 
     become: yes
 
