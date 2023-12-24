@@ -82,7 +82,8 @@
       - lazygit
     when: OS == 'Darwin'
     register: brew_check
-
+  
+  - name: Install OS-specific packages on macOS using Homebrew
     homebrew:
       name: "{{ item }}"
     with_items:
@@ -100,23 +101,3 @@
       - ripgrep
       - lazygit
     when: OS == 'Darwin' and brew_check.changed
-
-    debug:
-      msg: "{{ item }} is already installed via Homebrew"
-    with_items:
-      - neovim
-      - zsh
-      - fzf
-      - tmux
-      - bpytop
-      - lsd
-      - fastfetch
-      - ansible
-      - bat
-      - exa
-      - fd
-      - ripgrep
-      - lazygit
-    when: OS == 'Darwin' and not brew_check.changed
-    become: yes
-
