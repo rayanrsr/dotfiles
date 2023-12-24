@@ -164,7 +164,7 @@ alias cat="bat"
 
 # add lsd as an alias for ls
 alias ls="lsd"
-
+alias tmux-sessionizer="bash ~/scripts/tmux-sessionizer.sh"
 # execute fastfetch at startup
 
 #if [ "$TMUX" = "" ]; then exec tmux; fi
