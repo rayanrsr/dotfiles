@@ -15,7 +15,6 @@
       - fd-find
       - ripgrep
       - ansible
-      - lsd
       - bpytop
     # when system is using apt
     when: ansible_pkg_mgr == 'apt' 
