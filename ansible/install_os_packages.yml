@@ -64,26 +64,6 @@
     become: yes
 
   - name: Install OS-specific packages on macOS using Homebrew
-    homebrew_installed:
-      name: "{{ item }}"
-    with_items:
-      - neovim
-      - zsh
-      - fzf
-      - tmux
-      - bpytop
-      - lsd
-      - fastfetch
-      - ansible
-      - bat
-      - exa
-      - fd
-      - ripgrep
-      - lazygit
-    when: OS == 'Darwin'
-    register: brew_check
-  
-  - name: Install OS-specific packages on macOS using Homebrew
     homebrew:
       name: "{{ item }}"
     with_items:
