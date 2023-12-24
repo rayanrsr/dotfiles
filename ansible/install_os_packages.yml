@@ -21,7 +21,7 @@
     become: yes
 
   - name: Execute Install Missing Dependencies
-    shell: bash ansible/debian_install.sh 
+    shell: bash scripts/debian_install.sh 
     when: ansible_pkg_mgr == 'apt' 
     become: yes
 
