@@ -7,13 +7,9 @@ RUN yum update -y && yum install -y git
 
 # Set the working directory to where your dotfiles are 
 WORKDIR ~/
-RUN git clone https://github.com/rayanramoul/RayTerm/
 
-# Set the working directory to where your dotfiles are
-WORKDIR ~/RayTerm
 # Clone your dotfiles repository
-RUN bash setup_all.sh
-
+RUN sh -c "$(wget https://raw.githubusercontent.com/rayanramoul/RayTerm/master/install.sh -O -)"
 # Set the default command to zsh
 CMD ["zsh"]
 

@@ -6,12 +6,10 @@ RUN apt-get update && apt-get install -y git zsh tmux neovim
 
 # Create a directory to clone the repository
 WORKDIR ~
-RUN git clone https://github.com/rayanramoul/RayTerm/ 
 
 # Run setup scripts from the dotfiles repository
-WORKDIR ~/RayTerm
-RUN bash setup_all.sh
 
+RUN sh -c "$(wget https://raw.githubusercontent.com/rayanramoul/RayTerm/master/install.sh -O -)"
 # Set the default command to zsh
 CMD ["zsh"]
 

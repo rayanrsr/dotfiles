@@ -8,13 +8,11 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/mast
 
 # Create a directory to clone the repository
 WORKDIR ~/ 
-RUN git clone https://github.com/rayanramoul/RayTerm/ 
-
-# Set the working directory to where your dotfiles are
-WORKDIR ~/RayTerm
 
 # Run setup scripts from the dotfiles repositor
-RUN bash setup_all.sh 
+
+RUN sh -c "$(wget https://raw.githubusercontent.com/rayanramoul/RayTerm/master/install.sh -O -)"
+
 
 # Set the default command to zsh
 CMD ["zsh"]
