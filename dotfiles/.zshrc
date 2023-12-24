@@ -169,12 +169,12 @@ alias tmux-sessionizer="bash ~/scripts/tmux-sessionizer.sh"
 
 #if [ "$TMUX" = "" ]; then exec tmux; fi
 #bindkey -s '^f' '$(fzf)\n'
-bindkey -s '^f' 'selected_dir=$(find ~/Documents -maxdepth 8 -type d | fzf); [ -n "$selected_dir" ] && cd "$selected_dir"\n'
+bindkey -s '^f' 'selected_dir=$(find . -maxdepth 8 -type d | fzf); [ -n "$selected_dir" ] && cd "$selected_dir"\n'
 
 
 
 # now Ctrl + e will execute ~/scripts/tmux_sessionizer.sh
-bindkey -s '^e' '~/scripts/tmux-sessionizer.sh\n'
+bindkey -s ^e '~/scripts/tmux-sessionizer.sh\n'
 
 conda activate base
 
