@@ -1,15 +1,15 @@
 # Use the latest Ubuntu image as the base
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 # Install necessary tools
-RUN apt-get update && apt-get install -y git zsh tmux neovim
-
+#RUN apt-get update -y #&& apt-get install -y git zsh tmux neovim
+RUN apt-get update -y
+RUN apt-get install -y wget
 # Create a directory to clone the repository
 WORKDIR ~
 
 # Run setup scripts from the dotfiles repository
-
-RUN sh -c "$(wget https://raw.githubusercontent.com/rayanramoul/RayTerm/master/install.sh -O -)"
+RUN wget https://raw.githubusercontent.com/rayanramoul/RayTerm/master/setup.sh && chmod +x install.sh && ./install.sh
 # Set the default command to zsh
-CMD ["zsh"]
+CMD ["bash"]
 
