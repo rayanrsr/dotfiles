@@ -22,7 +22,6 @@
           when: OS == 'Linux' and ansible_distribution == 'Ubuntu'
       become: yes
 
-    - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
       block:
           yum:
             name: "{{ item }}"
@@ -43,7 +42,6 @@
           when: OS == 'Linux' and ansible_distribution == 'Amazon'
       become: yes
 
-    - name: Install OS-specific packages on Arch Linux
       block:
           pacman:
             name: "{{ item }}"
@@ -65,7 +63,6 @@
           when: OS == 'Linux' and ansible_distribution == 'Arch'
       become: yes
 
-    - name: Install OS-specific packages on macOS using Homebrew
       block:
           homebrew_installed:
             name: "{{ item }}"
