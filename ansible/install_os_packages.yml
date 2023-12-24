@@ -5,7 +5,6 @@
     OS: "{{ OS | default('') }}"
   hosts: localhost
   tasks:
-    - name: Install OS-specific packages on Debian-based systems (Ubuntu)
       block:
           apt:
             name: "{{ item }}"
