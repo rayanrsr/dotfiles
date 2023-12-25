@@ -5,39 +5,37 @@
   vars:
     OS: "{{ OS | default('') }}"
   tasks:
-    - name: Install wget
-      block:
-        - name: Install wget on Debian-based systems (Ubuntu)
-          apt:
-            name: wget
-            state: present
-          when: OS == 'Linux' and ansible_distribution == 'Ubuntu'
+  - name: Install wget on Debian-based systems (Ubuntu)
+    apt:
+      name: wget
+      state: present
+    when: OS == 'Linux' and ansible_distribution == 'Ubuntu'
 
-        - name: Install wget on Red Hat-based systems (Amazon Linux)
-          yum:
-            name: wget
-            state: present
-          when: OS == 'Linux' and ansible_distribution == 'Amazon'
+  - name: Install wget on Red Hat-based systems (Amazon Linux)
+    yum:
+      name: wget
+      state: present
+    when: OS == 'Linux' and ansible_distribution == 'Amazon'
 
-        - name: Install wget on Arch Linux
-          pacman:
-            name: wget
-            state: present
-          when: OS == 'Linux' and ansible_distribution == 'Arch'
+  - name: Install wget on Arch Linux
+    pacman:
+      name: wget
+      state: present
+    when: OS == 'Linux' and ansible_distribution == 'Arch'
 
-        - name: Install wget on macOS using Homebrew
-          homebrew_installed:
-            name: wget
-          when: OS == 'Darwin'
-          register: brew_check
+  - name: Install wget on macOS using Homebrew
+    homebrew_installed:
+      name: wget
+    when: OS == 'Darwin'
+    register: brew_check
 
-        - name: Install wget on macOS if Homebrew is not installed
-          homebrew:
-            name: wget
-          when: OS == 'Darwin' and brew_check.changed
+  - name: Install wget on macOS if Homebrew is not installed
+    homebrew:
+      name: wget
+    when: OS == 'Darwin' and brew_check.changed
 
-        - name: Install wget on macOS if Homebrew is installed
-          debug:
-            msg: "wget is already installed via Homebrew"
-          when: OS == 'Darwin' and not brew_check.changed
+  - name: Install wget on macOS if Homebrew is installed
+    debug:
+      msg: "wget is already installed via Homebrew"
+    when: OS == 'Darwin' and not brew_check.changed
 
