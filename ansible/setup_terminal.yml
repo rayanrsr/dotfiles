@@ -5,26 +5,20 @@
   gather_facts: yes
   vars:
     OS: "{{ OS | default('') }}"
-  hosts: localhost
   tasks:
-    - name: Determine OS
-      set_fact:
-        OS: "{{ ansible_system }}"
-      when: ansible_system is defined
+  - name: Install OS-specific packages
+    include_tasks: install_os_packages.yml
 
-    - name: Install OS-specific packages
-      include_tasks: install_os_packages.yml
+  - name: Install Miniconda
+    include_tasks: install_miniconda.yml
 
-    - name: Install Miniconda
-      include_tasks: install_miniconda.yml
+  - name: Configure terminal settings
+    include_tasks: configure_terminal.yml
 
-    - name: Configure terminal settings
-      include_tasks: configure_terminal.yml
-  
-    - name: Install Neovim
-      include_tasks: install_neovim.yml
+  - name: Install Neovim
+    include_tasks: install_neovim.yml
 
-    - name: Restore Dotfiles
-      include_tasks: setup_dotfiles.yml
+  - name: Restore Dotfiles
+    include_tasks: setup_dotfiles.yml
 
 
