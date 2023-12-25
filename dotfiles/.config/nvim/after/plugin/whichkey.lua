@@ -1,27 +1,5 @@
 local mappings = vim.mappings
 local wk = require("which-key")
-local opts = {
-key_labels = {
-
-
-  -- Leader (Space) Keybindings
-  -- ["<leader>"] = "Leader (Space)",
-  -- ["<leader>pf"] = "Leader pf - Git File Lookup",
-  -- ["<leader>pv"] = "Leader pv - File Explorer",
-  -- ["<leader>ps"] = "Leader ps - File Search",
-  -- ["<leader>u"] = "Leader u - Undo Tree",
-  -- ["<leader>gs"] = "Leader gs - Git Status",
-  -- ["<leader>1"] = "Leader 1 - Harpoon Nav 1",
-  -- ["<leader>2"] = "Leader 2 - Harpoon Nav 2",
-  -- ["<leader>3"] = "Leader 3 - Harpoon Nav 3",
-  -- ["<leader>4"] = "Leader 4 - Harpoon Nav 4",
-  -- ["<leader>5"] = "Leader 5 - Run Current File",
-  -- ["<leader>db"] = "Leader db - Toggle Breakpoint",
-  -- ["<leader>dl"] = "Leader dl - Run Last",
-  -- ["<leader>dc"] = "Leader dc - Continue",
-  -- ["<leader>dui"] = "Leader dui - DAP UI Toggle",
-}
-}
 wk.register({
 
   ["<leader>pv"] = { "<cmd>NvimTreeOpen<CR>", "Open File Tree" },
@@ -70,7 +48,7 @@ wk.register({
 
   -- Remaps for tmux vim plugin
   ["<C-h>"] = { "<cmd>lua require('tmux').move_left()<CR>", "Tmux Move Left" },
- ["<C-j>"] = { "<cmd>lua require('tmux').move_bottom()<CR>", "Tmux Move Bottom" },
+  ["<C-j>"] = { "<cmd>lua require('tmux').move_bottom()<CR>", "Tmux Move Bottom" },
   ["<C-k>"] = { "<cmd>lua require('tmux').move_top()<CR>", "Tmux Move Top" },
   ["<C-l>"] = { "<cmd>lua require('tmux').move_right()<CR>", "Tmux Move Right" },
 
@@ -94,7 +72,6 @@ wk.register({
   ["<leader>gR"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "References" },
   ["<leader>gF"] = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format" },
   ["<leader>gS"] = { "<cmd>lua vim.lsp.buf.document_symbol()<CR>", "Document Symbols" },
-  ["<leader>gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Declaration" },
-  
+  ["<leader>gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Declaration" }, 
 })
 wk.setup(opts)
