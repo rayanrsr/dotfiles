@@ -10,6 +10,7 @@
         dest: "/usr/local/bin/nvim"
         mode: '0755'
       when: ansible_os_family == 'Debian'
+
     - name: Install Neovim on Ubuntu
       shell: "chmod u+x /usr/local/bin/nvim"
       when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
@@ -48,5 +49,12 @@
 
     - name: Install Neovim on macOS
       shell: "tar -xzf /usr/local/bin/nvim-macos.tar.gz -C /usr/local/bin/"
-      when: ansible_os_family == 'Darwin'
+      when: ansible_distribution == 'MacOSX' or ansible_distribution == 'Darwin' 
       become: yes
+
+    - name: Download and install Neovim on Arch Linux
+      pacman:
+        name: neovim
+        state: present
+      become: yes
+      when: ansibble_distribution == 'Archlinux' or ansible_distribution == 'ManjaroLinux' 
