@@ -106,4 +106,4 @@ else
 fi
 
 # Execute the Ansible playbook
-ansible-playbook --ask-become-pass ansible/setup_dotfiles.yml 
+ansible-playbook --ask-become-pass ansible/setup_terminal.yml
