@@ -1,6 +1,6 @@
 ---
 - name: Install OS-specific packages
-  hosts: all
+  hosts: localhost
   gather_facts: yes
   become: yes
   tasks:
