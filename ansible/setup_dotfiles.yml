@@ -1,7 +1,7 @@
 ---
 - name: Setup Dotfiles
   hosts: localhost
-  gather_facts: true  
+  gather_facts: false
   become: true
 
   tasks:
@@ -16,8 +16,11 @@
 
     - name: Backup and link dotfiles
       command: "{{ item }}"
+      become_user: ray  # Set the target user here
+      args:
+        chdir: "{{ base_dir }}/dotfiles"  # Set the correct stow directory
       loop:
-        - "stow -t {{ ansible_env.HOME }} -d {{ base_dir }}/dotfiles -R *"
-        - "stow -t {{ ansible_env.HOME }} -d {{ base_dir }}/dotfiles -R .*"
-        - "stow -t {{ ansible_env.HOME }} -d {{ base_dir }}/dotfiles/.config -R *"
+        - "stow -t $HOME -R *"
+        - "stow -t $HOME -R .*"
+        - "stow -t $HOME/.config -R *"
 
