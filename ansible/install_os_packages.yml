@@ -24,6 +24,8 @@
         - bpytop
         - alacritty
         - wget
+        - fuse
+        - stow
       when: ansible_pkg_mgr == 'apt'
       become: yes
 
@@ -45,6 +47,8 @@
         - bpytop
         - alacritty
         - wget
+        - fuse
+        - stow
       when: ansible_pkg_mgr == 'yum'
       become: yes
 
@@ -67,6 +71,7 @@
         - lazygit
         - alacritty
         - wget
+        - stow
       when: ansible_pkg_mgr == 'pacman'
       become: yes
 
@@ -99,6 +104,7 @@
         - lazygit
         - alacritty
         - wget
+        - stow
       when: ansible_pkg_mgr == 'homebrew'
       become: yes
 

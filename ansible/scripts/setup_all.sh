@@ -106,4 +106,4 @@ else
 fi
 
 # Execute the Ansible playbook
-ansible-playbook --ask-become-pass ansible/setup_terminal.yml
+ansible-playbook --ask-become-pass -i ansible/inventory.ini ansible/setup_terminal.yml
