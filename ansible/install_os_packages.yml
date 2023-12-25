@@ -1,8 +1,6 @@
 ---
 - name: Install OS-specific packages
   hosts: localhost
-  become: yes
-
   tasks:
     - name: Execute Install Missing Dependencies
       shell: bash scripts/debian_install.sh
@@ -11,7 +9,7 @@
 
     - name: Install OS-specific packages on Debian-based systems (Ubuntu)
       apt:
-        name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'fastfetch', 'bpytop']
+        name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'fastfetch', 'bpytop']
         state: present
       with_items:
         - zsh
@@ -21,7 +19,6 @@
         - exa
         - fd-find
         - ripgrep
-        - ansible
         - bpytop
         - alacritty
         - wget
