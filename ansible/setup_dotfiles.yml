@@ -17,17 +17,5 @@
         name: "{{ lookup('env', 'USER') }}"
         shell: /bin/zsh
 
-    - name: Copy default Zsh configuration files
-      ansible.builtin.copy:
-        src: /etc/skel/.zshrc
-        dest: "{{ lookup('env', 'HOME') }}/.zshrc"
-        owner: "{{ lookup('env', 'USER') }}"
-        group: "{{ lookup('env', 'USER') }}"
-        mode: '0644'
-      notify: Restart Zsh
-
-  handlers:
-    - name: Restart Zsh
-      ansible.builtin.shell:
-        cmd: su - "{{ lookup('env', 'USER') }}" -c "exec zsh"
-
+    - name: Set Zsh as default shell for current user
+      shell: chsh -s /bin/zsh "{{ lookup('env', 'USER') }}"
