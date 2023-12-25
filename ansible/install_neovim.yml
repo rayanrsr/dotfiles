@@ -57,4 +57,4 @@
         name: neovim
         state: present
       become: yes
-      when: ansibble_distribution == 'Archlinux' or ansible_distribution == 'ManjaroLinux' 
+      when: ansible_distribution == 'Archlinux' or ansible_distribution == 'ManjaroLinux' 
