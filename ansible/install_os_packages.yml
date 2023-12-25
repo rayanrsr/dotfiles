@@ -99,13 +99,11 @@
       - wget
     when: ansible_pkg_mgr == 'homebrew'
   - name: Installing Oh-My-Zsh
-      shell: >
-
-        echo "Installing Oh-My-Zsh..."
-        sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+    shell: >
+      echo "Installing Oh-My-Zsh..."
+      sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
   - name: Downloading and installing Meslo Nerd Font
     shell: >
-
       echo "Downloading and installing Meslo Nerd Font..."
       FONT_PATH="$HOME/.local/share/fonts"
       FONT_NAME="MesloLGS NF Regular.ttf"
