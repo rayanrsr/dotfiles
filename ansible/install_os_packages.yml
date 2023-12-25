@@ -4,7 +4,24 @@
     shell: bash scripts/debian_install.sh 
     when: ansible_pkg_mgr == 'apt' 
     become: yes
-
+  - name: Install OS-specific packages on Debian-based systems (Ubuntu)
+    apt:
+      name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'fastfetch', 'bpytop'] 
+      state: present
+    with_items:
+      - zsh
+      - tmux
+      - fzf
+      - bat
+      - exa
+      - fd-find
+      - ripgrep
+      - ansible
+      - bpytop
+      - alacritty
+      - wget
+    when: ansible_pkg_mgr == 'apt'
+    become: yes
   - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
     yum:
       name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'lsd', 'fastfetch', 'bpytop'] 
@@ -22,6 +39,7 @@
       - lsd
       - bpytop
       - alacritty
+      - wget
     when: ansible_pkg_mgr == 'yum'
     become: yes
 
@@ -43,6 +61,7 @@
       - ripgrep
       - lazygit
       - alacritty
+      - wget
     when: ansible_pkg_mgr == 'pacman'
   
   - name: Clone Yay repository from AUR
@@ -73,6 +92,7 @@
       - ripgrep
       - lazygit
       - alacritty
+      - wget
     when: ansible_pkg_mgr == 'homebrew'
   - name: Installing Oh-My-Zsh
       shell: >

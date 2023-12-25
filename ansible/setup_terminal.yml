@@ -12,9 +12,6 @@
         OS: "{{ ansible_system }}"
       when: ansible_system is defined
 
-    - name: Install wget and other common dependencies
-      include_tasks: install_common.yml
-
     - name: Install OS-specific packages
       include_tasks: install_os_packages.yml
 
