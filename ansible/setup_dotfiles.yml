@@ -1,9 +1,8 @@
 ---
 - name: Setup Dotfiles
   hosts: localhost
-  gather_facts: false
+  gather_facts: true  
   become: true
-
 
   tasks:
     - name: Install stow package
