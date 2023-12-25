@@ -1,34 +1,42 @@
 ---
-- name: Setup Dotfiles using Stow
-  hosts: localhost
+- name: Ensure Stow installed
   become: yes
+  pacman:
 
-  tasks:
-    - name: Ensure stow is installed
-      package:
-        name: stow
-        state: present
+    name: stow
+    state: present
 
-    - name: Create symbolic links for dotfiles
-      command: "stow -t {{ ansible_user_dir }} -d {{ playbook_dir }}/dotfiles -S {{ item }}"
-      with_items:
-        - "{{ query('fileglob', playbook_dir + '/dotfiles/*') | map('basename') }}"
-        - "{{ query('fileglob', playbook_dir + '/dotfiles/.[^.]*') | map('basename') }}"
 
-    - name: Create symbolic links for hidden directories in dotfiles
-      command: "stow -t {{ ansible_user_dir }} -d {{ playbook_dir }}/dotfiles -S {{ item }}"
-      with_items: "{{ query('fileglob', playbook_dir + '/dotfiles/.[^.]*') | map('basename') | reject('match', '^\.$') }}"
+- name: Build directories list
+  find:
+    paths: [dotfiles/]
+    recurse: no
+    file_type: directory
+  register: files
 
-    - name: Create symbolic links for directories in .config
-      command: "stow -t {{ ansible_user_dir }}/.config -d {{ playbook_dir }}/dotfiles/.config -S {{ item }}"
-      with_items: "{{ query('fileglob', playbook_dir + '/dotfiles/.config/*') | map('basename') }}"
 
-    - name: Create symbolic links for hidden directories in .config
-      command: "stow -t {{ ansible_user_dir }}/.config -d {{ playbook_dir }}/dotfiles/.config -S {{ item }}"
-      with_items: "{{ query('fileglob', playbook_dir + '/dotfiles/.config/.[^.]*') | map('basename') | reject('match', '^\.$') }}"
+- name: Deploy dotfiles!
+  become: yes
+  with_items: '{{ files.files }}'
+  shell: |
+    STOW_PATH={{ item.path | replace("dotfiles/", "") }}
+    OVERRIDE=$(cat ${STOW_PATH}/.override 2>/dev/null)
+    NOAH_HOME=$(getent passwd noah | cut -d: -f6)
+    stow -v --ignore="\.override" -t ${OVERRIDE:-$NOAH_HOME} ${STOW_PATH}
+  args:
 
-  post_tasks:
-    - name: Print completion message
-      debug:
-        msg: "Dotfiles setup completed successfully!"
+    chdir: ./dotfiles
+    executable: /bin/bash
+  loop_control:
+    label: |-
+      {% if output.stderr|length > 1 %}
+      {{ item.path }}
 
+      {{ output.stderr }}
+
+      {%- else %}
+
+      {{ item.path }}
+      {%- endif %}
+  register: output
+  changed_when: '"LINK" in output.stderr'
