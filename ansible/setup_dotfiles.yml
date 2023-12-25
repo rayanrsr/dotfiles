@@ -4,14 +4,7 @@
   become: yes
 
   tasks:
-  - name: Ensure Stow installed
-    become: yes
-    pacman:
-      name: stow
-      state: present
-
   - name: Build directories list
-
     find:
       paths: [dotfiles/]
       recurse: no
