@@ -5,67 +5,8 @@
   become: yes
 
   tasks:
-    - name: Set base directory
-      set_fact:
-        base_dir: "{{ playbook_dir }}"
-
-    - name: Define backup_and_link function
-      blockinfile:
-        path: "{{ base_dir }}/scripts/backup_and_link.sh"
-        block: |
-          #!/bin/bash
-
-          backup_and_link() {
-              local source_path=$1
-              local target_path=$2
-
-              # Backup existing file or directory
-              if [ -e "$target_path" ]; then
-                  echo "Backing up existing $target_path"
-                  mv "$target_path" "$target_path.bak"
-              fi
-
-              # Create symbolic link
-              ln -s "$source_path" "$target_path"
-              echo "Linked $source_path to $target_path"
-          }
-
-          export -f backup_and_link
-      become: yes
-      become_user: "{{ lookup('env', 'USER') }}"
-      become_method: su
-      when: not backup_and_link_defined.stdout | default(false) | bool
-
-    - name: Make backup_and_link.sh executable
-      file:
-        path: "{{ base_dir }}/scripts/backup_and_link.sh"
-        mode: '0755'
-      become: yes
-      become_user: "{{ lookup('env', 'USER') }}"
-
-    - name: Loop through files in dotfiles directory
-      find:
-        paths: "{{ base_dir }}/dotfiles"
-        patterns: '*'
-        recurse: yes
-        file_type: file
-      loop_control:
-        loop_var: file
-      register: dotfile_files
-      when: dotfile_files.matched > 0
-
-    - name: Backup and link dotfile files
-      shell: "{{ base_dir }}/scripts/backup_and_link.sh {{ item.path }} $HOME/{{ item.path | basename }}"
-      with_items: "{{ dotfile_files.files }}"
-      become: yes
-      become_user: "{{ lookup('env', 'USER') }}"
-
-    # ... (repeat the same pattern for other tasks)
-
-    - name: Print completion message
-      debug:
-        msg: "Dotfiles setup completed successfully!"
-
+    - name: Execute dotfiles setup script
+      shell: /bin/zsh ansible/scripts/backup_and_link.sh
     - name: Install Zsh
       package:
         name: zsh
