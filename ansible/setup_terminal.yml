@@ -23,6 +23,11 @@
 
     - name: Configure terminal settings
       include_tasks: configure_terminal.yml
-    
+  
+    - name: Install Neovim
+      include_tasks: install_neovim.yml
+
     - name: Restore Dotfiles
       include_tasks: setup_dotfiles.yml
+
+

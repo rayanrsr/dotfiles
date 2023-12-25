@@ -1,0 +1,52 @@
+---
+- name: Install Neovim
+  hosts: your_target_host
+  become: yes
+
+  tasks:
+    - name: Determine package manager
+      set_fact:
+        package_manager: "{{ 
+          'pacman' if ansible_distribution == 'Arch' else 
+          'brew' if ansible_distribution == 'Darwin' else 
+          'apt' if ansible_distribution == 'Ubuntu' else 
+          'dnf' if ansible_distribution in ['Fedora', 'RedHat'] else 
+          'unsupported' 
+        }}"
+
+    - name: Install Neovim dependencies
+      become: yes
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl  # Used for downloading Neovim
+        - unzip  # Used for extracting Neovim archive on macOS
+        - neovim  # Neovim package for Ubuntu
+
+    - name: Download and install Neovim
+      become: yes
+      block:
+        - name: Download Neovim on Arch Linux or Ubuntu
+          ansible.builtin.get_url:
+            url: "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+            dest: "/usr/local/bin/nvim"
+            mode: '0755'
+          when: "package_manager in ['pacman', 'apt']"
+
+        - name: Download Neovim on macOS
+          ansible.builtin.get_url:
+            url: "https://github.com/neovim/neovim/releases/latest/download/nvim-macos.tar.gz"
+            dest: "/usr/local/bin/"
+            mode: '0755'
+          when: "package_manager == 'brew'"
+
+        - name: Download Neovim on Fedora or Red Hat
+          ansible.builtin.get_url:
+            url: "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+            dest: "/usr/local/bin/nvim"
+            mode: '0755'
+          when: "package_manager == 'dnf'"
+
+      when: "package_manager != 'unsupported'"
+
