@@ -6,7 +6,7 @@
 
   tasks:
     - name: Execute dotfiles setup script
-      shell: /bin/zsh ansible/scripts/backup_and_link.sh
+      shell: bash ansible/scripts/backup_and_link.sh
     - name: Install Zsh
       package:
         name: zsh
