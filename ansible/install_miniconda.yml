@@ -32,5 +32,5 @@
     command: bash Miniconda3-latest-MacOSX-x86_64.sh -b -p $HOME/miniconda3 creates=$HOME/miniconda3
     when: ansible_distribution == 'MacOSX'
     register: miniconda_installation 
-  debug: var=miniconda_installation 
+  - debug: var=miniconda_installation 
 

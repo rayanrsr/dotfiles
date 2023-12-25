@@ -87,7 +87,7 @@ wk.register({
   ["<leader>vws"] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", "Workspace Symbols" },
   ["gd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to Definition" },
   ["K"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
-  ["<C-h>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help" },
+--  ["<C-h>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature Help" },
   ["<leader>g0"] = { "<cmd>lua vim.lsp.buf.document_symbol()<CR>", "Document Symbols" },
   ["<leader>gW"] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", "Workspace Symbols" },
   ["<leader>gA"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
