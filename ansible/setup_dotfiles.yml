@@ -1,36 +1,24 @@
 ---
-- name: Setup Dotfiles using Stow
+- name: Setup Dotfiles
   hosts: localhost
-  become: yes
+  gather_facts: false
+  become: true
+
 
   tasks:
-  - name: Build directories list
-    find:
-      paths: [dotfiles/]
-      recurse: no
+    - name: Install stow package
+      package:
+        name: stow
+        state: present
 
-      file_type: directory
-    register: files
+    - name: Set the base directory
+      set_fact:
+        base_dir: "{{ playbook_dir }}"
 
-  - name: Deploy dotfiles!
-    become: yes
-    with_items: '{{ files.files }}'
-    shell: |
-      STOW_PATH={{ item.path | replace("dotfiles/", "") }}
-      OVERRIDE=$(cat ${STOW_PATH}/.override 2>/dev/null)
-      NOAH_HOME=$(getent passwd noah | cut -d: -f6)
-      stow -v --ignore="\.override" -t ${OVERRIDE:-$NOAH_HOME} ${STOW_PATH}
-    args:
-      chdir: ./dotfiles
-      executable: /bin/bash
+    - name: Backup and link dotfiles
+      command: "{{ item }}"
+      loop:
+        - "stow -t {{ ansible_env.HOME }} -d {{ base_dir }}/dotfiles -R *"
+        - "stow -t {{ ansible_env.HOME }} -d {{ base_dir }}/dotfiles -R .*"
+        - "stow -t {{ ansible_env.HOME }} -d {{ base_dir }}/dotfiles/.config -R *"
 
-    loop_control:
-      label: |-
-        {% if output.stderr|length > 1 %}
-        {{ item.path }}
-        {{ output.stderr }}
-        {%- else %}
-        {{ item.path }}
-        {%- endif %}
-    register: output
-    changed_when: '"LINK" in output.stderr'
