@@ -1,6 +1,6 @@
 ---
 - name: Install Neovim
-  hosts: your_target_host
+  hosts: localhost
   become: yes
 
   tasks:
