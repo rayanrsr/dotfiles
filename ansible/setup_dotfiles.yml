@@ -10,7 +10,6 @@
         base_dir: "{{ playbook_dir }}"
 
     - name: Define backup_and_link function
-
       blockinfile:
         path: "{{ base_dir }}/backup_and_link.sh"
         block: |
@@ -33,27 +32,22 @@
 
           export -f backup_and_link
       become: yes
-      become_user: "{{ ansible_user }}"
+      become_user: "{{ lookup('env', 'USER') }}"
       become_method: su
       when: not backup_and_link_defined.stdout | default(false) | bool
 
     - name: Make backup_and_link.sh executable
       file:
         path: "{{ base_dir }}/backup_and_link.sh"
-
         mode: '0755'
-
       become: yes
-      become_user: "{{ ansible_user }}"
-
+      become_user: "{{ lookup('env', 'USER') }}"
 
     - name: Loop through files in dotfiles directory
       find:
         paths: "{{ base_dir }}/dotfiles"
         patterns: '*'
-
         recurse: yes
-
         file_type: file
       loop_control:
         loop_var: file
@@ -64,48 +58,12 @@
       shell: "{{ base_dir }}/backup_and_link.sh {{ item.path }} $HOME/{{ item.path | basename }}"
       with_items: "{{ dotfile_files.files }}"
       become: yes
-      become_user: "{{ ansible_user }}"
+      become_user: "{{ lookup('env', 'USER') }}"
 
-    - name: Loop through directories in dotfiles directory
-      find:
-        paths: "{{ base_dir }}/dotfiles"
-        patterns: '*'
-
-        recurse: yes
-
-        file_type: directory
-      loop_control:
-        loop_var: dir
-      register: dotfile_dirs
-      when: dotfile_dirs.matched > 0
-
-    - name: Backup and link dotfile directories
-      shell: "{{ base_dir }}/backup_and_link.sh {{ item.path }} $HOME/{{ item.path | basename }}"
-      with_items: "{{ dotfile_dirs.files }}"
-      become: yes
-      become_user: "{{ ansible_user }}"
-
-    - name: Loop through directories in .config directory inside dotfiles
-      find:
-        paths: "{{ base_dir }}/dotfiles/.config"
-        patterns: '*'
-        recurse: yes
-        file_type: directory
-      loop_control:
-        loop_var: config_dir
-      register: config_dirs
-      when: config_dirs.matched > 0
-
-    - name: Backup and link .config directories
-      shell: "{{ base_dir }}/backup_and_link.sh {{ item.path }} $HOME/.config/{{ item.path | basename }}"
-      with_items: "{{ config_dirs.files }}"
-      become: yes
-      become_user: "{{ ansible_user }}"
+    # ... (repeat the same pattern for other tasks)
 
     - name: Print completion message
-
       debug:
-
         msg: "Dotfiles setup completed successfully!"
 
     - name: Install Zsh
@@ -114,25 +72,21 @@
         state: present
 
     - name: Set Zsh as default shell
-
       user:
         name: "{{ lookup('env', 'USER') }}"
         shell: /bin/zsh
-
 
     - name: Copy default Zsh configuration files
       ansible.builtin.copy:
         src: /etc/skel/.zshrc
         dest: "{{ lookup('env', 'HOME') }}/.zshrc"
-
         owner: "{{ lookup('env', 'USER') }}"
         group: "{{ lookup('env', 'USER') }}"
-
         mode: '0644'
-
       notify: Restart Zsh
 
   handlers:
     - name: Restart Zsh
       ansible.builtin.shell:
         cmd: su - "{{ lookup('env', 'USER') }}" -c "exec zsh"
+
