@@ -13,12 +13,13 @@
     - name: Set the base directory
       set_fact:
         base_dir: "{{ playbook_dir }}"
+        parent_dir: "{{ playbook_dir | dirname }}"
 
     - name: Backup and link dotfiles
       command: "{{ item }}"
       become_user: ray  # Set the target user here
       args:
-        chdir: "{{ base_dir }}/dotfiles"  # Set the correct stow directory
+        chdir: "{{ parent_dir }}/dotfiles"  # Set the correct stow directory
       loop:
         - "stow -t $HOME -R *"
         - "stow -t $HOME -R .*"
