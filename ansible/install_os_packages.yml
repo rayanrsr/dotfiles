@@ -1,86 +1,59 @@
 ---
-- name: Install OS-specific packages
-  become: yes
+- name: Install Conda
   hosts: localhost
+  become: True
   gather_facts: yes
   tasks:
-  - name: Install OS-specific packages on Debian-based systems (Ubuntu)
-    apt:
-      name: ['fzf', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'bpytop'] 
-      state: present
-    with_items:
-      - fzf
-      - bat
-      - exa
-      - fd-find
-      - ripgrep
-      - ansible
-      - bpytop
-    # when system is using apt
-    when: ansible_pkg_mgr == 'apt' 
-    become: yes
+  - name: Download Miniconda Linux OS
+    get_url:
+      url: https://repo.continuum.io/miniconda/Miniconda3-4.5.4-Linux-x86_64.sh
 
-  - name: Execute Install Missing Dependencies
-    shell: bash scripts/debian_install.sh 
-    when: ansible_pkg_mgr == 'apt' 
-    become: yes
+      dest: /tmp/install-miniconda.sh
+      checksum: md5:a946ea1d0c4a642ddf0c3a26a18bb16d
+      mode: 0550
+    when: ansible_os_family != "Darwin"
+  - name: Download Miniconda Mac OS x84_64
+    get_url:
+      url: https://repo.continuum.io/miniconda/Miniconda3-4.5.4-MacOSX-x86_64.sh
+      dest: /tmp/install-miniconda.sh
+      checksum: md5:0c7c76a0d6e16a4f5d7b5b6e5a8d6e7b
+      mode: 0550
+    when: ansible_os_family == "Darwin" and ansible_machine == "x86_64"
+  - name: Download Miniconda Mac OS arm64
+    get_url:
+      url: https://repo.continuum.io/miniconda/Miniconda3-4.5.4-MacOSX-arm64.sh
+      dest: /tmp/install-miniconda.sh
+      checksum: md5:0c7c76a0d6e16a4f5d7b5b6e5a8d6e7b
+      mode: 0550
+    when: ansible_os_family == "Darwin" and ansible_machine == "arm64"
+  - name: Create conda folder
+    become: True
+    file:
+      path: /opt/miniconda3
+      state: directory
+      owner: ubuntu
+      mode: 755
+      recurse: yes
+  - name: Run the installer
+    shell: /tmp/install-miniconda.sh -b -u -p /opt/miniconda3
+  - name: Remove the installer
+    file:
+      state: absent
+      path: /tmp/install-miniconda.sh
+  - name: Add miniconda bin to path
 
-  - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
-    yum:
-      name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'lsd', 'fastfetch', 'bpytop'] 
-      state: present
-    with_items:
-      - zsh
-      - tmux
-      - fzf
-      - lazygit
-      - bat
-      - exa
-      - fd-find
-      - ripgrep
-      - ansible
-      - lsd
-      - fastfetch
-      - bpytop
-    when: ansible_pkg_mgr == 'yum'
-    become: yes
+    become: True
+    shell: echo 'export PATH=/opt/miniconda3/bin:$PATH' >> /etc/profile
 
-  - name: Install OS-specific packages on Arch Linux
-    pacman:
-      name: ['neovim', 'zsh', 'fzf', 'tmux', 'bpytop', 'lsd', 'fastfetch', 'ansible', 'bat', 'exa', 'fd', 'ripgrep', 'lazygit'] 
-      state: present
-    with_items:
-      - neovim
-      - zsh
-      - fzf
-      - tmux
-      - bpytop
-      - lsd
-      - fastfetch
-      - ansible
-      - bat
-      - exa
-      - fd
-      - ripgrep
-      - lazygit
-    when: ansible_pkg_mgr == 'pacman'
-    become: yes
-
-  - name: Install OS-specific packages on macOS using Homebrew
-    homebrew:
-      name: ['neovim', 'zsh', 'fzf', 'tmux', 'bpytop', 'lsd', 'fastfetch', 'ansible', 'bat', 'exa', 'fd', 'ripgrep', 'lazygit'] 
-    with_items:
-      - neovim
-      - zsh
-      - fzf
-      - tmux
-      - bpytop
-      - lsd
-      - fastfetch
-      - ansible
-      - bat
-      - exa
-      - fd
-      - ripgrep
-      - lazygit
-    when: ansible_pkg_mgr == 'homebrew' 
+  - name: conda - read permission for all
+    become: True
+    file:
+      path: /opt/miniconda3
+      mode: +r
+      recurse: yes
+  - name: conda - execution permission for all
+    become: True
+    file:
+      path: /opt/miniconda3/bin
+      mode: +x
+      recurse: yes
