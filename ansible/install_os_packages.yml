@@ -1,15 +1,18 @@
 ---
-- hosts: localhost
+---
+- name: Install OS-specific packages
+  hosts: localhost
   become: yes
-  
+
   tasks:
     - name: Execute Install Missing Dependencies
-      shell: bash scripts/debian_install.sh 
-      when: ansible_pkg_mgr == 'apt' 
+      shell: bash scripts/debian_install.sh
+      when: ansible_pkg_mgr == 'apt'
       become: yes
+
     - name: Install OS-specific packages on Debian-based systems (Ubuntu)
       apt:
-        name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'fastfetch', 'bpytop'] 
+        name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'fastfetch', 'bpytop']
         state: present
       with_items:
         - zsh
@@ -25,9 +28,10 @@
         - wget
       when: ansible_pkg_mgr == 'apt'
       become: yes
+
     - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
       yum:
-        name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'lsd', 'fastfetch', 'bpytop'] 
+        name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'lsd', 'fastfetch', 'bpytop']
         state: present
       with_items:
         - zsh
@@ -48,7 +52,7 @@
 
     - name: Install OS-specific packages on Arch Linux
       pacman:
-        name: ['neovim', 'zsh', 'fzf', 'tmux', 'bpytop', 'lsd', 'fastfetch', 'ansible', 'bat', 'exa', 'fd', 'ripgrep', 'lazygit'] 
+        name: ['neovim', 'zsh', 'fzf', 'tmux', 'bpytop', 'lsd', 'fastfetch', 'ansible', 'bat', 'exa', 'fd', 'ripgrep', 'lazygit']
         state: present
       with_items:
         - neovim
@@ -66,7 +70,7 @@
         - alacritty
         - wget
       when: ansible_pkg_mgr == 'pacman'
-    
+
     - name: Clone Yay repository from AUR
       git:
         repo: https://aur.archlinux.org/yay.git
@@ -80,7 +84,7 @@
 
     - name: Install OS-specific packages on macOS using Homebrew
       homebrew:
-        name: ['neovim', 'zsh', 'fzf', 'tmux', 'bpytop', 'lsd', 'fastfetch', 'ansible', 'bat', 'exa', 'fd', 'ripgrep', 'lazygit'] 
+        name: ['neovim', 'zsh', 'fzf', 'tmux', 'bpytop', 'lsd', 'fastfetch', 'ansible', 'bat', 'exa', 'fd', 'ripgrep', 'lazygit']
       with_items:
         - neovim
         - zsh
@@ -97,10 +101,12 @@
         - alacritty
         - wget
       when: ansible_pkg_mgr == 'homebrew'
+
     - name: Installing Oh-My-Zsh
       shell: >
         echo "Installing Oh-My-Zsh..."
         sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+
     - name: Downloading and installing Meslo Nerd Font
       shell: >
         echo "Downloading and installing Meslo Nerd Font..."
@@ -114,7 +120,6 @@
       shell: >
         echo "Installing additional fonts from 'fonts' folder..."
         cp fonts/* "${HOME}/.local/share/fonts/"
-
 
     - name: Configuring Zsh plugins
       shell: >
@@ -135,25 +140,4 @@
           - wget
           - git
           - lxappearance
-          - materia-gtk-theme
-          - papirus-icon-theme
-          - pavucontrol
-          - qt5ct
-          - scrot
-          - xautolock
-          - i3lock
-          - ttf-font-awesome
-          - ttf-droid
-          - pacman-contrib
-          - picom
-          - i3-wm
-          - i3
-          - sysstat
-        state: present
-      become_user: root
-      when: ansible_pkg_mgr == 'pacman'
 
-    - name: Install Optional Packages with yay
-      shell: "yay -S --noconfirm discord neovim vscodium lutris feh heroic-games-launcher-bin wine htop mangohud gamemode flameshot rofi compton dmenu arandr thunderbird-nightly-bin transmission-qt"
-      become_user: root
-      when: ansible_pkg_mgr == 'pacman'
