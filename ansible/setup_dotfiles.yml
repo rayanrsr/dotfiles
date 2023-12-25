@@ -1,28 +1,14 @@
 ---
-- name: Setup Dotfiles
+- name: Cleanup Dotfiles
   hosts: localhost
   gather_facts: false
   become: true
 
   tasks:
-    - name: Install stow package
-      package:
-        name: stow
-        state: present
-
     - name: Set the base directory
       set_fact:
         base_dir: "{{ playbook_dir }}"
-        parent_dir: "{{ playbook_dir | dirname }}"
-        home_dir: "{{ lookup('env', 'HOME') | default(ansible_env.HOME) }}"
 
-    - name: Backup and link dotfiles
-      command: "{{ item }}"
-      become_user: ray
-      args:
-        chdir: "{{ parent_dir }}/dotfiles"  # Set the correct stow directory
-      loop:
-        - "stow -t {{ home_dir }} -R *"
-        - "stow -t {{ home_dir }} -R .*"
-        - "stow -t {{ home_dir }}/.config -R *"
+    - name: Delete linked dotfiles
+      command: "stow -t {{ ansible_env.HOME }} -D dotfiles"
 
