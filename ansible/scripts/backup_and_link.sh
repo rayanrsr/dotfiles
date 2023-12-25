@@ -1,8 +1,16 @@
 #!/bin/bash
 
 # Set the base directory
-base_dir="$(dirname "$(readlink -f "$0")")"
-
+#base_dir="$(dirname "$(readlink -f "$0")")"
+base_dir="$(pwd)"
+# if ansible in directory name then go to parent directory
+if [[ $base_dir == *"ansible"* ]]; then
+    base_dir="$(dirname "$base_dir")"
+fi
+# if ansible and scripts in directory name then go to grand parent directory
+if [[ $base_dir == *"ansible"* ]] && [[ $base_dir == *"scripts"* ]]; then
+    base_dir="$(dirname "$(dirname "$base_dir")")"
+fi
 # Function to backup existing file or directory
 backup_and_link() {
     local source_path=$1
