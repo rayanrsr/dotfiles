@@ -11,7 +11,7 @@
 
     - name: Define backup_and_link function
       blockinfile:
-        path: "{{ base_dir }}/backup_and_link.sh"
+        path: "{{ base_dir }}/scripts/backup_and_link.sh"
         block: |
           #!/bin/bash
 
@@ -38,7 +38,7 @@
 
     - name: Make backup_and_link.sh executable
       file:
-        path: "{{ base_dir }}/backup_and_link.sh"
+        path: "{{ base_dir }}/scripts/backup_and_link.sh"
         mode: '0755'
       become: yes
       become_user: "{{ lookup('env', 'USER') }}"
@@ -55,7 +55,7 @@
       when: dotfile_files.matched > 0
 
     - name: Backup and link dotfile files
-      shell: "{{ base_dir }}/backup_and_link.sh {{ item.path }} $HOME/{{ item.path | basename }}"
+      shell: "{{ base_dir }}/scripts/backup_and_link.sh {{ item.path }} $HOME/{{ item.path | basename }}"
       with_items: "{{ dotfile_files.files }}"
       become: yes
       become_user: "{{ lookup('env', 'USER') }}"
