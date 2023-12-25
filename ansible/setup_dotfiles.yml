@@ -14,6 +14,7 @@
       set_fact:
         base_dir: "{{ playbook_dir }}"
         parent_dir: "{{ playbook_dir | dirname }}"
+        home_dir: "{{ lookup('env', 'HOME') | default(ansible_env.HOME) }}"
 
     - name: Backup and link dotfiles
       command: "{{ item }}"
@@ -21,7 +22,7 @@
       args:
         chdir: "{{ parent_dir }}/dotfiles"  # Set the correct stow directory
       loop:
-        - "stow -t {{ ansible_env.HOME }} -R *"
-        - "stow -t {{ ansible_env.HOME }} -R .*"
-        - "stow -t {{ ansible_env.HOME }}/.config -R *"
+        - "stow -t {{ home_dir }} -R *"
+        - "stow -t {{ home_dir }} -R .*"
+        - "stow -t {{ home_dir }}/.config -R *"
 
