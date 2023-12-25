@@ -12,7 +12,6 @@
   - name: Install Miniconda on x86_64 Linux
     command: bash /tmp/Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda3 creates=$HOME/miniconda3
     when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian' or ansible_distribution == 'Archlinux' or ansible_distribution == 'ManjaroLinux' or ansible_distribution == 'Fedora' or ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Amazon'
-    become: yes
     register: miniconda_installation
 
   - name: Download Miniconda installer on x86_64 Mac
