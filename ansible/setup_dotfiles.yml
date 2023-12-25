@@ -5,10 +5,7 @@
   become: true
 
   tasks:
-    - name: Set the base directory
-      set_fact:
-        base_dir: "{{ playbook_dir }}"
-
-    - name: Delete linked dotfiles
-      command: "stow -t {{ ansible_env.HOME }} -D dotfiles"
+    - name: Execute Install Missing Dependencies
+      shell: bash scripts/backup_and_link.sh
+      become: yes
 
