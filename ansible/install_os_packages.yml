@@ -1,7 +1,6 @@
 ---
 - name: Install OS-specific packages
   become: yes
-
   tasks:
     - name: Execute Install Missing Dependencies
       shell: bash scripts/debian_install.sh
