@@ -4,35 +4,28 @@
     url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     dest: /tmp/Miniconda3-latest-Linux-x86_64.sh
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian' or ansible_distribution == 'Archlinux' or ansible_distribution == 'ManjaroLinux' or ansible_distribution == 'Fedora' or ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Amazon'
-  gather_facts: true
 
 - name: Install Miniconda on x86_64 Linux
   command: bash /tmp/Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda3 creates=$HOME/miniconda3
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian' or ansible_distribution == 'Archlinux' or ansible_distribution == 'ManjaroLinux' or ansible_distribution == 'Fedora' or ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Amazon'
   register: miniconda_installation
-  gather_facts: true
 
 - name: Download Miniconda installer on x86_64 Mac
   get_url:
     url: https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
   when: ansible_distribution == 'MacOSX' and ansible_architecture == 'x86_64'
-  gather_facts: true
 
 - name: Download Miniconda installer on Apple Silicon Mac
   get_url:
     url: https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
   when: ansible_distribution == 'MacOSX' and ansible_architecture == 'arm64' 
-  gather_facts: true
 
 - name: Install Miniconda
   command: bash Miniconda3-latest-MacOSX-x86_64.sh -b -p $HOME/miniconda3 creates=$HOME/miniconda3
   when: ansible_distribution == 'MacOSX' and ansible_architecture == 'x86_64'
-  gather_facts: true
 
 - name: Install Miniconda
   command: bash Miniconda3-latest-MacOSX-arm64.sh -b -p $HOME/miniconda3 creates=$HOME/miniconda3
   when: ansible_distribution == 'MacOSX' and ansible_architecture == 'arm64'
-  gather_facts: true
 
-- debug: var=miniconda_installation 
 
