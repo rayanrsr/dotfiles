@@ -55,5 +55,5 @@ vim.api.nvim_set_option("clipboard","unnamed")
 -- Set colorcolumn
 vim.api.nvim_set_option("colorcolumn","120")
 
--- Set cursorline
-
+-- Set clipboard to be shared between vim and system
+vim.api.nvim_set_option("clipboard","unnamedplus")
