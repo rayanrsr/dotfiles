@@ -1,91 +1,92 @@
 ---
-- name: Install OS-specific packages
-  hosts: localhost
+- name: Execute Install Missing Dependencies
+  shell: bash scripts/debian_install.sh
+  when: ansible_pkg_mgr == 'apt'
   become: yes
-  tasks:
-    - name: Execute Install Missing Dependencies
-      shell: bash scripts/debian_install.sh
-      when: ansible_pkg_mgr == 'apt'
 
-    - name: Install OS-specific packages on Debian-based systems (Ubuntu)
-      apt:
-        name:
-          - 'zsh'
-          - 'tmux'
-          - 'fzf'
-          - 'bat'
-          - 'exa'
-          - 'fd-find'
-          - 'ripgrep'
-          - 'fastfetch'
-          - 'bpytop'
-        state: present
-      when: ansible_pkg_mgr == 'apt'
+- name: Install OS-specific packages on Debian-based systems (Ubuntu)
+  apt:
+    name:
+      - 'zsh'
+      - 'tmux'
+      - 'fzf'
+      - 'bat'
+      - 'exa'
+      - 'fd-find'
+      - 'ripgrep'
+      - 'fastfetch'
+      - 'bpytop'
+    state: present
+  when: ansible_pkg_mgr == 'apt'
+  become: yes
 
-    - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
-      yum:
-        name:
-          - 'zsh'
-          - 'tmux'
-          - 'fzf'
-          - 'lazygit'
-          - 'bat'
-          - 'exa'
-          - 'fd-find'
-          - 'ripgrep'
-          - 'ansible'
-          - 'lsd'
-          - 'fastfetch'
-          - 'bpytop'
-        state: present
-      when: ansible_pkg_mgr == 'yum'
+- name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
+  yum:
+    name:
+      - 'zsh'
+      - 'tmux'
+      - 'fzf'
+      - 'lazygit'
+      - 'bat'
+      - 'exa'
+      - 'fd-find'
+      - 'ripgrep'
+      - 'ansible'
+      - 'lsd'
+      - 'fastfetch'
+      - 'bpytop'
+    state: present
+  when: ansible_pkg_mgr == 'yum'
+  become: yes
 
-    - name: Install OS-specific packages on Arch Linux
-      pacman:
-        name:
-          - 'neovim'
-          - 'zsh'
-          - 'fzf'
-          - 'tmux'
-          - 'bpytop'
-          - 'lsd'
-          - 'fastfetch'
-          - 'ansible'
-          - 'bat'
-          - 'exa'
-          - 'fd'
-          - 'ripgrep'
-          - 'lazygit'
-        state: present
-      when: ansible_pkg_mgr == 'pacman'
+- name: Install OS-specific packages on Arch Linux
+  pacman:
+    name:
+      - 'neovim'
+      - 'zsh'
+      - 'fzf'
+      - 'tmux'
+      - 'bpytop'
+      - 'lsd'
+      - 'fastfetch'
+      - 'ansible'
+      - 'bat'
+      - 'exa'
+      - 'fd'
+      - 'ripgrep'
+      - 'lazygit'
+    state: present
+  when: ansible_pkg_mgr == 'pacman'
+  become: yes
 
-    - name: Clone Yay repository from AUR
-      git:
-        repo: https://aur.archlinux.org/yay.git
-        dest: /tmp/yay
-        version: master
-      when: ansible_pkg_mgr == 'pacman'
+- name: Clone Yay repository from AUR
+  git:
+    repo: https://aur.archlinux.org/yay.git
+    dest: /tmp/yay
+    version: master
+  when: ansible_pkg_mgr == 'pacman'
 
-    - name: Build and install Yay
-      shell: "cd /tmp/yay && makepkg -si"
-      when: ansible_pkg_mgr == 'pacman'
+- name: Build and install Yay
+  shell: "cd /tmp/yay && makepkg -si"
+  when: ansible_pkg_mgr == 'pacman'
 
-    - name: Install OS-specific packages on macOS using Homebrew
-      homebrew:
-        name:
-          - 'neovim'
-          - 'zsh'
-          - 'fzf'
-          - 'tmux'
-          - 'bpytop'
-          - 'lsd'
-          - 'fastfetch'
-          - 'ansible'
-          - 'bat'
-          - 'exa'
-          - 'fd'
-          - 'ripgrep'
-          - 'lazygit'
-        state: present
-      when: ansible_pkg_mgr == 'homebrew'
+- name: Install OS-specific packages on macOS using Homebrew
+  homebrew:
+    name:
+      - 'neovim'
+      - 'zsh'
+      - 'fzf'
+      - 'tmux'
+      - 'bpytop'
+      - 'lsd'
+      - 'fastfetch'
+      - 'ansible'
+      - 'bat'
+      - 'exa'
+      - 'fd'
+      - 'ripgrep'
+      - 'lazygit'
+    state: present
+  when: ansible_pkg_mgr == 'homebrew'
+  become: yes
 
