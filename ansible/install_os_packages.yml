@@ -1,6 +1,5 @@
 ---
 - name: Install OS-specific packages
-  hosts: localhost
   become: yes
 
   tasks:
