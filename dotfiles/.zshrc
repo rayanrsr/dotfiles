@@ -175,7 +175,9 @@ alias tmux-sessionizer="bash ~/scripts/tmux-sessionizer.sh"
 
 #if [ "$TMUX" = "" ]; then exec tmux; fi
 #bindkey -s '^f' '$(fzf)\n'
-bindkey -s '^f' 'selected_dir=$(find . -maxdepth 8 -type d | fzf); [ -n "$selected_dir" ] && cd "$selected_dir"\n'
+#bindkey -s '^f' 'selected_dir=$(find . -maxdepth 8 -type d | fzf); [ -n "$selected_dir" ] && cd "$selected_dir"\n'
+bindkey -s '^f' 'selected_entry=$(find $HOME -maxdepth 8 -type f -o -type d | fzf); [ -n "$selected_entry" ] && { [ -d "$selected_entry" ] && cd "$selected_entry" || vim "$selected_entry"; }\n'
+
 
 
 
