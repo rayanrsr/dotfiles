@@ -26,4 +26,3 @@
     include_tasks: "{{ selected_tasks[item] }}"
     loop: "{{ user_selection.user_input.split(',') }}"
     when: user_selection.user_input.split(',') | intersect(selected_tasks.keys()) | length > 0
-

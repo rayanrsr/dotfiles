@@ -160,7 +160,13 @@ alias top="bpytop"
 alias htop="bpytop"
 
 # add bat as an alias for cat
-alias cat="bat"
+# if bat command is detected alias it to cat, otherwise alias batcat
+if command -v bat &> /dev/null
+then
+    alias cat="bat"
+else
+    alias batcat="batcat"
+fi
 
 # add lsd as an alias for ls
 alias ls="lsd"
