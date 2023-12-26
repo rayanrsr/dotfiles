@@ -17,6 +17,8 @@
       - 'ripgrep'
       - 'bpytop'
       - 'stow'
+      - 'feh'
+      - 'rofi'
     state: present
   when: ansible_pkg_mgr == 'apt'
   become: yes
@@ -38,6 +40,8 @@
       - 'fastfetch'
       - 'bpytop'
       - 'stow'
+      - 'feh'
+      - 'rofi'
     state: present
   when: ansible_pkg_mgr == 'yum'
   become: yes
@@ -60,6 +64,8 @@
       - 'ripgrep'
       - 'lazygit'
       - 'stow'
+      - 'feh'
+      - 'rofi'
     state: present
   when: ansible_pkg_mgr == 'pacman'
   become: yes
