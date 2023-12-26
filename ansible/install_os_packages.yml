@@ -58,18 +58,18 @@
   when: ansible_pkg_mgr == 'pacman'
   become: yes
 
-- name: Clone Yay repository from AUR
+# tasks file for ansible.archyay
+- name: Clone yay
   git:
-    repo: https://aur.archlinux.org/yay.git
-    dest: ~/yay
-    version: master
-  when: ansible_pkg_mgr == 'pacman'
-  become: no
+    repo: https://aur.archlinux.org/yay-bin.git
+    dest: "{{ srcdir }}/yay"
+    update: true
 
-- name: Build and install Yay
-  shell: "cd ~/yay && makepkg -si"
-  when: ansible_pkg_mgr == 'pacman'
-  become: no
+- name: Build and install yay
+  command:
+    chdir: "{{ srcdir }}/yay"
+    cmd: "makepkg -sfi --noconfirm"
+    creates: /usr/bin/yay
 
 - name: Install OS-specific packages on macOS using Homebrew
   homebrew:
