@@ -291,6 +291,7 @@ set $focused-ws #ff6be4
 set $bar-color  #523d640D
 
 bar {
+    position top
     tray_output primary
     status_command i3status --config /home/$USER/.config/i3/i3status.conf
     #status_command i3blocks -c /home/$USER/.config/i3blocks/i3blocks.conf
