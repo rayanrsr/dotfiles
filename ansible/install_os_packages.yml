@@ -2,12 +2,10 @@
 - name: Install OS-specific packages
   hosts: localhost
   become: yes
-
   tasks:
     - name: Execute Install Missing Dependencies
       shell: bash scripts/debian_install.sh
       when: ansible_pkg_mgr == 'apt'
-      become: yes
 
     - name: Install OS-specific packages on Debian-based systems (Ubuntu)
       apt:
@@ -23,7 +21,6 @@
           - 'bpytop'
         state: present
       when: ansible_pkg_mgr == 'apt'
-      become: yes
 
     - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
       yum:
@@ -42,7 +39,6 @@
           - 'bpytop'
         state: present
       when: ansible_pkg_mgr == 'yum'
-      become: yes
 
     - name: Install OS-specific packages on Arch Linux
       pacman:
@@ -62,7 +58,6 @@
           - 'lazygit'
         state: present
       when: ansible_pkg_mgr == 'pacman'
-      become: yes
 
     - name: Clone Yay repository from AUR
       git:
@@ -93,5 +88,4 @@
           - 'lazygit'
         state: present
       when: ansible_pkg_mgr == 'homebrew'
-      become: yes
 
