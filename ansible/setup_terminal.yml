@@ -17,10 +17,10 @@
   - name: Map user choices to task names
     set_fact:
       selected_tasks:
-        1: "install_os_packages.yml"
-        2: "install_miniconda.yml"
-        3: "install_neovim.yml"
-        4: "setup_dotfiles.yml"
+        "1": "install_os_packages.yml"
+        "2": "install_miniconda.yml"
+        "3": "install_neovim.yml"
+        "4": "setup_dotfiles.yml"
 
   - name: Execute selected tasks
     include_tasks: "{{ selected_tasks[item] }}"
