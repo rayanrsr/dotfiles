@@ -39,3 +39,15 @@
     dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
   when: not ansible_check_mode
   become: no
+- name: Clone fzf-zsh-plugin plugin
+  git:
+    repo: https://github.com/unixorn/fzf-zsh-plugin.git
+    dest: ~/.oh-my-zsh/custom/plugins/fzf-zsh-plugin
+  when: not ansible_check_mode
+  become: no
+- name: Clone tmux-plugins/tpm repository
+  git:
+    repo: https://github.com/tmux-plugins/tpm.git
+    dest: ~/.tmux/plugins/tpm
+  when: not ansible_check_mode  # Only clone if not in check mode
+
