@@ -24,7 +24,7 @@
 - name: Install Miniconda
   command: bash Miniconda3-latest-MacOSX-x86_64.sh -b -p $HOME/miniconda3 creates=$HOME/miniconda3
   when: ansible_distribution == 'MacOSX' and ansible_architecture == 'x86_64'
-  becoome: no
+  become: no
 - name: Install Miniconda
   command: bash Miniconda3-latest-MacOSX-arm64.sh -b -p $HOME/miniconda3 creates=$HOME/miniconda3
   when: ansible_distribution == 'MacOSX' and ansible_architecture == 'arm64'
