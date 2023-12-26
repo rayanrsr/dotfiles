@@ -62,12 +62,12 @@
 - name: Clone yay
   git:
     repo: https://aur.archlinux.org/yay-bin.git
-    dest: "{{ srcdir }}/yay"
+    dest: "$HOME/yay"
     update: true
 
 - name: Build and install yay
   command:
-    chdir: "{{ srcdir }}/yay"
+    chdir: "$HOME/yay"
     cmd: "makepkg -sfi --noconfirm"
     creates: /usr/bin/yay
 
