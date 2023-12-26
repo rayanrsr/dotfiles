@@ -8,6 +8,7 @@
   apt:
     name:
       - 'zsh'
+      - 'alacritty'
       - 'tmux'
       - 'fzf'
       - 'bat'
@@ -25,6 +26,7 @@
     name:
       - 'zsh'
       - 'tmux'
+      - 'alacritty'
       - 'fzf'
       - 'lazygit'
       - 'bat'
@@ -44,6 +46,7 @@
   pacman:
     name:
       - 'neovim'
+      - 'alacritty'
       - 'zsh'
       - 'fzf'
       - 'tmux'
@@ -80,6 +83,7 @@
       - 'neovim'
       - 'zsh'
       - 'fzf'
+      - 'alacritty'
       - 'tmux'
       - 'bpytop'
       - 'lsd'
