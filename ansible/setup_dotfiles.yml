@@ -1,20 +1,15 @@
 ---
-- name: Cleanup Dotfiles
-  hosts: localhost
-  gather_facts: false
+- name: Print current working directory
+  command: "pwd"
+  args:
+    chdir: "{{ playbook_dir | dirname }}"
+  register: pwd_output
 
-  tasks:
-    - name: Print current working directory
-      command: "pwd"
-      args:
-        chdir: "{{ playbook_dir | dirname }}"
-      register: pwd_output
+- name: Debug pwd output
+  debug:
+    var: pwd_output.stdout_lines
 
-    - name: Debug pwd output
-      debug:
-        var: pwd_output.stdout_lines
-    
-    - name: Link dotfiles
-      command: "stow -t  $HOME -R dotfiles"
-      args:
-        chdir: "{{ playbook_dir | dirname }}"
+- name: Link dotfiles
+  command: "stow -t  $HOME -R dotfiles"
+  args:
+    chdir: "{{ playbook_dir | dirname }}"
