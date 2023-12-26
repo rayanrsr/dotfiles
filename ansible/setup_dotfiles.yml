@@ -2,10 +2,19 @@
 - name: Cleanup Dotfiles
   hosts: localhost
   gather_facts: false
-  become: true
 
   tasks:
-    - name: Execute Install Missing Dependencies
-      shell: bash scripts/backup_and_link.sh
-      become: yes
+    - name: Print current working directory
+      command: "pwd"
+      args:
+        chdir: "{{ playbook_dir | dirname }}"
+      register: pwd_output
 
+    - name: Debug pwd output
+      debug:
+        var: pwd_output.stdout_lines
+    
+    - name: Link dotfiles
+      command: "stow -t  $HOME -R dotfiles"
+      args:
+        chdir: "{{ playbook_dir | dirname }}"
