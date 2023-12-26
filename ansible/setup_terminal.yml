@@ -6,11 +6,23 @@
   tasks:
   - name: Display menu
     pause:
-      prompt: "Choose the tasks to execute (comma-separated): install_os_packages, install_miniconda, install_neovim, setup_dotfiles"
+      prompt: "Choose the tasks to execute:"
+      menu:
+        - "Install OS-specific packages"
+        - "Install Miniconda"
+        - "Install Neovim"
+        - "Restore Dotfiles"
     register: user_selection
 
+  - name: Map user choices to task names
+    set_fact:
+      selected_tasks:
+        "Install OS-specific packages": "install_os_packages.yml"
+        "Install Miniconda": "install_miniconda.yml"
+        "Install Neovim": "install_neovim.yml"
+        "Restore Dotfiles": "setup_dotfiles.yml"
+
   - name: Execute selected tasks
-    include_tasks: "{{ item }}.yml"
-    loop: "{{ user_selection.user_input.split(',') }}"
-    when: user_selection.user_input.split(',') | intersect(['install_os_packages', 'install_miniconda', 'install_neovim', 'setup_dotfiles']) | length > 0
+    include_tasks: "{{ selected_tasks[user_selection.user_input] }}"
+    when: user_selection.user_input is defined
 
