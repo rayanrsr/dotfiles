@@ -24,5 +24,6 @@
 
   - name: Execute selected tasks
     include_tasks: "{{ selected_tasks[item] }}"
-    loop: "{{ user_selection.user_input.split(',') }}"
-    when: user_selection.user_input.split(',') | intersect(selected_tasks.keys()) | length > 0
+    loop: "{{ user_selection.user_input.split(',') | map('int') }}"
+    when: user_selection.user_input.split(',') | intersect(selected_tasks.keys() | map('int')) | length > 0
+
