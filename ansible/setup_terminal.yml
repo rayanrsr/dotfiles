@@ -4,14 +4,26 @@
   become: yes
   gather_facts: yes
   tasks:
-  - name: Install OS-specific packages
-    include_tasks: install_os_packages.yml
+  - name: Display numbered menu
+    pause:
+      prompt: |
+        Choose the tasks to execute (comma-separated):
+        1. Install OS-specific packages
+        2. Install Miniconda
+        3. Install Neovim
+        4. Restore Dotfiles
+    register: user_selection
 
-  - name: Install Miniconda
-    include_tasks: install_miniconda.yml
+  - name: Map user choices to task names
+    set_fact:
+      selected_tasks:
+        1: "install_os_packages.yml"
+        2: "install_miniconda.yml"
+        3: "install_neovim.yml"
+        4: "setup_dotfiles.yml"
 
-  - name: Install Neovim
-    include_tasks: install_neovim.yml
+  - name: Execute selected tasks
+    include_tasks: "{{ selected_tasks[item] }}"
+    loop: "{{ user_selection.user_input.split(',') }}"
+    when: user_selection.user_input.split(',') | intersect(selected_tasks.keys()) | length > 0
 
-  - name: Restore Dotfiles
-    include_tasks: setup_dotfiles.yml
