@@ -13,3 +13,4 @@
   command: "stow -t  $HOME -R dotfiles"
   args:
     chdir: "{{ playbook_dir | dirname }}"
+  become: no
