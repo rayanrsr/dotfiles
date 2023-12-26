@@ -11,7 +11,7 @@
 
     - name: Install OS-specific packages on Debian-based systems (Ubuntu)
       apt:
-        name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'fastfetch', 'bpytop']
+        name: ['zsh', 'tmux', 'fzf', 'bat', 'exa', 'fd-find', 'ripgrep', 'fastfetch', 'bpytop']
         state: present
       with_items:
         - zsh
