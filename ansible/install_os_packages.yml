@@ -1,6 +1,8 @@
 ---
-- name: Install OS specific packages
+- name: Install OS-specific packages
+  hosts: localhost
   become: yes
+
   tasks:
     - name: Execute Install Missing Dependencies
       shell: bash scripts/debian_install.sh
@@ -9,67 +11,56 @@
 
     - name: Install OS-specific packages on Debian-based systems (Ubuntu)
       apt:
-        name: ['zsh', 'tmux', 'fzf', 'bat', 'exa', 'fd-find', 'ripgrep', 'fastfetch', 'bpytop']
+        name:
+          - 'zsh'
+          - 'tmux'
+          - 'fzf'
+          - 'bat'
+          - 'exa'
+          - 'fd-find'
+          - 'ripgrep'
+          - 'fastfetch'
+          - 'bpytop'
         state: present
-      with_items:
-        - zsh
-        - tmux
-        - fzf
-        - bat
-        - exa
-        - fd-find
-        - ripgrep
-        - bpytop
-        - alacritty
-        - wget
-        - fuse
-        - stow
       when: ansible_pkg_mgr == 'apt'
       become: yes
 
     - name: Install OS-specific packages on Red Hat-based systems (Amazon Linux)
       yum:
-        name: ['zsh', 'tmux', 'fzf', 'lazygit', 'bat', 'exa', 'fd-find', 'ripgrep', 'ansible', 'lsd', 'fastfetch', 'bpytop']
+        name:
+          - 'zsh'
+          - 'tmux'
+          - 'fzf'
+          - 'lazygit'
+          - 'bat'
+          - 'exa'
+          - 'fd-find'
+          - 'ripgrep'
+          - 'ansible'
+          - 'lsd'
+          - 'fastfetch'
+          - 'bpytop'
         state: present
-      with_items:
-        - zsh
-        - tmux
-        - fzf
-        - lazygit
-        - bat
-        - exa
-        - fd-find
-        - ripgrep
-        - ansible
-        - lsd
-        - bpytop
-        - alacritty
-        - wget
-        - fuse
-        - stow
       when: ansible_pkg_mgr == 'yum'
       become: yes
 
     - name: Install OS-specific packages on Arch Linux
       pacman:
-        name: ['neovim', 'zsh', 'fzf', 'tmux', 'bpytop', 'lsd', 'fastfetch', 'ansible', 'bat', 'exa', 'fd', 'ripgrep', 'lazygit']
+        name:
+          - 'neovim'
+          - 'zsh'
+          - 'fzf'
+          - 'tmux'
+          - 'bpytop'
+          - 'lsd'
+          - 'fastfetch'
+          - 'ansible'
+          - 'bat'
+          - 'exa'
+          - 'fd'
+          - 'ripgrep'
+          - 'lazygit'
         state: present
-      with_items:
-        - neovim
-        - zsh
-        - fzf
-        - tmux
-        - bpytop
-        - lsd
-        - ansible
-        - bat
-        - exa
-        - fd
-        - ripgrep
-        - lazygit
-        - alacritty
-        - wget
-        - stow
       when: ansible_pkg_mgr == 'pacman'
       become: yes
 
@@ -86,23 +77,21 @@
 
     - name: Install OS-specific packages on macOS using Homebrew
       homebrew:
-        name: ['neovim', 'zsh', 'fzf', 'tmux', 'bpytop', 'lsd', 'fastfetch', 'ansible', 'bat', 'exa', 'fd', 'ripgrep', 'lazygit']
-      with_items:
-        - neovim
-        - zsh
-        - fzf
-        - tmux
-        - bpytop
-        - lsd
-        - ansible
-        - bat
-        - exa
-        - fd
-        - ripgrep
-        - lazygit
-        - alacritty
-        - wget
-        - stow
+        name:
+          - 'neovim'
+          - 'zsh'
+          - 'fzf'
+          - 'tmux'
+          - 'bpytop'
+          - 'lsd'
+          - 'fastfetch'
+          - 'ansible'
+          - 'bat'
+          - 'exa'
+          - 'fd'
+          - 'ripgrep'
+          - 'lazygit'
+        state: present
       when: ansible_pkg_mgr == 'homebrew'
       become: yes
 
