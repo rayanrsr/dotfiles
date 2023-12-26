@@ -14,7 +14,6 @@
       - 'exa'
       - 'fd-find'
       - 'ripgrep'
-      - 'fastfetch'
       - 'bpytop'
     state: present
   when: ansible_pkg_mgr == 'apt'
