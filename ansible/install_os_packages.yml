@@ -61,13 +61,15 @@
 - name: Clone Yay repository from AUR
   git:
     repo: https://aur.archlinux.org/yay.git
-    dest: /tmp/yay
+    dest: ~/yay
     version: master
   when: ansible_pkg_mgr == 'pacman'
+  become: no
 
 - name: Build and install Yay
-  shell: "cd /tmp/yay && makepkg -si"
+  shell: "cd ~/yay && makepkg -si"
   when: ansible_pkg_mgr == 'pacman'
+  become: no
 
 - name: Install OS-specific packages on macOS using Homebrew
   homebrew:
