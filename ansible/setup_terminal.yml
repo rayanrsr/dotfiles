@@ -1,5 +1,6 @@
 ---
 - name: Setup Terminal Environment
+  hosts: localhost
   become: yes
   gather_facts: yes
   tasks:
