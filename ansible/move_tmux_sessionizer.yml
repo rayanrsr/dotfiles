@@ -1,0 +1,17 @@
+---
+- name: Move tmux-sessionizer.sh to /usr/local/bin
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Copy tmux-sessionizer.sh to /usr/local/bin
+      copy:
+        src: "{{ playbook_dir }}/../dotfiles/scripts/tmux-sessionizer.sh"
+        dest: "/usr/local/bin/tmux-sessionizer"
+        mode: 0755
+
+  post_tasks:
+    - name: Print completion message
+      debug:
+        msg: "tmux-sessionizer.sh moved to /usr/local/bin/tmux-sessionizer successfully!"
+

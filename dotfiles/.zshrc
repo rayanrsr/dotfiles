@@ -170,16 +170,16 @@ fi
 
 # add lsd as an alias for ls
 alias ls="lsd"
-alias tmux-sessionizer="bash ~/scripts/tmux-sessionizer.sh"
+# alias tmux-sessionizer="bash ~/scripts/tmux-sessionizer.sh"
 # execute fastfetch at startup
 
 #if [ "$TMUX" = "" ]; then exec tmux; fi
 #bindkey -s '^f' '$(fzf)\n'
 #bindkey -s '^f' 'selected_dir=$(find . -maxdepth 8 -type d | fzf); [ -n "$selected_dir" ] && cd "$selected_dir"\n'
-bindkey -s '^f' 'selected_entry=$(find $HOME -maxdepth 8 -type f -o -type d | fzf); [ -n "$selected_entry" ] && { [ -d "$selected_entry" ] && cd "$selected_entry" || vim "$selected_entry"; }\n'
+bindkey -s ^e 'selected_entry=$(find $HOME -maxdepth 8 -type f -o -type d | fzf); [ -n "$selected_entry" ] && { [ -d "$selected_entry" ] && cd "$selected_entry" || vim "$selected_entry"; }\n'
 
 # now Ctrl + e will execute ~/scripts/tmux_sessionizer.sh
-bindkey -s ^e '~/scripts/tmux-sessionizer.sh\n'
+bindkey -s '^f''~/scripts/tmux-sessionizer.sh\n'
 
 conda activate base
 
