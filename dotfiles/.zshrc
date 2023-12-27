@@ -181,6 +181,7 @@ bindkey -s '^f' 'selected_entry=$(find $HOME -maxdepth 8 -type f -o -type d | fz
 
 
 
+v
 # now Ctrl + e will execute ~/scripts/tmux_sessionizer.sh
 bindkey -s ^e '~/scripts/tmux-sessionizer.sh\n'
 
