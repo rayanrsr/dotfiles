@@ -179,7 +179,7 @@ alias ls="lsd"
 bindkey -s ^e 'selected_entry=$(find $HOME -maxdepth 8 -type f -o -type d | fzf); [ -n "$selected_entry" ] && { [ -d "$selected_entry" ] && cd "$selected_entry" || vim "$selected_entry"; }\n'
 
 # now Ctrl + e will execute ~/scripts/tmux_sessionizer.sh
-bindkey -s ^f '~/scripts/tmux-sessionizer.sh\n'
+bindkey -s ^f 'tmux-sessionizer\n'
 
 conda activate base
 
