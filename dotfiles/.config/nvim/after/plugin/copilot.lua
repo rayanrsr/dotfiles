@@ -38,6 +38,7 @@ vim.g.copilot_filetypes = {
     fish = true,
     zsh = true,
     bash = true,
+    shell = true,
     dockerfile = true,
     makefile = true,
     cmake = true,
