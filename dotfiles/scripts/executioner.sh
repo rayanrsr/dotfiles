@@ -16,4 +16,21 @@ run_project() {
     read -n 1 -s -r -p "Press any key to exit."
 }
 
-run_project
+run_tests() {
+    if [ -f "test.sh" ]; then
+        bash test.sh
+    # check if there is a tests folder if so pytest it
+    elif [ -d "tests" ]; then
+        pytest tests
+    else
+        echo "No recognized test script found in the project directory."
+    fi
+    # Keep the tmux pane open after the command has finished
+    read -n 1 -s -r -p "Press any key to exit."
+}
+# check for presence of -t flag
+if [ "$1" == "-t" ]; then
+    run_tests
+else
+    run_project
+fi

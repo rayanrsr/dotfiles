@@ -53,8 +53,10 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 --     vim.cmd("so")
 -- end)
 
--- Execute current file
+-- Execute main project file
 vim.keymap.set("n", "<leader>r", "<cmd>silent !tmux split-window -v executioner<CR>")
+-- Execute tests of actual project
+vim.keymap.set("n", "<leader>t", "<cmd>silent !tmux split-window -v executioner -t<CR>")
 -- Disable arrows movement
 vim.keymap.set('', '<Up>', '<Nop>')
 vim.keymap.set('', '<Down>', '<Nop>')
