@@ -15,3 +15,13 @@
       debug:
         msg: "tmux-sessionizer.sh moved to /usr/local/bin/tmux-sessionizer successfully!"
 
+    - name: Copy executionier.sh to /usr/local/bin
+      copy:
+        src: "{{ playbook_dir }}/../dotfiles/scripts/executionier.sh"
+        dest: "/usr/local/bin/executionier"
+        mode: 0755 
+
+    - name: Print completion message
+      debug:
+        msg: "executionier.sh moved to /usr/local/bin/executionier successfully!"
+
