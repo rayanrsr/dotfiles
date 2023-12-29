@@ -176,7 +176,8 @@ alias ls="lsd"
 #if [ "$TMUX" = "" ]; then exec tmux; fi
 #bindkey -s '^f' '$(fzf)\n'
 #bindkey -s '^f' 'selected_dir=$(find . -maxdepth 8 -type d | fzf); [ -n "$selected_dir" ] && cd "$selected_dir"\n'
-bindkey -s ^e 'selected_entry=$(find $HOME -maxdepth 8 -type f -o -type d | fzf); [ -n "$selected_entry" ] && { [ -d "$selected_entry" ] && cd "$selected_entry" || vim "$selected_entry"; }\n'
+bindkey -s ^e 'selected_entry=$(find $HOME/Downloads $HOME/Documents $HOME/Codes $HOME/github $HOME/work $HOME/Github -maxdepth 8 -type f -o -type d | fzf); [ -n "$selected_entry" ] && { [ -d "$selected_entry" ] && cd "$selected_entry" || vim "$selected_entry"; }\n'
+
 
 # now Ctrl + e will execute ~/scripts/tmux_sessionizer.sh
 bindkey -s ^f 'tmux-sessionizer\n'

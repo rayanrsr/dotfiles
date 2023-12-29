@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/ -mindepth 1 -maxdepth 5 -type d | fzf)
+    # Use find with exclusion
+    selected=$(find ~$HOME/Downloads $HOME/Documents $HOME/Codes $HOME/github $HOME/work $HOME/Github -mindepth 1 -maxdepth 9 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
@@ -23,3 +25,4 @@ if ! tmux has-session -t=$selected_name 2> /dev/null; then
 fi
 
 tmux switch-client -t $selected_name
+
