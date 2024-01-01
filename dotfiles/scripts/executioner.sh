@@ -13,7 +13,6 @@ run_project() {
         echo "No recognized run script found in the project directory."
     fi
     # Keep the tmux pane open after the command has finished
-    read -n 1 -s -r -p "Press any key to exit."
 }
 
 run_tests() {
@@ -26,7 +25,6 @@ run_tests() {
         echo "No recognized test script found in the project directory."
     fi
     # Keep the tmux pane open after the command has finished
-    read -n 1 -s -r -p "Press any key to exit."
 }
 # check for presence of -t flag
 if [ "$1" == "-t" ]; then
@@ -34,3 +32,5 @@ if [ "$1" == "-t" ]; then
 else
     run_project
 fi
+
+read -n 1 -s -r -p "Press any key to exit."
