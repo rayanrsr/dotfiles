@@ -31,7 +31,8 @@ return {
   end,
   dependencies = { {'nvim-tree/nvim-web-devicons'}}
 },
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    -- { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { 'rose-pine/neovim', name = 'rose-pine' }, 
     {'nvim-tree/nvim-tree.lua'},
     {'mfussenegger/nvim-dap'},
     {'terrortylor/nvim-comment'},
