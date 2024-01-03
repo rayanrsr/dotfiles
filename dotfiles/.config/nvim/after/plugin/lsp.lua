@@ -3,8 +3,8 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 lsp.configure('gdscript', {
     force_setup = true, -- because the LSP is global. Read more on lsp-zero docs about this.
-    single_file_support = false,
-    cmd = {'ncat', '127.0.0.1', '6008'}, -- the important trick for Windows!
+    single_file_support = true,
+    -- cmd = {'ncat', '127.0.0.1', '6008'}, -- the important trick for Windows!
     root_dir = require('lspconfig.util').root_pattern('project.godot', '.git'),
     filetypes = {'gd', 'gdscript', 'gdscript3' }
 })
