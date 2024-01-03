@@ -34,7 +34,10 @@ alt - g: yabai -m display --focus east
 # -- Modifying Window Size --
 
 # maximize a window
-alt - f : yabai -m window --toggle zoom-fullscreen
+#alt - f : yabai -m window --toggle zoom-fullscreen
+alt - f : yabai -m query --spaces --window | grep '"type":"float"' && yabai -m space --layout bsp;\
+          yabai -m query --windows --window | grep '"floating":1' && yabai -m window --toggle float;\
+          yabai -m window --toggle zoom-fullscreen;
 # alternative
 #alt - f : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')"
 
