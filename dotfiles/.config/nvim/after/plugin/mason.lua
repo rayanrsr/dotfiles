@@ -11,21 +11,12 @@ require("mason").setup({
 require("mason-lspconfig").setup{
     ensure_installed = {
 "es-lint-lsp",
-            "eslint",
             "prettier",
-            "black",
             "cmake",
             "mypy",
             "ruff",
             "rust-analyzer",
             "pyright",
-            "svelte",
-           "tsls",
-            "debugpy",
-            "flake8",
-            "black",
-            "python-lsp-server",
-            "isort",
             },
     automatic_installation = true,
 }
