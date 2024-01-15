@@ -5,7 +5,8 @@ window:
   title: RayTerm
   dynamic_title: false
   startup_mode: Maximized
-  opacity: 0.9
+  blur: True
+  opacity: 0.75
 cursor:
   style:
     shape: Beam       # Supported => ▇ Block, _ Underline, | Beam
