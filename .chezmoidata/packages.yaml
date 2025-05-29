@@ -46,7 +46,7 @@ packages:
       - openssh
       - yazi
       - uv
-    
+
     # Packages only for non-WSL Arch Linux systems (GUI applications, games, etc.)
     non_wsl_packages:
       - ulauncher
@@ -61,6 +61,7 @@ packages:
       - hyprpaper
       - hyprlock
       - notion-app-electron
+      - xdg-desktop-portal-hyprland
   ubuntu:
     packages:
       - git
