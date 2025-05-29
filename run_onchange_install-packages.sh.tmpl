@@ -15,6 +15,18 @@ EOF
 
 {{- else if eq .chezmoi.os "linux" }}
 
+# Function to detect if running in WSL
+is_wsl() {
+  if [ -f /proc/version ] && grep -qi microsoft /proc/version; then
+    return 0  # true - running in WSL
+  elif [ -f /proc/sys/kernel/osrelease ] && grep -qi microsoft /proc/sys/kernel/osrelease; then
+    return 0  # true - running in WSL
+  elif [ -n "${WSL_DISTRO_NAME}" ] || [ -n "${WSLENV}" ]; then
+    return 0  # true - running in WSL
+  else
+    return 1  # false - not running in WSL
+  fi
+}
 
 if [ -f /etc/arch-release ]; then
   echo "Installing packages on Arch Linux using yay..."
@@ -23,9 +35,18 @@ if [ -f /etc/arch-release ]; then
     sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
     exit 1
   fi
-  # sudo pacman -Qq aquamarine &>/dev/null && sudo pacman -Rnd --noconfirm aquamarine
-  # sudo pacman -Qq | grep '^hypr' | xargs -r sudo pacman -Rnd --noconfirm
+  
+  # Install common packages
+  echo "📦 Installing common Arch Linux packages..."
   yay -S --noconfirm {{ range .packages.arch.packages }}"{{ . }}" {{ end }}
+  
+  # Check if we're in WSL and install non-WSL packages accordingly
+  if is_wsl; then
+    echo "🐧 WSL detected - skipping GUI applications and games"
+  else
+    echo "🖥️  Native Linux detected - installing GUI applications and games..."
+    yay -S --noconfirm {{ range .packages.arch.non_wsl_packages }}"{{ . }}" {{ end }}
+  fi
 
 elif [ -f /etc/debian_version ]; then
   echo "Installing packages on Ubuntu/Debian using apt..."

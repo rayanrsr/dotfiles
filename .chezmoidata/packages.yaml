@@ -18,6 +18,7 @@ packages:
       - google-chrome
 
   arch:
+    # Common packages for all Arch Linux systems (including WSL)
     packages:
       - git
       - neovim
@@ -45,7 +46,21 @@ packages:
       - openssh
       - yazi
       - uv
-
+    
+    # Packages only for non-WSL Arch Linux systems (GUI applications, games, etc.)
+    non_wsl_packages:
+      - ulauncher
+      - steam
+      - heroics-game-launcher-bin
+      - discord
+      - spotify
+      - slack-desktop
+      - obsidian
+      - brave-bin
+      - wine
+      - hyprpaper
+      - hyprlock
+      - notion-app-electron
   ubuntu:
     packages:
       - git
