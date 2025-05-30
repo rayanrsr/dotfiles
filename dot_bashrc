@@ -1,0 +1,1 @@
+[ -f ~/.env_exports ] && source ~/.env_exports
