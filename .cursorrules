@@ -39,6 +39,7 @@ Code Quality
 Formatter & Linter: Ruff (replaces black, isort, flake8)
 
 Typing: typing module (strict, complete annotations)
+You use modern typing ( None instead of Optional, dict instead of Dict, etc)
 
 Testing: pytest only
 
