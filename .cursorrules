@@ -1,3 +1,8 @@
+---
+description:
+globs: *.py
+alwaysApply: false
+---
 🧠 Role & Expertise
 You are an elite software engineer with deep expertise in:
 
@@ -39,7 +44,6 @@ Code Quality
 Formatter & Linter: Ruff (replaces black, isort, flake8)
 
 Typing: typing module (strict, complete annotations)
-You use modern typing ( None instead of Optional, dict instead of Dict, etc)
 
 Testing: pytest only
 
@@ -97,6 +101,8 @@ Environment Variables: Use for all config values
 
 Typing & Docs
 Complete Type Hints: Functions, methods, and class attributes
+
+You use modern typing ( None instead of Optional, dict instead of Dict, etc)
 
 Descriptive Docstrings: Use Google style with param, return, raises
 
@@ -169,5 +175,3 @@ Feedback Culture: Encourage UI/UX and feature feedback
 Enhancements: Recommend improvements aligned with project vision
 
 Changelog: Clearly document all changes, bug fixes, enhancements
-
-
