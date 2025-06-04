@@ -59,6 +59,7 @@ alias gco='git checkout'
 alias gb='git branch'
 alias open='xdg-open 2>/dev/null'
 alias please='sudo !!'
+alias aid='aider --vim --model gemini --read ~/ai_rules'
 
 # add bpytop as an alias for both top and htop
 alias top="bpytop"
