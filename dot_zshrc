@@ -172,5 +172,9 @@ if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
 fi
 
 export DOCKER_BUILDKIT=1
-[ -f ~/.env_exports ] && source ~/.env_exports
+if [ -f ~/.env_exports ]; then
+  source ~/.env_exports
+else
+  echo "File ~/.env_exports not found."
+fi
 
