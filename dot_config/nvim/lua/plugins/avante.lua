@@ -44,6 +44,7 @@ return {
   },
   opts = {
     provider = "gemini", -- Recommend using Claude
+    cursor_applying_provider = 'gemini',
     highlights = {
       diff = {
         current = "MyAvanteCurrentGroup",
@@ -52,6 +53,7 @@ return {
     },
     behaviour = {
       auto_suggestions = false,
+      enable_cursor_planning_mode = true, -- enable cursor planning mode!
       auto_set_highlight_group = true,
       auto_set_keymaps = true,
       auto_apply_diff_after_generation = false,
