@@ -3,7 +3,6 @@ vim.api.nvim_set_hl(0, "MyAvanteCurrentGroup", {
   bg = "#9c1e1e",
 })
 
-
 vim.api.nvim_set_hl(0, "MyAvanteIncomingGroup", {
   fg = nil,
   bg = "#258036",
@@ -44,12 +43,12 @@ return {
   },
   opts = {
     provider = "gemini", -- Recommend using Claude
-    cursor_applying_provider = 'gemini',
+    cursor_applying_provider = "gemini",
     highlights = {
       diff = {
         current = "MyAvanteCurrentGroup",
-        incoming = "MyAvanteIncomingGroup"
-      }
+        incoming = "MyAvanteIncomingGroup",
+      },
     },
     behaviour = {
       auto_suggestions = false,
@@ -59,10 +58,12 @@ return {
       auto_apply_diff_after_generation = false,
       support_paste_from_clipboard = false,
     },
-    gemini = {
-      model = "gemini-2.5-flash-preview-04-17",
-      temperature = 0,
-      max_tokens = 4096,
+    providers = {
+      gemini = {
+        model = "gemini-2.5-flash-preview-04-17",
+        temperature = 0,
+        max_tokens = 4096,
+      },
     },
   },
 }
