@@ -51,7 +51,7 @@ return {
       },
     },
     behaviour = {
-      auto_suggestions = false,
+      auto_suggestions = true,
       enable_cursor_planning_mode = true, -- enable cursor planning mode!
       auto_set_highlight_group = true,
       auto_set_keymaps = true,
