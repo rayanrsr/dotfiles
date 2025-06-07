@@ -70,19 +70,9 @@
     "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
   },
   {
-    "key": "space a a",
-    "command": "composerMode.chat",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
-  },
-  {
     "key": "space c",
     "command": "workbench.action.chat.newChat",
     "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && chatIsEnabled && inChat && chatLocation != 'editing-session'"
-  },
-  {
-    "key": "space a k",
-    "command": "aipopup.action.modal.generate",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && editorFocus && !composerBarIsVisible"
   },
   {
     "key": "ctrl+l",
