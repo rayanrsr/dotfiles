@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.os "darwin" }}
+dest: "{{ .chezmoi.homeDir }}/Library/Application Support/Cursor"
+{{- else }}
+dest: "{{ .chezmoi.homeDir }}/.config/Cursor"
+{{- end }} 
