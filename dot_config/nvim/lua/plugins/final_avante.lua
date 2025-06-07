@@ -51,18 +51,30 @@ return {
       },
     },
     behaviour = {
-      auto_suggestions = true,
+      auto_suggestions = false,
       enable_cursor_planning_mode = true, -- enable cursor planning mode!
       auto_set_highlight_group = true,
       auto_set_keymaps = true,
       auto_apply_diff_after_generation = false,
       support_paste_from_clipboard = false,
     },
+    mappings = {
+      suggestion = {
+        accept = "<leader>ca",
+        next = "<leader>cn",
+        prev = "<leader>cp",
+        dismiss = "<leader>cd",
+      },
+    },
+    selector = {
+      provider = "snacks",
+      provider_opts = {},
+    },
     providers = {
       gemini = {
         model = "gemini-2.5-flash-preview-04-17",
         temperature = 0,
-        max_tokens = 4096,
+        max_tokens = 100000,
       },
     },
   },
