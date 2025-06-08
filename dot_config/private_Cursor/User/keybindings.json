@@ -64,11 +64,11 @@
     "command": "workbench.action.focusActiveEditorGroup",
     "when": "terminalFocus"
   },
-  {
-    "key": "/",
-    "command": "actions.find",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
-  },
+  // {
+  //   "key": "/",
+  //   "command": "actions.find",
+  //   "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+  // },
   {
     "key": "space a a",
     "command": "composerMode.chat",
@@ -79,11 +79,11 @@
     "command": "workbench.action.chat.newChat",
     "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && chatIsEnabled && inChat && chatLocation != 'editing-session'"
   },
-  {
-    "key": "space a k",
-    "command": "aipopup.action.modal.generate",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && editorFocus && !composerBarIsVisible"
-  },
+  // {
+  //   "key": "space a k",
+  //   "command": "aipopup.action.modal.generate",
+  //   "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && editorFocus && !composerBarIsVisible"
+  // },
   {
     "key": "ctrl+l",
     "command": "-workbench.action.chat.newChat",
@@ -98,11 +98,11 @@
     "key": "ctrl+l",
     "command": "-aichat.newchataction"
   },
-  {
-    "key": "ctrl+l",
-    "command": "-composer.sendToAgent",
-    "when": "editorHasPromptBar && editorPromptBarFocused"
-  },
+  // {
+  //   "key": "ctrl+l",
+  //   "command": "-composer.sendToAgent",
+  //   "when": "editorHasPromptBar && editorPromptBarFocused"
+  // },
   {
     "key": "space c c",
     "command": "workbench.action.chat.toggle",
