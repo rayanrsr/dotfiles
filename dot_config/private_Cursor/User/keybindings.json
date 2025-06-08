@@ -11,7 +11,7 @@
   },
   {
     "key": "g d",
-    "command": "editor.action.revealDefinition",
+    "command": "editor.action.goToDefinition",
     "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
   },
   {
