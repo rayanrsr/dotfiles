@@ -1,6 +1,11 @@
 // Place your key bindings in this file to override the defaults
 [
   {
+    "key": "g g",
+    "command": "cursorTop",
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+  },
+  {
     "key": "ctrl+i",
     "command": "composerMode.agent"
   },
