@@ -42,12 +42,12 @@
   {
     "key": "space p v",
     "command": "workbench.action.toggleSidebarVisibility",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "space t",
     "command": "workbench.action.closePanel",
-    "when": "vim.active && vim.mode == 'Normal' && !terminalFocus"
+    "when": "vim.active && vim.mode == 'Normal' && !terminalFocus && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "ctrl+j",
@@ -77,12 +77,12 @@
   {
     "key": "space a a",
     "command": "composerMode.chat",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "space c",
     "command": "workbench.action.chat.newChat",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && chatIsEnabled && inChat && chatLocation != 'editing-session'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && chatIsEnabled && inChat && chatLocation != 'editing-session' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   // {
   //   "key": "space a k",
@@ -111,7 +111,7 @@
   {
     "key": "space c c",
     "command": "workbench.action.chat.toggle",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "ctrl+l",
@@ -161,36 +161,36 @@
   {
     "key": "space a",
     "command": "vscode-harpoon.addEditor",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "space e",
     "command": "vscode-harpoon.editEditors",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "space 1",
     "command": "vscode-harpoon.gotoEditor1",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "space 2",
     "command": "vscode-harpoon.gotoEditor2",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "space 3",
     "command": "vscode-harpoon.gotoEditor3",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "space 4",
     "command": "vscode-harpoon.gotoEditor4",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   },
   {
     "key": "space 5",
     "command": "vscode-harpoon.gotoEditor5",
-    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
   }
 ]

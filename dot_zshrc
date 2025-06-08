@@ -178,3 +178,17 @@ else
   echo "File ~/.env_exports not found."
 fi
 
+# Cursor CLI function
+function cursor() {
+    if [ $# -eq 0 ]; then
+        args=$(pwd)
+    else
+        args="$@"
+    fi
+    (nohup /opt/cursor.appimage --no-sandbox "$args" >/dev/null 2>&1 &)
+}
+
+function code {
+   cursor $@
+}
+

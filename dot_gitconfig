@@ -4,7 +4,7 @@
 	name = rayanramoul
 	email = r.ramoul@instadeep.com
 [core]
-	editor = nvim
+	editor = code --wait
 [credential]
 	helper = 
 	helper = /usr/local/share/gcm-core/git-credential-manager
