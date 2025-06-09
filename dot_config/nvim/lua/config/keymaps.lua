@@ -63,3 +63,5 @@ vim.keymap.set("n", "<leader>cu", "<cmd>silent !cursor %<CR>", { desc = "Open cu
 
 -- go from terminal mode to normal mode
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
+
+vim.api.nvim_set_option("clipboard", "unnamed")

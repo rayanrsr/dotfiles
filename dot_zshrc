@@ -127,7 +127,8 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 export PATH="$HOME/google-cloud-sdk/bin:$PATH"  
 
 export PATH=$PATH:~/miniconda3/bin
-export DISABLE_AUTO_PROMPT=true
+# To disable oh-my-zsh updates
+export DISABLE_AUTO_PROMPT=false
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
