@@ -59,4 +59,4 @@ end, { desc = "Switch to or create tmux session Notes" })
 vim.keymap.set("x", "p", '"_dP', { desc = "Paste without overwriting yank register" })
 
 -- open current buffer in cursor
-vim.keymap.set("n", "<leader>cu", "<cmd>silent !code %<CR>", { desc = "Open current buffer in cursor" })
+vim.keymap.set("n", "<leader>cu", "<cmd>silent !cursor %<CR>", { desc = "Open current buffer in cursor" })
