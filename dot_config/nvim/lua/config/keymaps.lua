@@ -60,3 +60,6 @@ vim.keymap.set("x", "p", '"_dP', { desc = "Paste without overwriting yank regist
 
 -- open current buffer in cursor
 vim.keymap.set("n", "<leader>cu", "<cmd>silent !cursor %<CR>", { desc = "Open current buffer in cursor" })
+
+-- go from terminal mode to normal mode
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
