@@ -18,6 +18,7 @@ export EDITOR='nvim'
 
 plugins=(git fzf-tab zsh-autosuggestions zsh-syntax-highlighting z fzf-zsh-plugin)
 
+export DISABLE_AUTO_PROMPT=true
 source $ZSH/oh-my-zsh.sh
 
 # zsh-completions :
@@ -56,6 +57,7 @@ alias gr='git rebase'
 alias gp='git push'
 alias gu='git unstage'
 alias gco='git checkout'
+
 alias gb='git branch'
 alias open='xdg-open 2>/dev/null'
 alias please='sudo !!'
@@ -127,8 +129,7 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 export PATH="$HOME/google-cloud-sdk/bin:$PATH"  
 
 export PATH=$PATH:~/miniconda3/bin
-# To disable oh-my-zsh updates
-export DISABLE_AUTO_PROMPT=false
+
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
