@@ -192,5 +192,11 @@
     "key": "space 5",
     "command": "vscode-harpoon.gotoEditor5",
     "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && !inSettingsEditor && !inQuickOpen && !inSearchEditor"
+  },
+  {
+    "key": ";",
+    "command": "type",
+    "args": { "text": ":" },
+    "when": "editorTextFocus && vim.active && vim.mode == 'Normal'"
   }
 ]
