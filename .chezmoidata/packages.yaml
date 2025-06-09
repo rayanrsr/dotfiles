@@ -21,6 +21,7 @@ packages:
     # Common packages for all Arch Linux systems (including WSL)
     packages:
       - git
+      - cargo
       - neovim
       - python-pip
       - bpytop
@@ -46,6 +47,9 @@ packages:
       - openssh
       - yazi
       - uv
+      - luarocks
+      - jre-openjdk
+      - tectonic
 
     # Packages only for non-WSL Arch Linux systems (GUI applications, games, etc.)
     non_wsl_packages:
