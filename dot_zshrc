@@ -183,3 +183,6 @@ else
 fi
 
 
+autoload -Uz bashcompinit && bashcompinit
+
+

@@ -3,8 +3,10 @@
 # so it won't be run twice on AeroSpace restart
 
 # Notify Sketchybar about workspace change
-exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
 ]
 # After that, you can edit ~/.aerospace.toml to your liking
 
@@ -17,10 +19,10 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-    # Install JankyBorders first, it has a built-in detection of already running process,
-    # so it won't be run twice on AeroSpace restart
-    'exec-and-forget borders active_color=0xff00FFFF inactive_color=0xffa1a1a1 width=5.0',
-    'exec-and-forget sketchybar'
+  # Install JankyBorders first, it has a built-in detection of already running process,
+  # so it won't be run twice on AeroSpace restart
+  'exec-and-forget borders active_color=0xff00FFFF inactive_color=0xffa1a1a1 width=5.0',
+  'exec-and-forget sketchybar',
 ]
 # Start AeroSpace at login
 start-at-login = true
@@ -79,7 +81,7 @@ outer.right = 5
 # 'main' binding mode must be always presented
 # Fallback value (if you omit the key): mode.main.binding = {}
 [mode.main.binding]
-alt-shift-q = 'close-focused-window' # Replace 'close-focused-window' with the actual command
+#alt-shift-q = 'close-focused-window'                  # Replace 'close-focused-window' with the actual command
 alt-enter = 'exec-and-forget open -a "Brave Browser"'
 
 # All possible keys:
@@ -175,8 +177,8 @@ alt-shift-space = 'mode service'
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = [
-    'layout floating tiling',
-    'mode main',
+  'layout floating tiling',
+  'mode main',
 ] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 
@@ -278,4 +280,3 @@ run = 'move-node-to-workspace 5'
 # [[on-window-detected]]
 # if.app-id = 'com.googlecode.iterm2'
 # run = 'layout floating'
-

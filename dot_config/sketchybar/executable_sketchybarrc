@@ -21,6 +21,9 @@ sketchybar --default "${default[@]}"
 
 ##### Aerospace Workspace Items #####
 sketchybar --add event aerospace_workspace_change
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED=$AEROSPACE_FOCUSED_WORKSPACE'
+]
 
 WORKSPACE_LABELS=(
   " Terminal"
