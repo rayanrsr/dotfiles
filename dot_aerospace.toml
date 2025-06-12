@@ -196,7 +196,7 @@ alt-shift-l = ['join-with right', 'mode main']
 # workspace 1 apps : browsers
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser'
-run = 'move-node-to-workspace 1'
+run = 'move-node-to-workspace 2'
 
 # workspace 2 apps ; Pycharm
 [[on-window-detected]]
