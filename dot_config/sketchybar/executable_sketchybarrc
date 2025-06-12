@@ -33,9 +33,6 @@ WORKSPACE_LABELS=(
   " Gaming"
   " Code"
   " Work"
-  " Research"
-  " Settings"
-  " Files"
 )
 sketchybar --add event aerospace_workspace_change
 
