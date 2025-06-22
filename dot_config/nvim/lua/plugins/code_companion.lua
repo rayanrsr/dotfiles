@@ -20,6 +20,18 @@ return {
     },
     enabled = true,
     opts = {
+      gemini = function()
+        return require("codecompanion.adapters").extend("gemini", {
+          schema = {
+            model = {
+              default = "gemini-2.5-flash-preview-05-20",
+            },
+          },
+          env = {
+            api_key = "GEMINI_API_KEY",
+          },
+        })
+      end,
       display = {
         chat = {
           intro_message = "Welcome to CodeCompanion ✨! Press ? for options",
@@ -30,8 +42,8 @@ return {
       strategies = {
         chat = {
           adapter = {
-            name = "copilot",
-            model = "claude-sonnet-4-20250514",
+            name = "gemini",
+            model = "gemini-2.5-flash-preview-05-20",
           },
           roles = {
             llm = "CodeCompanion",
@@ -59,7 +71,7 @@ return {
         },
       },
       inline = {
-        adapter = "copilot",
+        adapter = "gemini",
       },
     },
     keys = {
