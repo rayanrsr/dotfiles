@@ -45,20 +45,42 @@ alias oldvi="\vi"
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias yz="yazi"
+
 # Git stuff
 alias ga='git add'
-alias gc='git commit'
-alias gcm='git commit -m'
-alias gs='git status'
-alias gd='git diff'
-alias gf='git fetch'
-alias gm='git merge'
-alias gr='git rebase'
-alias gp='git push'
-alias gu='git unstage'
-alias gco='git checkout'
-
+alias gap='ga --patch'
 alias gb='git branch'
+alias gba='gb --all'
+alias gc='git commit'
+alias gca='gc --amend --no-edit'
+alias gce='gc --amend'
+alias gco='git checkout'
+alias gcl='git clone --recursive'
+alias gd='git diff --output-indicator-new=" " --output-indicator-old=" "'
+alias gds='gd --staged'
+alias gi='git init'
+alias gl='git log --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n"'
+alias gm='git merge'
+alias gn='git checkout -b'  # new branch
+alias gp='git push'
+alias gr='git reset'
+alias gs='git status --short'
+alias gu='git pull'
+
+gcm() { git commit --message "$*" }
+
+# Aliases: docker
+alias dps='docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
+alias dl='docker logs --tail=100'
+alias dc='docker compose'
+
+# Aliases: tmux
+alias ta='tmux attach'
+alias tl='tmux list-sessions'
+alias tn='tmux new-session -s'
+
+
+
 alias open='xdg-open 2>/dev/null'
 alias please='sudo !!'
 alias aid='aider --vim --model gemini --read ~/ai_rules'
