@@ -77,6 +77,16 @@ alias ta='tmux attach'
 alias tl='tmux list-sessions'
 alias tn='tmux new-session -s'
 
+# Aliases: chezmoi
+alias cz='chezmoi'
+alias cza='chezmoi apply'
+alias czd='chezmoi diff'
+alias czl='chezmoi ls'
+alias czp='chezmoi preview'
+alias czr='chezmoi resolve'
+alias czs='chezmoi status'
+alias czc='chezmoi cd'
+
 
 
 alias open='xdg-open 2>/dev/null'
