@@ -101,7 +101,7 @@ return {
       },
     },
   },
-  { // to render easily markdown files
+  {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "codecompanion" },
   },
