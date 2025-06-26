@@ -67,6 +67,12 @@ packages:
       - hyprlock
       - notion-app-electron
       - xdg-desktop-portal-hyprland
+      - sddm-theme-sugar-candy
+      - stremio
+      - awakened-poe-trade-git
+      - sunshine
+      - ollama
+      - open-webui
   ubuntu:
     packages:
       - git
