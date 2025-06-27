@@ -73,6 +73,7 @@ packages:
       - sunshine
       - ollama
       - open-webui
+      - libreoffice-fresh
   ubuntu:
     packages:
       - git
