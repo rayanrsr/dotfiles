@@ -87,6 +87,10 @@ alias czr='chezmoi resolve'
 alias czs='chezmoi status'
 alias czc='chezmoi cd'
 
+# LazyGit and LazyDocker
+alias lg='lazygit'
+alias ld='lazydocker'
+
 
 
 alias open='xdg-open 2>/dev/null'
