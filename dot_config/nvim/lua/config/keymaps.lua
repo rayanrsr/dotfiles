@@ -1,3 +1,10 @@
+-- Set <space> as the leader key
+-- See `:help mapleader`
+-- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps hereby
@@ -64,4 +71,9 @@ vim.keymap.set("n", "<leader>cu", "<cmd>silent !cursor %<CR>", { desc = "Open cu
 -- go from terminal mode to normal mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
-vim.api.nvim_set_option("clipboard", "unnamed")
+-- Clear highlights on search when pressing <Esc> in normal mode
+--  See `:help hlsearch`
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
