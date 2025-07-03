@@ -4,6 +4,7 @@ return {
     -- "nyoom-engineering/oxocarbon.nvim",
     "rose-pine/neovim",
     -- "tiagovla/tokyodark.nvim",
+    name = "rose-pine",
     lazy = false,
     priority = 1000,
     config = function()
@@ -14,13 +15,8 @@ return {
           bold = true,
         },
       })
+      -- Set the colorscheme
+      vim.cmd("colorscheme rose-pine")
     end,
-  },
-  -- Configure LazyVim to load rose-pine
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "rose-pine",
-    },
   },
 }

@@ -13,15 +13,23 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
     opts = {
       ensure_installed = {
         "basedpyright",
         "lua_ls",
       },
+      -- Disable automatic setup to prevent duplicates
+      automatic_setup = false,
     },
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
     opts = {
       ensure_installed = {
         -- Linters
