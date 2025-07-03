@@ -1,30 +1,32 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-
+# Basic zsh configuration
 export LANG=en_US.UTF-8
 export EDITOR='nvim'
 
-plugins=(git fzf-tab zsh-autosuggestions zsh-syntax-highlighting z fzf-zsh-plugin)
+# History settings
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
+setopt EXTENDED_HISTORY
 
-export DISABLE_AUTO_PROMPT=true
-source $ZSH/oh-my-zsh.sh
+# Completion settings
+autoload -Uz compinit
+compinit
 
-# zsh-completions :
+# Enable case-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# zsh-completions (if available via brew)
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
     autoload -Uz compinit
     compinit
 fi
@@ -148,8 +150,11 @@ export FZF_DEFAULT_OPTS=" \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-#zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# FZF-TAB configuration (if available)
+if [[ -f ~/.fzf-tab/fzf-tab.plugin.zsh ]]; then
+    source ~/.fzf-tab/fzf-tab.plugin.zsh
+    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+fi
 
 
 PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -171,8 +176,10 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Initialize Starship prompt (replaces powerlevel10k)
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -218,5 +225,15 @@ fi
 
 
 autoload -Uz bashcompinit && bashcompinit
+
+# Load standalone plugins (install these separately)
+# zsh-autosuggestions
+[[ -f ~/.zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source ~/.zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# zsh-syntax-highlighting
+[[ -f ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# z (jump around)
+[[ -f ~/.z.sh ]] && source ~/.z.sh
 
 
