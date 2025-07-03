@@ -4,7 +4,9 @@
 
 -- NOTE: Leader keys are set in config/lazy.lua before lazy.nvim loads
 
--- vim.keymap.set("n", "<leader>pv", ":Neotree toggle<CR>")
+-- File tree with Oil.nvim
+vim.keymap.set("n", "<leader>pv", "<cmd>Oil<CR>", { desc = "Open file tree" })
+
 vim.keymap.set("n", "J", "mzJ`z")
 
 -- Allow half page jumpings to keep the cursor in the middle

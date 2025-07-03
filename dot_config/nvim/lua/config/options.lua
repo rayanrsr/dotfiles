@@ -56,5 +56,3 @@ vim.opt.textwidth = 120
 vim.cmd([[
   au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 ]])
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
