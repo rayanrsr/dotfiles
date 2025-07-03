@@ -4,7 +4,7 @@ local function generate_slash_commands()
   for _, command in ipairs({ "buffer", "file", "help", "symbols" }) do
     commands[command] = {
       opts = {
-        provider = LazyVim.pick.picker.name, -- dynamically resolve the provider
+        provider = "fzf-lua", -- using fzf-lua as the provider
       },
     }
   end
@@ -61,7 +61,7 @@ return {
             },
             stop = {
               modes = {
-                n = "<C-c",
+                n = "<C-c>",
               },
               index = 4,
               callback = "keymaps.stop",

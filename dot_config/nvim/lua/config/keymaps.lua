@@ -1,13 +1,9 @@
--- Set <space> as the leader key
--- See `:help mapleader`
--- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
-
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps hereby
+-- Add any additional keymaps here
+
+-- NOTE: Leader keys are set in config/lazy.lua before lazy.nvim loads
+
 -- vim.keymap.set("n", "<leader>pv", ":Neotree toggle<CR>")
 vim.keymap.set("n", "J", "mzJ`z")
 
@@ -28,17 +24,8 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({ "n", "v" }, "<leader>q", [["_d]])
-
--- This is going to get me cancelled
-vim.keymap.set("i", "<C-c>", "<Esc>")
-
--- next greatest remap ever : asbjornHaland
--- interactions with the system copy buffers
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-
-vim.keymap.set({ "n", "v" }, "<leader>q", [["_d]])
+-- Delete to void register
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
@@ -47,12 +34,14 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("v", "*", ":<C-u>call VisualSelection('f')<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", ";", ":", { noremap = true, silent = true })
 
+-- Tmux navigation
 vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>")
 vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>")
 vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>")
 vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>")
 vim.keymap.set("n", "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>")
 
+-- Tmux sessionizer
 vim.keymap.set(
   "n",
   "<C-f>",
@@ -76,4 +65,4 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>xq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
