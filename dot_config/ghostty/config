@@ -1,12 +1,12 @@
 # To Reload config:
-# Ctrl + Shift + , 
+# Ctrl + Shift + ,
 theme = CGA
 mouse-hide-while-typing = true
 mouse-scroll-multiplier = 0.5
 macos-titlebar-style = transparent
 font-family = JetBrainsMono Nerd Font Mono
 font-size = 18
-background-opacity = 0.8
+background-opacity = 0.9
 background-blur-radius = 20
 title = RayTerm
 background = #000000
