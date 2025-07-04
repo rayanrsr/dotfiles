@@ -7,6 +7,9 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
+-- Disable line wrapping
+vim.o.wrap = false
+
 -- Save undo history
 vim.o.undofile = true
 
