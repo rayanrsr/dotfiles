@@ -29,5 +29,19 @@ return {
       end,
       desc = "Live grep",
     },
+    {
+      "<leader>pr",
+      function()
+        require("fzf-lua").resume()
+      end,
+      desc = "Resume last fzf-lua picker",
+    },
+    {
+      "<leader>pg",
+      function()
+        require("fzf-lua").grep_last()
+      end,
+      desc = "Repeat last grep search",
+    },
   },
 } 
