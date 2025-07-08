@@ -71,4 +71,3 @@ vim.keymap.set("n", "<leader>xq", vim.diagnostic.setloclist, { desc = "Open diag
 
 -- Open toggleterm
 vim.keymap.set("n", "<C-/>", "<cmd>ToggleTerm<CR>", { desc = "Open toggleterm" })
-
