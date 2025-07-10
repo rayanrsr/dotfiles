@@ -11,3 +11,6 @@ background-blur-radius = 20
 title = RayTerm
 background = #000000
 clipboard-paste-protection = false
+
+# Shell integration features for proper term info communication
+shell-integration-features = ssh-env, ssh-terminfo

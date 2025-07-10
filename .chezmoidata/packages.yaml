@@ -39,6 +39,10 @@ packages:
       - ripgrep
       - playerctl
       - pavucontrol
+      - pipewire-alsa
+      - pipewire-pulse
+      - wireplumber
+      - alsa-utils
       - wine
       - swww
       - dolphin
@@ -62,11 +66,23 @@ packages:
       - discord
       - spotify
       - slack-desktop
+      - teams-for-linux-bin
       - obsidian
       - brave-bin
+      - firefox
+      - vlc
       - wine
       - hyprpaper
       - hyprlock
+      - hyprland
+      - hyprshot
+      - mako
+      - fuzzel-git
+      - wofi
+      - rofi-emoji
+      - slurp
+      - grimblast-git
+      - wl-clipboard-git
       - notion-app-electron
       - xdg-desktop-portal-hyprland
       - sddm-theme-sugar-candy
@@ -76,6 +92,12 @@ packages:
       - ollama
       - open-webui
       - libreoffice-fresh
+      - prismlauncher-qt5
+      - ttf-meslo-nerd
+      - ttf-material-symbols-variable-git
+      - awesome-terminal-fonts
+      - noto-fonts
+      - noto-fonts-emoji
   ubuntu:
     packages:
       - git
