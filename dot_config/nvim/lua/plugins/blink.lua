@@ -1,7 +1,9 @@
 return {
   'saghen/blink.cmp',
-  -- optional: provides snippets for the snippet source
-  dependencies = { 'rafamadriz/friendly-snippets' },
+  -- Remove minuet dependency since we're using virtual text mode
+  dependencies = { 
+    'rafamadriz/friendly-snippets',
+  },
 
   -- use a release tag to download pre-built binaries
   version = '1.*',
@@ -25,7 +27,9 @@ return {
     -- C-k: Toggle signature help (if signature.enabled = true)
     --
     -- See :h blink-cmp-config-keymap for defining your own keymap
-    keymap = { preset = 'default' },
+    keymap = { 
+      preset = 'default',
+    },
 
     appearance = {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -33,17 +37,20 @@ return {
       nerd_font_variant = 'mono'
     },
 
-    -- (Default) Only show the documentation popup when manually triggered
+    -- Standard completion configuration
     completion = { 
       documentation = { auto_show = false },
       -- Enable ghost text (inline completion preview)
       ghost_text = { enabled = true },
+      trigger = { 
+        prefetch_on_insert = false,
+        show_on_insert_on_trigger_character = true,
+      },
     },
 
-    -- Default list of enabled providers defined so that you can extend it
-    -- elsewhere in your config, without redefining it, due to `opts_extend`
+    -- Sources without minuet (using virtual text instead)
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'path', 'buffer', 'snippets' },
     },
 
     -- Enable signature help
@@ -58,7 +65,7 @@ return {
   },
   opts_extend = { "sources.default" },
   
-  -- Ensure blink.cmp is properly initialized
+  -- Simple setup without minuet integration
   config = function(_, opts)
     require('blink.cmp').setup(opts)
   end,
