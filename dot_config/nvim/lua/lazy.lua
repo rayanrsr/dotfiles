@@ -180,13 +180,7 @@ return {
     end,
   },
 
-  -- Which-key
-  {
-    "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup()
-    end,
-  },
+
 
   -- Leap
   {
@@ -212,29 +206,7 @@ return {
     end,
   },
 
-  -- DAP
-  {
-    "mfussenegger/nvim-dap",
-    config = function()
-      require("dap").setup()
-    end,
-  },
 
-  -- DAP Python
-  {
-    "mfussenegger/nvim-dap-python",
-    config = function()
-      require("dap-python").setup()
-    end,
-  },
-
-  -- DAP UI
-  {
-    "rcarriga/nvim-dap-ui",
-    config = function()
-      require("dapui").setup()
-    end,
-  },
 
   -- Mason
   {
@@ -349,10 +321,10 @@ return {
 	config = function()
 		vim.cmd("colorscheme rose-pine")
 	end
-}
+  },
     -- Supermaven
     {
-        "supermaven-inc/supermaven-nvim"
+        "supermaven-inc/supermaven-nvim",
         config = function()
             require("supermaven-nvim").setup({
                 keymaps = {
