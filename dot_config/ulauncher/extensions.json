@@ -1,1 +1,37 @@
-{}
+{
+    "com.github.friday.ulauncher-clipboard": {
+        "id": "com.github.friday.ulauncher-clipboard",
+        "url": "https://github.com/friday/ulauncher-clipboard",
+        "updated_at": "2025-07-22T16:17:25.802033",
+        "last_commit": "73420cf4816f925321db15379c9c981c8f28c6fe",
+        "last_commit_time": "2022-08-03T20:22:13"
+    },
+    "com.github.mikebarkmin.ulauncher-obsidian": {
+        "id": "com.github.mikebarkmin.ulauncher-obsidian",
+        "url": "https://github.com/mikebarkmin/ulauncher-obsidian",
+        "updated_at": "2025-07-22T16:17:38.616890",
+        "last_commit": "a419cdc5e73453e4b284bb4905448ca60e4a3864",
+        "last_commit_time": "2023-09-12T10:42:25"
+    },
+    "com.github.ulauncher.ulauncher-emoji": {
+        "id": "com.github.ulauncher.ulauncher-emoji",
+        "url": "https://github.com/Ulauncher/ulauncher-emoji",
+        "updated_at": "2025-07-22T16:17:59.098093",
+        "last_commit": "af5806625e361ca4519b99755ccf0a557c1e894a",
+        "last_commit_time": "2025-06-03T19:05:58"
+    },
+    "com.github.mikebarkmin.ulauncher-duckduckgo": {
+        "id": "com.github.mikebarkmin.ulauncher-duckduckgo",
+        "url": "https://github.com/mikebarkmin/ulauncher-duckduckgo",
+        "updated_at": "2025-07-22T16:20:03.534464",
+        "last_commit": "f2ea6a187082c600a59acc9cca6e288d96f66cc0",
+        "last_commit_time": "2021-08-07T18:51:44"
+    },
+    "com.github.igorvaryvoda.ulauncher-perplexity": {
+        "id": "com.github.igorvaryvoda.ulauncher-perplexity",
+        "url": "https://github.com/IgorVaryvoda/ulauncher-perplexity",
+        "updated_at": "2025-07-22T16:23:40.605401",
+        "last_commit": "7320f7b1499417ad31d920688e600b80d8454f6d",
+        "last_commit_time": "2024-12-10T15:31:41"
+    }
+}
