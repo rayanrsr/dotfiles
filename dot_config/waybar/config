@@ -42,6 +42,7 @@
         "mpd",
         "wireplumber",
         "bluetooth",
+        "custom/break-status",
         "custom/notification",
         "custom/screenshot_t",
         "tray",
@@ -402,5 +403,15 @@
     "tray": {
         "icon-size": 15,
         "spacing": 5
+    },
+
+    "custom/break-status": {
+        "format": "{}",
+        "interval": 10,
+        "exec": "~/.local/share/chezmoi/scripts/executable_waybar-break-status.sh",
+        "return-type": "json",
+        "on-click": "~/.local/share/chezmoi/scripts/executable_break-reminder.sh start-break",
+        "on-click-right": "~/.local/share/chezmoi/scripts/executable_break-reminder.sh skip-break",
+        "tooltip": true
     }
 }

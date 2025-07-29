@@ -389,6 +389,34 @@ label:focus {
     margin-right: 0;
 }
 
+/* Custom break status module */
+#custom-break-status {
+    color: #c0caf5;
+    border: 1px solid #414868;
+    background-color: rgba(36, 40, 59, 0.8);
+}
+
+#custom-break-status.work {
+    color: #7aa2f7;
+    border: 1px solid #7aa2f7;
+}
+
+#custom-break-status.break-active {
+    color: #f7768e;
+    border: 1px solid #f7768e;
+    background-color: rgba(247, 118, 142, 0.2);
+    animation: break-pulse 2s infinite;
+}
+
+@keyframes break-pulse {
+    0%, 100% { 
+        box-shadow: 0 0 5px rgba(247, 118, 142, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 15px rgba(247, 118, 142, 0.6);
+    }
+}
+
 /* Hover effects for interactive modules */
 #custom-power:hover,
 #custom-screenshot_t:hover,

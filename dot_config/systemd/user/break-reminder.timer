@@ -1,0 +1,11 @@
+[Unit]
+Description=Break Reminder Timer
+Requires=break-reminder.service
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+RandomizedDelaySec=60
+
+[Install]
+WantedBy=timers.target
