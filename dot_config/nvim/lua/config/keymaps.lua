@@ -70,4 +70,6 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<leader>xq", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Open toggleterm
-vim.keymap.set("n", "<C-/>", "<cmd>ToggleTerm<CR>", { desc = "Open toggleterm" })
+vim.keymap.set("n", "<C-/>", function()
+  vim.cmd("ToggleTerm")
+end, { desc = "Open toggleterm" })

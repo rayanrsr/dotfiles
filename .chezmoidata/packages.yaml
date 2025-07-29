@@ -98,6 +98,7 @@ packages:
       - awesome-terminal-fonts
       - noto-fonts
       - noto-fonts-emoji
+      - overskride
   ubuntu:
     packages:
       - git
