@@ -32,13 +32,17 @@
     ],
     "modules-right": [
         "backlight",
+        "custom/updates",
         "custom/storage",
         "memory",
         "cpu",
         "battery",
-        //"pulseaudio",
+        "network",
+        "custom/vpn",
+        "mpd",
         "wireplumber",
         "bluetooth",
+        "custom/notification",
         "custom/screenshot_t",
         "tray",
         "custom/power"
@@ -127,25 +131,31 @@
         ]
     },
     "network": {
-        "format-wifi": " {essid} ({signalStrength}%)",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format": "",
-        "format-disconnected": "",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "on-click": "wl-copy $(ip address show up scope global | grep inet | head -n1 | cut -d/ -f 1 | tr -d [:space:] | cut -c5-)",
-        "on-click-right": "wl-copy $(ip address show up scope global | grep inet6 | head -n1 | cut -d/ -f 1 | tr -d [:space:] | cut -c6-)",
-        "tooltip-format": " {bandwidthUpBits}  {bandwidthDownBits}\n{ifname}\n{ipaddr}/{cidr}\n",
-        "tooltip-format-wifi": " {essid} {frequency}MHz\nStrength: {signaldBm}dBm ({signalStrength}%)\nIP: {ipaddr}/{cidr}\n {bandwidthUpBits}  {bandwidthDownBits}",
-        "interval": 10
+        "format-wifi": "📶 {essid} {signalStrength}%",
+        "format-ethernet": "🔗 Connected",
+        "format-linked": "🔗 No IP",
+        "format-disconnected": "❌ Disconnected",
+        "format-alt": "🔗 {ifname}: {ipaddr}/{cidr}",
+        "tooltip-format": "📶 {essid}\nStrength: {signaldBm}dBm ({signalStrength}%)\nIP: {ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor",
+        "on-click-right": "ghostty -e nmtui"
     },
     "custom/storage": {
-        "format": " {}",
-        "format-alt": "{percentage}% ",
+        "format": " {}",
+        "format-alt": "{percentage}% ",
         "format-alt-click": "click-right",
         "return-type": "json",
         "interval": 60,
         "exec": "~/.config/waybar/modules/storage.sh"
+    },
+
+    "custom/updates": {
+        "format": "📦 {}",
+        "interval": 3600,
+        "exec": "checkupdates | wc -l",
+        "exec-if": "exit 0",
+        "on-click": "ghostty -e paru",
+        "signal": 8
     },
 
     "backlight": {
@@ -261,18 +271,35 @@
     },
 
     "mpd": {
-        "max-length": 25,
-        "format": "<span foreground='#bb9af7'></span> {title}",
-        "format-paused": " {title}",
-        "format-stopped": "<span foreground='#bb9af7'></span>",
-        "format-disconnected": "",
-        "on-click": "mpc --quiet toggle",
-        "on-click-right": "mpc update; mpc ls | mpc add",
-        "on-click-middle": "alacritty -e ncmpcpp",
-        "on-scroll-up": "mpc --quiet prev",
-        "on-scroll-down": "mpc --quiet next",
-        "smooth-scrolling-threshold": 5,
-        "tooltip-format": "{title} - {artist} ({elapsedTime:%M:%S}/{totalTime:%H:%M:%S})"
+        "format": "{stateIcon} {artist} - {title}",
+        "format-disconnected": "🎵 Disconnected",
+        "format-stopped": "⏹️ Stopped",
+        "unknown-tag": "N/A",
+        "interval": 2,
+        "state-icons": {
+            "paused": "⏸️",
+            "playing": "▶️"
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)",
+        "on-click": "mpc toggle",
+        "on-click-right": "ghostty -e ncmpcpp"
+    },
+
+    "custom/notification": {
+        "format": "🔔 {}",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "escape": true
+    },
+
+    "custom/vpn": {
+        "format": "🔒 VPN",
+        "exec": "echo '{\"text\":\"VPN\",\"class\":\"connected\"}'",
+        "exec-if": "pgrep -x openvpn",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "ghostty -e sudo systemctl status openvpn"
     },
 
     "custom/title": {

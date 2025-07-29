@@ -99,6 +99,10 @@ packages:
       - noto-fonts
       - noto-fonts-emoji
       - overskride
+      - ghostty
+      - xsensors
+      - nmtui
+      - nm-connection-editor
   ubuntu:
     packages:
       - git
