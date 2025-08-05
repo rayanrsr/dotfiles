@@ -405,16 +405,7 @@ label:focus {
     color: #f7768e;
     border: 1px solid #f7768e;
     background-color: rgba(247, 118, 142, 0.2);
-    animation: break-pulse 2s infinite;
-}
-
-@keyframes break-pulse {
-    0%, 100% { 
-        box-shadow: 0 0 5px rgba(247, 118, 142, 0.3);
-    }
-    50% { 
-        box-shadow: 0 0 15px rgba(247, 118, 142, 0.6);
-    }
+    box-shadow: 0 0 10px rgba(247, 118, 142, 0.5);
 }
 
 /* Hover effects for interactive modules */
