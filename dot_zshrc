@@ -9,6 +9,7 @@ fi
 export LANG=en_US.UTF-8
 export EDITOR='nvim'
 source ~/powerlevel10k/powerlevel10k.zsh-theme
+export PATH="$HOME/.local/bin:$PATH"
 
 # History settings
 HISTFILE=~/.zsh_history
@@ -164,7 +165,7 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 
 # Export google-cloud-sdk
-export PATH="$HOME/google-cloud-sdk/bin:$PATH"  
+export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 
 export PATH=$PATH:~/miniconda3/bin
 export PATH=$PATH:~/.local/bin
