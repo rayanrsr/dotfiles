@@ -42,7 +42,6 @@
         "mpd",
         "wireplumber",
         "bluetooth",
-        "custom/break-status",
         "custom/notification",
         "custom/screenshot_t",
         "tray",
