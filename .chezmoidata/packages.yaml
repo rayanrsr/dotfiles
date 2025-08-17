@@ -46,7 +46,6 @@ packages:
       - wine
       - swww
       - dolphin
-      - zen-browser-bin
       - compton
       - openssh
       - yazi
@@ -59,18 +58,17 @@ packages:
 
     # Packages only for non-WSL Arch Linux systems (GUI applications, games, etc.)
     non_wsl_packages:
+      - bitwarden-bin
       - ulauncher
       - swww
       - waybar
       - steam
       - heroics-game-launcher-bin
       - discord
-      - spotify
       - slack-desktop
       - teams-for-linux-bin
       - obsidian
       - brave-bin
-      - firefox
       - vlc
       - wine
       - hyprpaper
@@ -79,8 +77,6 @@ packages:
       - hyprshot
       - mako
       - fuzzel-git
-      - wofi
-      - rofi-emoji
       - slurp
       - grimblast-git
       - wl-clipboard-git
@@ -88,7 +84,6 @@ packages:
       - xdg-desktop-portal-hyprland
       - sddm-theme-sugar-candy
       - stremio
-      - awakened-poe-trade-git
       - sunshine
       - ollama
       - open-webui
@@ -104,6 +99,7 @@ packages:
       - xsensors
       - nmtui
       - nm-connection-editor
+      - steamtinkerlaunch
   ubuntu:
     packages:
       - git
