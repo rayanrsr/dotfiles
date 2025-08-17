@@ -79,7 +79,6 @@ packages:
       - fuzzel-git
       - slurp
       - grimblast-git
-      - wl-clipboard-git
       - notion-app-electron
       - xdg-desktop-portal-hyprland
       - sddm-theme-sugar-candy
