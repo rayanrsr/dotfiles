@@ -258,17 +258,35 @@ return {
       { "<leader>fp", function() require("fzf-lua").files({ cwd = "~/Projects" }) end, desc = "Projects" },
       { "<leader>fr", function() require("fzf-lua").oldfiles() end, desc = "Recent Files" },
       
-      -- Git
-      { "<leader>g", group = "Git" },
-      { "<leader>gb", function() require("fzf-lua").git_branches() end, desc = "Branches" },
-      { "<leader>gB", function() vim.cmd("!gh browse") end, desc = "Git Browse" },
-      { "<leader>gd", function() require("fzf-lua").git_status() end, desc = "Git Status" },
-      { "<leader>gf", function() require("fzf-lua").git_bcommits() end, desc = "Git File History" },
-      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
-      { "<leader>gl", function() require("fzf-lua").git_commits() end, desc = "Git Log" },
-      { "<leader>gL", function() require("fzf-lua").git_bcommits() end, desc = "Git Log File" },
-      { "<leader>gs", function() require("fzf-lua").git_status() end, desc = "Git Status" },
-      { "<leader>gS", function() require("fzf-lua").git_stash() end, desc = "Git Stash" },
+       -- Git
+       { "<leader>g", group = "Git" },
+       { "<leader>gb", function() require("fzf-lua").git_branches() end, desc = "Branches" },
+       { "<leader>gB", function() vim.cmd("!gh browse") end, desc = "Git Browse" },
+       { "<leader>gd", function() require("fzf-lua").git_status() end, desc = "Git Status" },
+       { "<leader>gf", function() require("fzf-lua").git_bcommits() end, desc = "Git File History" },
+       { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+       { "<leader>gl", function() require("fzf-lua").git_commits() end, desc = "Git Log" },
+       { "<leader>gL", function() require("fzf-lua").git_bcommits() end, desc = "Git Log File" },
+       { "<leader>gs", function() require("fzf-lua").git_status() end, desc = "Git Status" },
+       { "<leader>gS", function() require("fzf-lua").git_stash() end, desc = "Git Stash" },
+
+       -- Diffview (Git Diff)
+       { "<leader>gv", group = "Diffview" },
+       { "<leader>gvo", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
+       { "<leader>gvc", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
+       { "<leader>gvr", "<cmd>DiffviewRefresh<cr>", desc = "Refresh Diffview" },
+       { "<leader>gvf", "<cmd>DiffviewFileHistory<cr>", desc = "File History" },
+       { "<leader>gvF", "<cmd>DiffviewFileHistory %<cr>", desc = "Current File History" },
+       { "<leader>gvm", "<cmd>DiffviewOpen --merge<cr>", desc = "Merge Tool" },
+       { "<leader>gvh", "<cmd>DiffviewOpen HEAD~1<cr>", desc = "Compare with HEAD~1" },
+       { "<leader>gvH", "<cmd>DiffviewOpen HEAD~1 -- %<cr>", desc = "File vs HEAD~1" },
+       { "<leader>gvs", "<cmd>DiffviewOpen --staged<cr>", desc = "Staged Changes" },
+       { "<leader>gvb", function()
+         local branch = vim.fn.input("Branch to compare: ")
+         if branch ~= "" then
+           vim.cmd("DiffviewOpen " .. branch)
+         end
+       end, desc = "Compare with Branch" },
       
       -- LSP
       { "<leader>l", function() 
