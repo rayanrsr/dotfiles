@@ -72,6 +72,19 @@ return {
 
       local servers = {
         bashls = true,
+        clangd = {
+          settings = {
+            clangd = {
+              arguments = {
+                "--background-index",
+                "--clang-tidy",
+                "--header-insertion=iwyu",
+                "--completion-style=detailed",
+                "--fallback-style=Google",
+              },
+            },
+          },
+        },
         gopls = {
           manual_install = true,
           settings = {
@@ -188,6 +201,8 @@ return {
 
       require("mason").setup()
       local ensure_installed = {
+        "clangd",
+        "clang-format",
         "lua_ls",
         "pyright",
         "ruff",

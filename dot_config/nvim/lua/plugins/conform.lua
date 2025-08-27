@@ -34,6 +34,11 @@ return {
       -- Rust
       rust = { "rustfmt", lsp_format = "fallback" },
       
+      -- C/C++
+      c = { "clang_format", lsp_format = "fallback" },
+      cpp = { "clang_format", lsp_format = "fallback" },
+      cxx = { "clang_format", lsp_format = "fallback" },
+      
       -- Shell
       sh = { "shfmt" },
       bash = { "shfmt" },
@@ -101,6 +106,14 @@ return {
       
       ruff_organize_imports = {
         -- You can add custom args here if needed
+      },
+      
+      -- Customize clang-format for C/C++
+      clang_format = {
+        prepend_args = { 
+          "--style=Google",  -- Use Google style as default
+          "--fallback-style=LLVM"  -- Fallback to LLVM style if no config found
+        },
       },
     },
   },
