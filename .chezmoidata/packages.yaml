@@ -61,6 +61,7 @@ packages:
       - bitwarden-bin
       - ulauncher
       - swww
+      - docker
       - waybar
       - steam
       - heroics-game-launcher-bin
@@ -99,6 +100,12 @@ packages:
       - nmtui
       - nm-connection-editor
       - steamtinkerlaunch
+      - vesktop
+      - opencode
+      - lutris
+      - heroic-games-launcher-bin
+      - cursor-cli
+      - cursor-bin
   ubuntu:
     packages:
       - git

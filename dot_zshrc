@@ -105,7 +105,7 @@ alias htop="bpytop"
 # ls after every cd command
 # Custom cd function to automatically list directory contents
 cd() {
-    builtin cd "$@" && ls
+    builtin cd "$@" && lsd
 }
 
 # add bat as an alias for cat
@@ -218,4 +218,3 @@ autoload -Uz bashcompinit && bashcompinit
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-source ~/z/z.sh
