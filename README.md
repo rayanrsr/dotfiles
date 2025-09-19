@@ -33,30 +33,11 @@ _ArchLinux Setup_
 ```bash
 # install chezmoi  (https://chezmoi.io)
 sudo pacman -S chezmoi
-chezmoi init --apply https://github.com/rayanramoul
+chezmoi init --apply https://github.com/rayanramoul/dotfiles
 # or if you have the permission
-chezmoi init --apply git@github.com:rayanramoul
+chezmoi init --apply git@github.com:rayanramoul/dotfiles
 ```
 
-# WSL Detection and Package Management
-
-RayTerm automatically detects if it's running in WSL (Windows Subsystem for Linux) and adjusts package installation accordingly:
-
-- **WSL Environment**: Installs only essential command-line tools and packages
-- **Native Linux**: Installs all packages including GUI applications like:
-  - `ulauncher` - Application launcher
-  - `steam` - Gaming platform
-  - `heroic-game-launcher-bin` - Epic Games launcher
-
-## Testing WSL Detection
-
-You can test the WSL detection functionality by running:
-
-```bash
-./scripts/test-wsl-detection.sh
-```
-
-This will show you whether your environment is detected as WSL or native Linux and what packages would be installed.
 
 # What is this ?
 
