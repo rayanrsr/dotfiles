@@ -6,6 +6,9 @@
     "layer": "top",
 
     "position": "top",
+    "mode": "hide",
+
+    "start_hidden": true,
 
     //"height": 20,
 
