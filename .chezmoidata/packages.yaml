@@ -106,6 +106,7 @@ packages:
       - heroic-games-launcher-bin
       - cursor-cli
       - cursor-bin
+      - lxappearance
   ubuntu:
     packages:
       - git
