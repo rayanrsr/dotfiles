@@ -107,6 +107,7 @@ packages:
       - cursor-cli
       - cursor-bin
       - lxappearance
+      - wl-gammarelay
   ubuntu:
     packages:
       - git
