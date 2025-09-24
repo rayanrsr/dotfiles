@@ -107,7 +107,7 @@ packages:
       - cursor-cli
       - cursor-bin
       - lxappearance
-      - wl-gammarelay
+      - gammastep
   ubuntu:
     packages:
       - git
