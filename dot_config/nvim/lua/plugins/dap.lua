@@ -4,7 +4,7 @@ return {
     { "nvim-neotest/nvim-nio" },
     { "rcarriga/nvim-dap-ui" },
     { "theHamsta/nvim-dap-virtual-text" },
-    { "nvim-telescope/telescope-dap.nvim" },
+    -- removed telescope-dap to avoid pulling telescope; Snacks picker covers needs
   },
   config = function()
     local dap = require("dap")

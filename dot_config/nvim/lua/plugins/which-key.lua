@@ -68,6 +68,27 @@ return {
     local function toggle_inlay_hints()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end
+
+    -- Snacks helpers
+    local function call_snacks_picker(method, args)
+      local ok, Snacks = pcall(require, "snacks")
+      if ok and Snacks and Snacks.picker and type(Snacks.picker[method]) == "function" then
+        return Snacks.picker[method](args or {})
+      end
+      vim.notify("Snacks picker " .. method .. " not available", vim.log.levels.WARN)
+    end
+
+    local function open_snacks_explorer()
+      local ok, Snacks = pcall(require, "snacks")
+      if ok and Snacks then
+        if Snacks.explorer and type(Snacks.explorer.open) == "function" then
+          return Snacks.explorer.open()
+        elseif type(Snacks.explorer) == "function" then
+          return Snacks.explorer()
+        end
+      end
+      vim.notify("Snacks explorer not available", vim.log.levels.WARN)
+    end
     
     wk.setup({
       preset = "modern",
@@ -171,7 +192,7 @@ return {
     wk.add({
       -- Global mappings
       { "<C-a>", function() require("harpoon"):list():add() end, desc = "Harpoon Add File" },
-      { "<C-p>", function() require("fzf-lua").files() end, desc = "Find Files" },
+      { "<C-p>", function() call_snacks_picker("files") end, desc = "Find Files" },
       { "<C-e>", function() 
         local harpoon = require("harpoon")
         harpoon.ui:toggle_quick_menu(harpoon:list())
@@ -186,18 +207,18 @@ return {
       
       -- Go to mappings
       { "g", group = "Go to" },
-      { "gd", function() require("fzf-lua").lsp_definitions() end, desc = "Go to Definition" },
-      { "gD", function() require("fzf-lua").lsp_declarations() end, desc = "Go to Declaration" },
-      { "gr", function() require("fzf-lua").lsp_references() end, desc = "Go to References" },
-      { "gI", function() require("fzf-lua").lsp_implementations() end, desc = "Go to Implementation" },
-      { "gy", function() require("fzf-lua").lsp_typedefs() end, desc = "Go to Type Definition" },
+      { "gd", function() call_snacks_picker("lsp_definitions") end, desc = "Go to Definition" },
+      { "gD", function() call_snacks_picker("lsp_declarations") end, desc = "Go to Declaration" },
+      { "gr", function() call_snacks_picker("lsp_references") end, desc = "Go to References" },
+      { "gI", function() call_snacks_picker("lsp_implementations") end, desc = "Go to Implementation" },
+      { "gy", function() call_snacks_picker("lsp_typedefs") end, desc = "Go to Type Definition" },
       
       -- Leader mappings
-      { "<leader><space>", function() require("fzf-lua").files() end, desc = "Smart Find" },
-      { "<leader>,", function() require("fzf-lua").buffers() end, desc = "Buffers" },
-      { "<leader>/", function() require("fzf-lua").live_grep() end, desc = "Grep" },
-      { "<leader>:", function() require("fzf-lua").command_history() end, desc = "Command History" },
-      { "<leader>e", "<cmd>Oil<CR>", desc = "File Explorer" },
+      { "<leader><space>", function() call_snacks_picker("files") end, desc = "Smart Find" },
+      { "<leader>,", function() call_snacks_picker("buffers") end, desc = "Buffers" },
+      { "<leader>/", function() call_snacks_picker("grep") end, desc = "Grep" },
+      { "<leader>:", function() call_snacks_picker("command_history") end, desc = "Command History" },
+      { "<leader>e", open_snacks_explorer, desc = "File Explorer" },
       
       -- Numbers for Harpoon
       { "<leader>1", function() require("harpoon"):list():select(1) end, desc = "Harpoon File 1" },
@@ -251,24 +272,24 @@ return {
       
       -- File operations
       { "<leader>f", group = "Files" },
-      { "<leader>fb", function() require("fzf-lua").buffers() end, desc = "Buffers" },
-      { "<leader>fc", function() require("fzf-lua").files({ cwd = vim.fn.stdpath("config") }) end, desc = "Config Files" },
-      { "<leader>ff", function() require("fzf-lua").files() end, desc = "Find Files" },
-      { "<leader>fg", function() require("fzf-lua").git_files() end, desc = "Git Files" },
-      { "<leader>fp", function() require("fzf-lua").files({ cwd = "~/Projects" }) end, desc = "Projects" },
-      { "<leader>fr", function() require("fzf-lua").oldfiles() end, desc = "Recent Files" },
+      { "<leader>fb", function() call_snacks_picker("buffers") end, desc = "Buffers" },
+      { "<leader>fc", function() call_snacks_picker("files", { cwd = vim.fn.stdpath("config") }) end, desc = "Config Files" },
+      { "<leader>ff", function() call_snacks_picker("files") end, desc = "Find Files" },
+      { "<leader>fg", function() call_snacks_picker("git_files") end, desc = "Git Files" },
+      { "<leader>fp", function() call_snacks_picker("files", { cwd = "~/Projects" }) end, desc = "Projects" },
+      { "<leader>fr", function() call_snacks_picker("oldfiles") end, desc = "Recent Files" },
       
        -- Git
        { "<leader>g", group = "Git" },
-       { "<leader>gb", function() require("fzf-lua").git_branches() end, desc = "Branches" },
+       { "<leader>gb", function() call_snacks_picker("git_branches") end, desc = "Branches" },
        { "<leader>gB", function() vim.cmd("!gh browse") end, desc = "Git Browse" },
-       { "<leader>gd", function() require("fzf-lua").git_status() end, desc = "Git Status" },
-       { "<leader>gf", function() require("fzf-lua").git_bcommits() end, desc = "Git File History" },
+       { "<leader>gd", function() call_snacks_picker("git_status") end, desc = "Git Status" },
+       { "<leader>gf", function() call_snacks_picker("git_bcommits") end, desc = "Git File History" },
        { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
-       { "<leader>gl", function() require("fzf-lua").git_commits() end, desc = "Git Log" },
-       { "<leader>gL", function() require("fzf-lua").git_bcommits() end, desc = "Git Log File" },
-       { "<leader>gs", function() require("fzf-lua").git_status() end, desc = "Git Status" },
-       { "<leader>gS", function() require("fzf-lua").git_stash() end, desc = "Git Stash" },
+       { "<leader>gl", function() call_snacks_picker("git_commits") end, desc = "Git Log" },
+       { "<leader>gL", function() call_snacks_picker("git_bcommits") end, desc = "Git Log File" },
+       { "<leader>gs", function() call_snacks_picker("git_status") end, desc = "Git Status" },
+       { "<leader>gS", function() call_snacks_picker("git_stash") end, desc = "Git Stash" },
 
        -- Diffview (Git Diff)
        { "<leader>gv", group = "Diffview" },
@@ -314,44 +335,44 @@ return {
       
       -- Project/Find
       { "<leader>p", group = "Project/Find" },
-      { "<leader>ps", function() require("fzf-lua").live_grep() end, desc = "Live Grep" },
-      { "<leader>pr", function() require("fzf-lua").resume() end, desc = "Resume Last Search" },
-      { "<leader>pg", function() require("fzf-lua").grep_last() end, desc = "Repeat Last Grep" },
-      { "<leader>pv", "<cmd>Oil<CR>", desc = "File Explorer" },
+      { "<leader>ps", function() call_snacks_picker("grep") end, desc = "Live Grep" },
+      { "<leader>pr", function() call_snacks_picker("resume") end, desc = "Resume Last Search" },
+      { "<leader>pg", function() call_snacks_picker("grep_last") end, desc = "Repeat Last Grep" },
+      { "<leader>pv", open_snacks_explorer, desc = "File Explorer" },
       
       -- Search
       { "<leader>s", group = "Search" },
-      { '<leader>s"', function() require("fzf-lua").registers() end, desc = "Registers" },
-      { "<leader>s/", function() require("fzf-lua").search_history() end, desc = "Search History" },
-      { "<leader>sa", function() require("fzf-lua").autocmds() end, desc = "Auto Commands" },
-      { "<leader>sb", function() require("fzf-lua").blines() end, desc = "Buffer Lines" },
-      { "<leader>sB", function() require("fzf-lua").grep({ search = "", fzf_opts = { ["--prompt"] = "Grep Buffers> " } }) end, desc = "Grep Buffers" },
-      { "<leader>sc", function() require("fzf-lua").command_history() end, desc = "Command History" },
-      { "<leader>sC", function() require("fzf-lua").commands() end, desc = "Commands" },
-      { "<leader>sd", function() require("fzf-lua").diagnostics_document() end, desc = "Diagnostics" },
-      { "<leader>sD", function() require("fzf-lua").diagnostics_workspace() end, desc = "Workspace Diagnostics" },
-      { "<leader>sg", function() require("fzf-lua").live_grep() end, desc = "Grep" },
-      { "<leader>sh", function() require("fzf-lua").help_tags() end, desc = "Help Pages" },
-      { "<leader>sH", function() require("fzf-lua").highlights() end, desc = "Highlights" },
-      { "<leader>si", function() require("fzf-lua").awesome_colorschemes() end, desc = "Icons" },
-      { "<leader>sj", function() require("fzf-lua").jumps() end, desc = "Jumps" },
-      { "<leader>sk", function() require("fzf-lua").keymaps() end, desc = "Keymaps" },
-      { "<leader>sl", function() require("fzf-lua").loclist() end, desc = "Location List" },
-      { "<leader>sm", function() require("fzf-lua").marks() end, desc = "Marks" },
-      { "<leader>sM", function() require("fzf-lua").man_pages() end, desc = "Man Pages" },
-      { "<leader>sp", function() require("fzf-lua").files({ cwd = vim.fn.stdpath("data") .. "/lazy" }) end, desc = "Plugin Files" },
-      { "<leader>sq", function() require("fzf-lua").quickfix() end, desc = "Quickfix List" },
-      { "<leader>sR", function() require("fzf-lua").resume() end, desc = "Resume" },
-      { "<leader>ss", function() require("fzf-lua").lsp_document_symbols() end, desc = "LSP Symbols" },
-      { "<leader>sS", function() require("fzf-lua").lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
-      { "<leader>su", function() require("fzf-lua").changes() end, desc = "Undo History" },
-      { "<leader>sw", function() require("fzf-lua").grep_cword() end, desc = "Word under Cursor" },
+      { '<leader>s"', function() call_snacks_picker("registers") end, desc = "Registers" },
+      { "<leader>s/", function() call_snacks_picker("search_history") end, desc = "Search History" },
+      { "<leader>sa", function() call_snacks_picker("autocmds") end, desc = "Auto Commands" },
+      { "<leader>sb", function() call_snacks_picker("blines") end, desc = "Buffer Lines" },
+      { "<leader>sB", function() call_snacks_picker("grep", { search = "" }) end, desc = "Grep Buffers" },
+      { "<leader>sc", function() call_snacks_picker("command_history") end, desc = "Command History" },
+      { "<leader>sC", function() call_snacks_picker("commands") end, desc = "Commands" },
+      { "<leader>sd", function() call_snacks_picker("diagnostics_document") end, desc = "Diagnostics" },
+      { "<leader>sD", function() call_snacks_picker("diagnostics_workspace") end, desc = "Workspace Diagnostics" },
+      { "<leader>sg", function() call_snacks_picker("grep") end, desc = "Grep" },
+      { "<leader>sh", function() call_snacks_picker("help_tags") end, desc = "Help Pages" },
+      { "<leader>sH", function() call_snacks_picker("highlights") end, desc = "Highlights" },
+      { "<leader>si", function() call_snacks_picker("icons") end, desc = "Icons" },
+      { "<leader>sj", function() call_snacks_picker("jumps") end, desc = "Jumps" },
+      { "<leader>sk", function() call_snacks_picker("keymaps") end, desc = "Keymaps" },
+      { "<leader>sl", function() call_snacks_picker("loclist") end, desc = "Location List" },
+      { "<leader>sm", function() call_snacks_picker("marks") end, desc = "Marks" },
+      { "<leader>sM", function() call_snacks_picker("man_pages") end, desc = "Man Pages" },
+      { "<leader>sp", function() call_snacks_picker("files", { cwd = vim.fn.stdpath("data") .. "/lazy" }) end, desc = "Plugin Files" },
+      { "<leader>sq", function() call_snacks_picker("quickfix") end, desc = "Quickfix List" },
+      { "<leader>sR", function() call_snacks_picker("resume") end, desc = "Resume" },
+      { "<leader>ss", function() call_snacks_picker("lsp_document_symbols") end, desc = "LSP Symbols" },
+      { "<leader>sS", function() call_snacks_picker("lsp_workspace_symbols") end, desc = "LSP Workspace Symbols" },
+      { "<leader>su", function() call_snacks_picker("changes") end, desc = "Undo History" },
+      { "<leader>sw", function() call_snacks_picker("grep_cword") end, desc = "Word under Cursor" },
       
       -- UI/Toggles
       { "<leader>u", group = "UI/Toggles" },
       { "<leader>ub", toggle_option("background", { off = "light", on = "dark" }), desc = "Toggle Background" },
       { "<leader>uc", toggle_option("conceallevel", { off = 0, on = 2 }), desc = "Toggle Conceal" },
-      { "<leader>uC", function() require("fzf-lua").colorschemes() end, desc = "Colorschemes" },
+      { "<leader>uC", function() call_snacks_picker("colorschemes") end, desc = "Colorschemes" },
       { "<leader>ud", toggle_diagnostics, desc = "Toggle Diagnostics" },
       { "<leader>ug", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Guides" },
       { "<leader>uh", toggle_inlay_hints, desc = "Toggle Inlay Hints" },
@@ -363,7 +384,7 @@ return {
       
       -- Window/workspace
       { "<leader>w", group = "Window/Workspace" },
-      { "<leader>wd", function() require("fzf-lua").lsp_document_symbols() end, desc = "Document Symbols" },
+      { "<leader>wd", function() call_snacks_picker("lsp_document_symbols") end, desc = "Document Symbols" },
       
       -- Diagnostics & Delete operations
       { "<leader>x", group = "Diagnostics & Delete" },
@@ -394,7 +415,7 @@ return {
       { "<leader>g", group = "Git" },
       { "<leader>gB", function() vim.cmd("!gh browse") end, desc = "Git Browse" },
       { "<leader>s", group = "Search" },
-      { "<leader>sw", function() require("fzf-lua").grep_visual() end, desc = "Search Selection" },
+      { "<leader>sw", function() call_snacks_picker("grep_visual") end, desc = "Search Selection" },
       { "<leader>x", group = "Delete" },
       { "<leader>xd", [["_d]], desc = "Delete to Void" },
       { "<leader>y", [["+y]], desc = "Yank to System" },

@@ -4,8 +4,18 @@
 
 -- NOTE: Leader keys are set in config/lazy.lua before lazy.nvim loads
 
--- File tree with Oil.nvim
-vim.keymap.set("n", "<leader>pv", "<cmd>Oil<CR>", { desc = "Open file tree" })
+-- File explorer (Snacks)
+vim.keymap.set("n", "<leader>pv", function()
+  local ok, Snacks = pcall(require, "snacks")
+  if ok and Snacks then
+    if Snacks.explorer and type(Snacks.explorer.open) == "function" then
+      return Snacks.explorer.open()
+    elseif type(Snacks.explorer) == "function" then
+      return Snacks.explorer()
+    end
+  end
+  vim.notify("Snacks explorer not available", vim.log.levels.WARN)
+end, { desc = "Open file explorer" })
 
 vim.keymap.set("n", "J", "mzJ`z")
 
@@ -73,3 +83,12 @@ vim.keymap.set("n", "<leader>xq", vim.diagnostic.setloclist, { desc = "Open diag
 vim.keymap.set("n", "<C-/>", function()
   vim.cmd("ToggleTerm")
 end, { desc = "Open toggleterm" })
+
+-- Search keymaps (Snacks picker)
+vim.keymap.set("n", "<leader>sk", function()
+  local ok, Snacks = pcall(require, "snacks")
+  if ok and Snacks and Snacks.picker and Snacks.picker.keymaps then
+    return Snacks.picker.keymaps()
+  end
+  vim.notify("Snacks keymaps picker not available", vim.log.levels.WARN)
+end, { desc = "Search Keymaps" })
