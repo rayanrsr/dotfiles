@@ -31,6 +31,10 @@ return {
       "b0o/SchemaStore.nvim",
     },
     config = function()
+      -- Enable inline completion (Neovim >= 0.12)
+      if vim.lsp.inline_completion and not vim.lsp.inline_completion.is_enabled() then
+        vim.lsp.inline_completion.enable()
+      end
       local capabilities = require("blink.cmp").get_lsp_capabilities()
       require("lspconfig").lua_ls.setup {
         capabilities = capabilities,
@@ -273,6 +277,47 @@ return {
 
       require("lsp_lines").setup()
       vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+
+      -- Experimental: Next Edit Suggestions (NES) integration
+      -- Set this to true to enable automatic NES updates
+      vim.g.copilot_nes = true
+
+      local function setup_nes_updates()
+        local ok_snacks, Snacks = pcall(require, "snacks")
+        local ok_nes = pcall(require, "copilot-lsp.nes")
+        if not ok_snacks or not ok_nes then
+          return
+        end
+        local nes_update = Snacks.util.debounce(function()
+          if vim.g.copilot_nes then
+            pcall(function()
+              require("copilot-lsp.nes").request_nes("copilot")
+            end)
+          end
+        end, { ms = 100 })
+
+        vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+          group = vim.api.nvim_create_augroup("copilot_native_complete", { clear = true }),
+          callback = nes_update,
+        })
+
+        -- Focus notifications so Copilot knows which buffer is active
+        vim.api.nvim_create_autocmd("BufEnter", {
+          group = vim.api.nvim_create_augroup("copilot_native_focus", { clear = true }),
+          callback = function(ev)
+            local buf = ev.buf
+            local client = vim.lsp.get_clients({ name = "copilot_ls", bufnr = buf })[1]
+            if not client then
+              return
+            end
+            client:notify("textDocument/didFocus", {
+              textDocument = { uri = vim.uri_from_bufnr(buf) },
+            })
+          end,
+        })
+      end
+
+      setup_nes_updates()
 
       vim.keymap.set("", "<leader>l", function()
         local config = vim.diagnostic.config() or {}

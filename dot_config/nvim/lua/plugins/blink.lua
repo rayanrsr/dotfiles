@@ -28,7 +28,28 @@ return {
     --
     -- See :h blink-cmp-config-keymap for defining your own keymap
     keymap = { 
-      preset = 'default',
+      preset = 'super-tab',
+      ["<Tab>"] = {
+        function(cmp)
+          local bufnr = vim.api.nvim_get_current_buf()
+          if vim.b[bufnr] and vim.b[bufnr].nes_state then
+            -- Prefer Copilot NES when active
+            pcall(function()
+              cmp.hide()
+              local nes = require("copilot-lsp.nes")
+              return (nes.apply_pending_nes() and nes.walk_cursor_end_edit())
+            end)
+            return
+          end
+          if cmp.snippet_active() then
+            return cmp.accept()
+          else
+            return cmp.select_and_accept()
+          end
+        end,
+        "snippet_forward",
+        "fallback",
+      },
     },
 
     appearance = {
