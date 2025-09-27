@@ -1,0 +1,451 @@
+return {
+  "folke/which-key.nvim",
+  event = "VimEnter",
+  config = function()
+    local wk = require("which-key")
+    
+    -- Utility functions to replace snacks functionality
+    local function delete_buffer()
+      local bufnr = vim.api.nvim_get_current_buf()
+      local alternate = vim.fn.bufnr("#")
+      
+      if alternate ~= bufnr and vim.api.nvim_buf_is_valid(alternate) then
+        vim.api.nvim_set_current_buf(alternate)
+      else
+        vim.cmd("enew")
+      end
+      
+      if vim.api.nvim_buf_is_valid(bufnr) then
+        vim.api.nvim_buf_delete(bufnr, { force = false })
+      end
+    end
+
+    local function create_scratch_buffer()
+      vim.cmd("enew")
+      vim.bo.buftype = "nofile"
+      vim.bo.bufhidden = "hide"
+      vim.bo.swapfile = false
+    end
+
+    local function rename_file()
+      local old_name = vim.fn.expand("%:p")
+      if old_name == "" then
+        vim.notify("No file to rename", vim.log.levels.ERROR)
+        return
+      end
+      
+      local new_name = vim.fn.input("New name: ", old_name)
+      if new_name == "" or new_name == old_name then
+        return
+      end
+      
+      vim.cmd("saveas " .. vim.fn.fnameescape(new_name))
+      vim.fn.delete(old_name)
+    end
+
+    local function toggle_option(option, values)
+      return function()
+        if values then
+          local current = vim.opt[option]:get()
+          vim.opt[option] = current == values.on and values.off or values.on
+        else
+          vim.opt[option] = not vim.opt[option]:get()
+        end
+      end
+    end
+
+    local function toggle_diagnostics()
+      local current = vim.diagnostic.is_disabled(0)
+      if current then
+        vim.diagnostic.enable(0)
+        vim.notify("Diagnostics enabled")
+      else
+        vim.diagnostic.disable(0)
+        vim.notify("Diagnostics disabled")
+      end
+    end
+
+    local function toggle_inlay_hints()
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end
+
+    -- Snacks helpers
+    local function call_snacks_picker(method, args)
+      local ok, Snacks = pcall(require, "snacks")
+      if ok and Snacks and Snacks.picker and type(Snacks.picker[method]) == "function" then
+        return Snacks.picker[method](args or {})
+      end
+      vim.notify("Snacks picker " .. method .. " not available", vim.log.levels.WARN)
+    end
+
+    local function open_snacks_explorer()
+      local ok, Snacks = pcall(require, "snacks")
+      if ok and Snacks then
+        if Snacks.explorer and type(Snacks.explorer.open) == "function" then
+          return Snacks.explorer.open()
+        elseif type(Snacks.explorer) == "function" then
+          return Snacks.explorer()
+        end
+      end
+      vim.notify("Snacks explorer not available", vim.log.levels.WARN)
+    end
+    
+    wk.setup({
+      preset = "modern",
+      delay = 200,
+      filter = function(mapping)
+        -- example to exclude mappings without a description
+        return mapping.desc and mapping.desc ~= ""
+      end,
+      spec = {}, -- will be populated below
+      notify = true,
+      triggers = {
+        { "<auto>", mode = "nixsotc" },
+        { "s", mode = { "n", "v" } },
+      },
+      win = {
+        border = "rounded",
+        padding = { 1, 2 },
+        title = true,
+        title_pos = "center",
+        zindex = 1000,
+        bo = {},
+        wo = {
+          winblend = 10,
+        },
+      },
+      layout = {
+        width = { min = 20 },
+        spacing = 3,
+      },
+      keys = {
+        scroll_down = "<c-d>",
+        scroll_up = "<c-u>",
+      },
+      sort = { "local", "order", "group", "alphanum", "mod" },
+      expand = 0,
+      replace = {
+        key = {
+          function(key)
+            return require("which-key.view").format(key)
+          end,
+        },
+        desc = {
+          { "<Plug>%(.*)%)", "%1" },
+          { "^%+", "" },
+          { "<[cC]md>", "" },
+          { "<[cC][rR]>", "" },
+          { "<[sS]ilent>", "" },
+          { "^lua%s+", "" },
+          { "^call%s+", "" },
+          { "^:%s*", "" },
+        },
+      },
+      icons = {
+        breadcrumb = "»",
+        separator = "➜",
+        group = "+",
+        ellipsis = "…",
+        mappings = true,
+        rules = {},
+        colors = true,
+        keys = {
+          Up = " ",
+          Down = " ",
+          Left = " ",
+          Right = " ",
+          C = "󰘴 ",
+          M = "󰘵 ",
+          D = "󰘳 ",
+          S = "󰘶 ",
+          CR = "󰌑 ",
+          Esc = "󱊷 ",
+          ScrollWheelDown = "󱕐 ",
+          ScrollWheelUp = "󱕑 ",
+          NL = "󰌑 ",
+          BS = "󰁮",
+          Space = "󱁐 ",
+          Tab = "󰌒 ",
+          F1 = "󱊫",
+          F2 = "󱊬",
+          F3 = "󱊭",
+          F4 = "󱊮",
+          F5 = "󱊯",
+          F6 = "󱊰",
+          F7 = "󱊱",
+          F8 = "󱊲",
+          F9 = "󱊳",
+          F10 = "󱊴",
+          F11 = "󱊵",
+          F12 = "󱊶",
+        },
+      },
+      show_help = true,
+      show_keys = true,
+      disable = {
+        bt = {},
+        ft = {},
+      },
+    })
+
+    -- Add all keybindings using the new v3 format
+    wk.add({
+      -- Global mappings
+      { "<C-a>", function() require("harpoon"):list():add() end, desc = "Harpoon Add File" },
+      { "<C-p>", function() call_snacks_picker("files") end, desc = "Find Files" },
+      { "<C-e>", function() 
+        local harpoon = require("harpoon")
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, desc = "Harpoon Quick Menu" },
+      { "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", desc = "Tmux Sessionizer" },
+      { "<C-n>", function() os.execute("tmux switch-client -t Notes || tmux new-session -s Notes") end, desc = "Notes Session" },
+      { "<C-/>", "<cmd>ToggleTerm<CR>", desc = "Toggle Terminal" },
+      
+      -- Movement
+      { "]]", "*", desc = "Next Reference" },
+      { "[[", "#", desc = "Prev Reference" },
+      
+      -- Go to mappings
+      { "g", group = "Go to" },
+      { "gd", function() call_snacks_picker("lsp_definitions") end, desc = "Go to Definition" },
+      { "gD", function() call_snacks_picker("lsp_declarations") end, desc = "Go to Declaration" },
+      { "gr", function() call_snacks_picker("lsp_references") end, desc = "Go to References" },
+      { "gI", function() call_snacks_picker("lsp_implementations") end, desc = "Go to Implementation" },
+      { "gy", function() call_snacks_picker("lsp_typedefs") end, desc = "Go to Type Definition" },
+      
+      -- Leader mappings
+      { "<leader><space>", function() call_snacks_picker("files") end, desc = "Smart Find" },
+      { "<leader>,", function() call_snacks_picker("buffers") end, desc = "Buffers" },
+      { "<leader>/", function() call_snacks_picker("grep") end, desc = "Grep" },
+      { "<leader>:", function() call_snacks_picker("command_history") end, desc = "Command History" },
+      { "<leader>e", open_snacks_explorer, desc = "File Explorer" },
+      
+      -- Numbers for Harpoon
+      { "<leader>1", function() require("harpoon"):list():select(1) end, desc = "Harpoon File 1" },
+      { "<leader>2", function() require("harpoon"):list():select(2) end, desc = "Harpoon File 2" },
+      { "<leader>3", function() require("harpoon"):list():select(3) end, desc = "Harpoon File 3" },
+      { "<leader>4", function() require("harpoon"):list():select(4) end, desc = "Harpoon File 4" },
+      { "<leader>5", function() require("harpoon"):list():select(5) end, desc = "Harpoon File 5" },
+      
+      -- AI/CodeCompanion
+      { "<leader>a", group = "AI/CodeCompanion" },
+      { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions" },
+      { "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", desc = "CodeCompanion Chat" },
+      { "<leader>ad", "<cmd>CodeCompanionChat Add<cr>", desc = "Add to Chat" },
+      
+      -- Buffers
+      { "<leader>b", group = "Buffers" },
+      { "<leader>bd", delete_buffer, desc = "Delete Buffer" },
+      
+      -- Code actions
+      { "<leader>c", group = "Code" },
+      { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
+      { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+      { "<leader>cR", rename_file, desc = "Rename File" },
+      { "<leader>cu", "<cmd>silent !cursor %<CR>", desc = "Open in Cursor" },
+      
+      -- Debug (DAP)
+      { "<leader>d", group = "Debug" },
+      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Conditional Breakpoint" },
+      { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+      { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+      { "<leader>dd", function() require("dap").disconnect() end, desc = "Disconnect" },
+      { "<leader>de", function() require("dapui").eval() end, desc = "Evaluate Expression" },
+      { "<leader>dg", function() require("dap").session() end, desc = "Get Session" },
+      { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+      { "<leader>do", function() require("dap").step_over() end, desc = "Step Over" },
+      { "<leader>du", function() require("dap").step_out() end, desc = "Step Out" },
+      { "<leader>dp", group = "Python Debug" },
+      { "<leader>dpr", function() require("dap-python").test_method() end, desc = "Test Method" },
+      { "<leader>dpc", function() require("dap-python").test_class() end, desc = "Test Class" },
+      { "<leader>dps", function() require("dap-python").debug_selection() end, desc = "Debug Selection" },
+      { "<leader>dP", function() require("dap").pause() end, desc = "Pause" },
+      { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+      { "<leader>ds", function() require("dap").continue() end, desc = "Start" },
+      { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+      { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+      { "<leader>dU", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
+      
+      -- Docker 
+      { "<leader>D", "<cmd>Lazydocker<cr>", desc = "LazyDocker" },
+      
+      -- File operations
+      { "<leader>f", group = "Files" },
+      { "<leader>fb", function() call_snacks_picker("buffers") end, desc = "Buffers" },
+      { "<leader>fc", function() call_snacks_picker("files", { cwd = vim.fn.stdpath("config") }) end, desc = "Config Files" },
+      { "<leader>ff", function() call_snacks_picker("files") end, desc = "Find Files" },
+      { "<leader>fg", function() call_snacks_picker("git_files") end, desc = "Git Files" },
+      { "<leader>fp", function() call_snacks_picker("files", { cwd = "~/Projects" }) end, desc = "Projects" },
+      { "<leader>fr", function() call_snacks_picker("oldfiles") end, desc = "Recent Files" },
+      
+       -- Git
+       { "<leader>g", group = "Git" },
+       { "<leader>gb", function() call_snacks_picker("git_branches") end, desc = "Branches" },
+       { "<leader>gB", function() vim.cmd("!gh browse") end, desc = "Git Browse" },
+       { "<leader>gd", function() call_snacks_picker("git_status") end, desc = "Git Status" },
+       { "<leader>gf", function() call_snacks_picker("git_bcommits") end, desc = "Git File History" },
+       { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+       { "<leader>gl", function() call_snacks_picker("git_commits") end, desc = "Git Log" },
+       { "<leader>gL", function() call_snacks_picker("git_bcommits") end, desc = "Git Log File" },
+       { "<leader>gs", function() call_snacks_picker("git_status") end, desc = "Git Status" },
+       { "<leader>gS", function() call_snacks_picker("git_stash") end, desc = "Git Stash" },
+
+       -- Diffview (Git Diff)
+       { "<leader>gv", group = "Diffview" },
+       { "<leader>gvo", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
+       { "<leader>gvc", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
+       { "<leader>gvr", "<cmd>DiffviewRefresh<cr>", desc = "Refresh Diffview" },
+       { "<leader>gvf", "<cmd>DiffviewFileHistory<cr>", desc = "File History" },
+       { "<leader>gvF", "<cmd>DiffviewFileHistory %<cr>", desc = "Current File History" },
+       { "<leader>gvm", "<cmd>DiffviewOpen --merge<cr>", desc = "Merge Tool" },
+       { "<leader>gvh", "<cmd>DiffviewOpen HEAD~1<cr>", desc = "Compare with HEAD~1" },
+       { "<leader>gvH", "<cmd>DiffviewOpen HEAD~1 -- %<cr>", desc = "File vs HEAD~1" },
+       { "<leader>gvs", "<cmd>DiffviewOpen --staged<cr>", desc = "Staged Changes" },
+       { "<leader>gvb", function()
+         local branch = vim.fn.input("Branch to compare: ")
+         if branch ~= "" then
+           vim.cmd("DiffviewOpen " .. branch)
+         end
+       end, desc = "Compare with Branch" },
+      
+      -- LSP
+      { "<leader>l", function() 
+        local config = vim.diagnostic.config() or {}
+        if config.virtual_text then
+          vim.diagnostic.config { virtual_text = false, virtual_lines = true }
+        else
+          vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+        end
+      end, desc = "Toggle LSP Lines" },
+      
+      -- Format
+      { "<leader>m", group = "Format" },
+      { "<leader>mp", function() require("conform").format({ async = true, lsp_format = "fallback" }) end, desc = "Format Buffer" },
+      { "<leader>mP", function() require("conform").format({ formatters = { "ruff_organize_imports", "ruff_fix", "ruff_format" }, async = true }) end, desc = "Format Python" },
+      
+      -- Notifications
+      { "<leader>n", function() require("notify").dismiss({ silent = true, pending = true }) end, desc = "Dismiss Notifications" },
+      { "<leader>N", function()
+        local news_file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1]
+        if news_file then
+          vim.cmd("tabnew " .. news_file)
+        end
+      end, desc = "Neovim News" },
+      
+      -- Project/Find
+      { "<leader>p", group = "Project/Find" },
+      { "<leader>ps", function() call_snacks_picker("grep") end, desc = "Live Grep" },
+      { "<leader>pr", function() call_snacks_picker("resume") end, desc = "Resume Last Search" },
+      { "<leader>pg", function() call_snacks_picker("grep_last") end, desc = "Repeat Last Grep" },
+      { "<leader>pv", open_snacks_explorer, desc = "File Explorer" },
+      
+      -- Search
+      { "<leader>s", group = "Search" },
+      { '<leader>s"', function() call_snacks_picker("registers") end, desc = "Registers" },
+      { "<leader>s/", function() call_snacks_picker("search_history") end, desc = "Search History" },
+      { "<leader>sa", function() call_snacks_picker("autocmds") end, desc = "Auto Commands" },
+      { "<leader>sb", function() call_snacks_picker("blines") end, desc = "Buffer Lines" },
+      { "<leader>sB", function() call_snacks_picker("grep", { search = "" }) end, desc = "Grep Buffers" },
+      { "<leader>sc", function() call_snacks_picker("command_history") end, desc = "Command History" },
+      { "<leader>sC", function() call_snacks_picker("commands") end, desc = "Commands" },
+      { "<leader>sd", function() call_snacks_picker("diagnostics_document") end, desc = "Diagnostics" },
+      { "<leader>sD", function() call_snacks_picker("diagnostics_workspace") end, desc = "Workspace Diagnostics" },
+      { "<leader>sg", function() call_snacks_picker("grep") end, desc = "Grep" },
+      { "<leader>sh", function() call_snacks_picker("help_tags") end, desc = "Help Pages" },
+      { "<leader>sH", function() call_snacks_picker("highlights") end, desc = "Highlights" },
+      { "<leader>si", function() call_snacks_picker("icons") end, desc = "Icons" },
+      { "<leader>sj", function() call_snacks_picker("jumps") end, desc = "Jumps" },
+      { "<leader>sk", function() call_snacks_picker("keymaps") end, desc = "Keymaps" },
+      { "<leader>sl", function() call_snacks_picker("loclist") end, desc = "Location List" },
+      { "<leader>sm", function() call_snacks_picker("marks") end, desc = "Marks" },
+      { "<leader>sM", function() call_snacks_picker("man_pages") end, desc = "Man Pages" },
+      { "<leader>sp", function() call_snacks_picker("files", { cwd = vim.fn.stdpath("data") .. "/lazy" }) end, desc = "Plugin Files" },
+      { "<leader>sq", function() call_snacks_picker("quickfix") end, desc = "Quickfix List" },
+      { "<leader>sR", function() call_snacks_picker("resume") end, desc = "Resume" },
+      { "<leader>ss", function() call_snacks_picker("lsp_document_symbols") end, desc = "LSP Symbols" },
+      { "<leader>sS", function() call_snacks_picker("lsp_workspace_symbols") end, desc = "LSP Workspace Symbols" },
+      { "<leader>su", function() call_snacks_picker("changes") end, desc = "Undo History" },
+      { "<leader>sw", function() call_snacks_picker("grep_cword") end, desc = "Word under Cursor" },
+      
+      -- UI/Toggles
+      { "<leader>u", group = "UI/Toggles" },
+      { "<leader>ub", toggle_option("background", { off = "light", on = "dark" }), desc = "Toggle Background" },
+      { "<leader>uc", toggle_option("conceallevel", { off = 0, on = 2 }), desc = "Toggle Conceal" },
+      { "<leader>uC", function() call_snacks_picker("colorschemes") end, desc = "Colorschemes" },
+      { "<leader>ud", toggle_diagnostics, desc = "Toggle Diagnostics" },
+      { "<leader>ug", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Guides" },
+      { "<leader>uh", toggle_inlay_hints, desc = "Toggle Inlay Hints" },
+      { "<leader>ul", toggle_option("number"), desc = "Toggle Line Numbers" },
+      { "<leader>uL", toggle_option("relativenumber"), desc = "Toggle Relative Numbers" },
+      { "<leader>us", toggle_option("spell"), desc = "Toggle Spelling" },
+      { "<leader>uT", "<cmd>TSToggle highlight<cr>", desc = "Toggle Treesitter" },
+      { "<leader>uw", toggle_option("wrap"), desc = "Toggle Wrap" },
+      
+      -- Window/workspace
+      { "<leader>w", group = "Window/Workspace" },
+      { "<leader>wd", function() call_snacks_picker("lsp_document_symbols") end, desc = "Document Symbols" },
+      
+      -- Diagnostics & Delete operations
+      { "<leader>x", group = "Diagnostics & Delete" },
+      { "<leader>xq", vim.diagnostic.setloclist, desc = "Quickfix List" },
+      { "<leader>xd", [["_d]], desc = "Delete to Void" },
+      { "<leader>xp", [["_dP]], desc = "Paste without Overwrite" },
+      
+      -- Misc
+      { "<leader>y", [["+y]], desc = "Yank to System" },
+      { "<leader>Y", [["+Y]], desc = "Yank Line to System" },
+      
+      -- Zen/Focus
+      { "<leader>z", "<cmd>ZenMode<cr>", desc = "Toggle Zen Mode" },
+      
+      -- Scratch
+      { "<leader>.", create_scratch_buffer, desc = "Toggle Scratch Buffer" },
+    })
+
+    -- Visual mode mappings
+    wk.add({
+      mode = { "v" },
+      { "<leader>a", group = "AI/CodeCompanion" },
+      { "<leader>ad", "<cmd>CodeCompanionChat Add<cr>", desc = "Add Selection to Chat" },
+      { "<leader>d", group = "Debug" },
+      { "<leader>de", function() require("dapui").eval() end, desc = "Evaluate Expression" },
+      { "<leader>dp", group = "Python Debug" },
+      { "<leader>dps", function() require("dap-python").debug_selection() end, desc = "Debug Selection" },
+      { "<leader>g", group = "Git" },
+      { "<leader>gB", function() vim.cmd("!gh browse") end, desc = "Git Browse" },
+      { "<leader>s", group = "Search" },
+      { "<leader>sw", function() call_snacks_picker("grep_visual") end, desc = "Search Selection" },
+      { "<leader>x", group = "Delete" },
+      { "<leader>xd", [["_d]], desc = "Delete to Void" },
+      { "<leader>y", [["+y]], desc = "Yank to System" },
+    })
+
+    -- Terminal mode mappings
+    wk.add({
+      mode = { "t" },
+      { "<Esc>", "<C-\\><C-n>", desc = "Exit Terminal Mode" },
+      { "]]", "*", desc = "Next Reference" },
+      { "[[", "#", desc = "Prev Reference" },
+    })
+
+    -- Insert mode mappings
+    wk.add({
+      { "<C-c>", "<Esc>", desc = "Exit Insert Mode", mode = "i" },
+    })
+
+    -- Operator-pending mode mappings
+    wk.add({
+      mode = { "o" },
+      { "s", function() require("flash").jump() end, desc = "Flash Jump" },
+      { "S", function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    })
+
+    -- Command mode mappings
+    wk.add({
+      { "<c-s>", function() require("flash").toggle() end, desc = "Toggle Flash Search", mode = "c" },
+    })
+  end,
+} 
