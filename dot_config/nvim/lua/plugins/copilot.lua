@@ -1,7 +1,8 @@
 return {
   "copilotlsp-nvim/copilot-lsp",
   init = function()
-    vim.g.copilot_nes_debounce = 500
+    -- Lower debounce to make suggestions feel more responsive
+    vim.g.copilot_nes_debounce = 150
     vim.lsp.enable("copilot_ls")
 
     -- Tab: accept NES suggestion (with fallback for <C-i> in normal mode)

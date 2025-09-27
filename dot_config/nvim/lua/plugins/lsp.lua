@@ -294,7 +294,7 @@ return {
               require("copilot-lsp.nes").request_nes("copilot")
             end)
           end
-        end, { ms = 100 })
+        end, { ms = 75 })
 
         vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
           group = vim.api.nvim_create_augroup("copilot_native_complete", { clear = true }),
