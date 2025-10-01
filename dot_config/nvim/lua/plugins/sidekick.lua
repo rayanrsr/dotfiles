@@ -1,29 +1,27 @@
 return {
-  'default-anton/sidekick.nvim',
+  "folke/sidekick.nvim",
   dependencies = {
-    'folke/snacks.nvim',
+    "folke/snacks.nvim",
   },
   config = function()
-    local ok, sidekick = pcall(require, 'sidekick')
+    local ok, sidekick = pcall(require, "sidekick")
     if not ok then
       return
     end
 
     sidekick.setup({
       cli = {
-        default_tool = 'opencode',
+        default_tool = "opencode",
       },
     })
 
     local map = vim.keymap.set
-    map('n', '<leader>aa', function()
-      require('sidekick.cli').toggle({ focus = true })
-    end, { desc = 'Sidekick Toggle CLI' })
+    map("n", "<leader>aa", function()
+      require("sidekick.cli").toggle({ focus = true })
+    end, { desc = "Sidekick Toggle CLI" })
 
-    map('n', '<leader>ap', function()
-      require('sidekick.cli').select_prompt()
-    end, { desc = 'Sidekick Prompt Picker' })
+    map("n", "<leader>ap", function()
+      require("sidekick.cli").select_prompt()
+    end, { desc = "Sidekick Prompt Picker" })
   end,
 }
-
-
