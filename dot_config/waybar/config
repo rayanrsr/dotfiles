@@ -6,9 +6,12 @@
     "layer": "top",
 
     "position": "top",
-    "mode": "hide",
+    "mode": "dock", // "dock" to hide waybar on startup
 
-    "start_hidden": true,
+    "start_hidden": false, // true to hide waybar on startup
+
+    // Reserve screen space so windows don't overlap and bar doesn't toggle on modifiers
+    "exclusive": true,
 
     //"height": 20,
 

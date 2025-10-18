@@ -109,6 +109,7 @@ packages:
       - lxappearance
       - gammastep
       - difftastic
+      - python-pywal16
   ubuntu:
     packages:
       - git
