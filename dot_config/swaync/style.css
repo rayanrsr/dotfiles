@@ -1,0 +1,138 @@
+/* SwayNC style matching Waybar monochrome theme */
+
+* {
+    font-family: "Fira Sans", "Fira Sans Semibold", "Font Awesome 6 Free", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: #e6e6e6;
+    transition-property: background-color, border-color, color;
+    transition-duration: 160ms;
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+window {
+    background: transparent; /* let compositor blur the backdrop if applied */
+}
+
+/* Control Center (panel) */
+.control-center {
+    background: rgba(12, 12, 12, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.control-center .header,
+.widget-title,
+.widgets-grid,
+.widgets-box,
+.control-center-list {
+    background: transparent;
+    border: none;
+}
+
+.widget-title label {
+    color: #ffffff;
+}
+
+/* Toast notifications */
+.notification {
+    padding: 0;
+    margin: 6px 8px;
+    background: transparent;
+    border: none;
+}
+
+.notification-row { background: transparent; }
+
+.notification-background {
+    background: rgba(12, 12, 12, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    box-shadow: none;
+    padding: 8px 10px;
+}
+
+.notification-content { background: transparent; }
+
+.notification-icon, .notification-image { /* icon wrapper */
+    background: transparent;
+}
+
+.summary { color: #ffffff; }
+.body { color: #e6e6e6; }
+
+.time { color: #9a9a9a; }
+
+/* Actions */
+.notification-default-action,
+.notification-action {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: #e6e6e6;
+    padding: 6px 10px;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.20);
+    color: #ffffff;
+}
+
+/* Close button */
+.close-button {
+    background: transparent;
+    color: #e6e6e6;
+    border-radius: 8px;
+}
+.close-button:hover {
+    background: rgba(255, 255, 255, 0.10);
+    color: #ffffff;
+}
+
+/* Progress bars and sliders */
+progressbar, scale, slider, trough, progress {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+}
+
+progress {
+    background: #ffffff;
+    border: none;
+    border-radius: 8px;
+}
+
+/* Urgency states */
+.notification.critical .notification-background {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.30);
+}
+
+.notification.low .notification-background { opacity: 0.95; }
+
+/* DND and footer elements */
+.dnd-indicator,
+.control-center .footer {
+    background: transparent;
+    color: #e6e6e6;
+}
+
+/* Input rows (e.g., buttons, toggles) */
+.widget-buttons .button {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+}
+.widget-buttons .button:hover {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.20);
+}
+
+/* Scrollbar minimal */
+scrollbar slider {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+}
+
