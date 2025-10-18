@@ -25,31 +25,27 @@
         //"custom/rofi",
         "hyprland/workspaces",
         //"hyprland/submap",
-        "temperature",
         //"idle_inhibitor",
         //"mpd"
         "custom/spotify"
     ],
     "modules-center": [
-        //"hyprland/window"
-        "clock#date",
-        "custom/weather"
+        "hyprland/window",
+        "clock#date"
         //"custom/gammastep"
     ],
     "modules-right": [
         "backlight",
-        "custom/updates",
         "custom/storage",
         "memory",
         "cpu",
+        "temperature",
         "battery",
-        "network",
         "custom/vpn",
         "mpd",
         "wireplumber",
         "bluetooth",
         "custom/notification",
-        "custom/screenshot_t",
         "tray",
         "custom/power"
     ],
