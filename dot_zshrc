@@ -93,20 +93,13 @@ alias czc='chezmoi cd'
 alias lg='lazygit'
 alias ld='lazydocker'
 
-
-
 alias open='xdg-open 2>/dev/null'
 alias please='sudo !!'
-alias aid='aider --vim --model gemini --read ~/ai_rules'
 
 # add bpytop as an alias for both top and htop
 alias top="bpytop"
 alias htop="bpytop"
-# ls after every cd command
-# Custom cd function to automatically list directory contents
-cd() {
-    builtin cd "$@" && lsd
-}
+alias cd="z"
 
 # add bat as an alias for cat
 # if bat command is detected alias it to cat, otherwise alias batcat

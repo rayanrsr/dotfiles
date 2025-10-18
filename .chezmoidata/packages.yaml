@@ -22,7 +22,7 @@ packages:
     packages:
       - git
       - cargo
-      - neovim
+      - neovim-git
       - python-pip
       - bpytop
       - zsh
@@ -108,6 +108,7 @@ packages:
       - cursor-bin
       - lxappearance
       - gammastep
+      - difftastic
   ubuntu:
     packages:
       - git
