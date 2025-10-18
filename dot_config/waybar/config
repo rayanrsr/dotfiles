@@ -333,18 +333,19 @@
 
     "hyprland/workspaces": {
         "all-outputs": true,
-        "format": "{name}",
+        "format": "{icon} {name}",
         "format-icons": {
-            "1": "一",
-            "2": "二",
-            "3": "三",
-            "4": "四",
-            "5": "五",
-            "6": "六",
-            "7": "七",
-            "8": "八",
-            "9": "九",
-            "10": "十",
+            "1": "",   // code/terminal
+            "2": "",   // browsers
+            "3": "",   // music
+            "4": "",   // communication
+            "5": "",   // games
+            "6": "",   // other stuff
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": "",
+            "default": ""
         },
         "on-scroll-up": "hyprctl dispatch workspace e+1 1>/dev/null",
         "on-scroll-down": "hyprctl dispatch workspace e-1 1>/dev/null",
