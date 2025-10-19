@@ -1,6 +1,5 @@
 <div align="center">
     <h1>Windows</h1>
-    <img src="https://github.com/rayanramoul/dotfiles/blob/main/assets/windows_preview.png?raw=true"/>
 </div>
 
 # Summary :

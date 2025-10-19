@@ -1,6 +1,5 @@
 <div align="center">
     <h1>Tmux</h1>
-    <img src="https://github.com/rayanramoul/dotfiles/blob/main/assets/tmux_preview.png?raw=true"/>
 </div>
 
 

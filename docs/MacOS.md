@@ -1,6 +1,5 @@
 <div align="center">
     <h1>MacOS</h1>
-    <img src="https://github.com/rayanramoul/dotfiles/blob/main/assets/macos_preview.png?raw=true"/>
 </div>
 
 # Table of Content

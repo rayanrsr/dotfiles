@@ -18,13 +18,7 @@
   <a href="https://github.com/rayanramoul/dotfiles/blob/main/docs/Windows.md">Windows</a>
 </h6>
 
-&nbsp;
-_MacOS Setup_
-![RayTerm](https://github.com/rayanramoul/dotfiles/blob/main/assets/macos_preview.png?raw=true)
-_Windows and WSL Setup_
-![RayTerm](https://github.com/rayanramoul/dotfiles/blob/main/assets/windows_preview.png?raw=true)
-_ArchLinux Setup_
-![RayTerm](https://github.com/rayanramoul/dotfiles/blob/main/assets/arch_preview.png?raw=true)
+![RayTerm](https://github.com/rayanramoul/dotfiles/blob/main/assets/screenshot.png?raw=true)
 
 </div>
 

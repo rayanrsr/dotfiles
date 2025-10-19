@@ -1,18 +1,18 @@
 <div align="center">
-    <h1>ArchLinux</h1>
-    <img src="https://github.com/rayanramoul/dotfiles/blob/main/assets/arch_preview.png?raw=true"/>
+    <h1>ArchLinux/CachyOS</h1>
+    <img src="https://github.com/rayanramoul/dotfiles/blob/main/assets/screenshot.png?raw=true"/>
 </div>
 
 # Summary
 
 - Fetch Script : neoFetch
 - Editor : Neovim
-- Terminal : Alacritty
-- Window Manager : i3wm
-- Status Bar : i3blocks
+- Terminal : Ghostty
+- Window Manager : Hyprland
+- Status Bar : Waybar
 - Terminal Multiplexer : Tmux
-- Hotkeys : Managed by i3wm
-- Launcher : Rofi
+- Hotkeys : Managed by Hyprland
+- Launcher : Ulauncher
 - Fonts : Fira Code, JetBrains Mono, SF Mono, Nerd Fonts
 - Color Scheme : Catppuccin Mocha
 - Zsh Theme : Powerlevel10k
@@ -206,8 +206,7 @@ Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /
 - Heroic Game Launcher : Epic Games Store
 - arandr : Managing screen resolutions
 - Wallpaper management : nitrogen
-- Browser :
-<https://www.rockyourcode.com/change-the-default-browser-in-i3-manjaro-linux/>
+- Browser : Zen Browser
 - File browser : xplr
 - Drive Sync : rclone
 - Create multiple terminal inside one for SSH : tmux

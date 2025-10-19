@@ -159,6 +159,24 @@ main() {
         echo ""
         print_success "Dotfiles applied successfully!"
         echo ""
+        print_info "Installing Zsh plugins"
+        if [ -x "$HOME/scripts/executable_install_zsh_plugins.sh" ]; then
+            if "$HOME/scripts/executable_install_zsh_plugins.sh"; then
+                print_success "Zsh plugins installed"
+            else
+                print_warning "Zsh plugin installation failed"
+            fi
+        elif [ -x "$HOME/.local/share/chezmoi/scripts/executable_install_zsh_plugins.sh" ]; then
+            if "$HOME/.local/share/chezmoi/scripts/executable_install_zsh_plugins.sh"; then
+                print_success "Zsh plugins installed"
+            else
+                print_warning "Zsh plugin installation failed"
+            fi
+        else
+            print_warning "Zsh plugin installer not found"
+        fi
+
+        echo ""
         print_info "RayTerm has been installed. You may need to:"
         echo "  • Restart your shell or run: source ~/.zshrc"
         echo "  • Install additional packages with: chezmoi cd && ./run_onchange_install-packages.sh.tmpl"
