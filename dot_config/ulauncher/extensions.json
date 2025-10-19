@@ -33,5 +33,12 @@
         "updated_at": "2025-09-18T12:57:20.314685",
         "last_commit": "7320f7b1499417ad31d920688e600b80d8454f6d",
         "last_commit_time": "2024-12-10T15:31:41"
+    },
+    "com.github.nastuzzisamy.ulauncher-custom-scripts": {
+        "id": "com.github.nastuzzisamy.ulauncher-custom-scripts",
+        "url": "https://github.com/NastuzziSamy/ulauncher-custom-scripts",
+        "updated_at": "2025-10-19T18:36:43.379486",
+        "last_commit": "7a68cbafb4acc01fed340d0d2ae99a6701724b31",
+        "last_commit_time": "2022-11-21T21:19:31"
     }
 }
