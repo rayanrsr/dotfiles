@@ -99,7 +99,7 @@ alias please='sudo !!'
 # add bpytop as an alias for both top and htop
 alias top="bpytop"
 alias htop="bpytop"
-alias cd="z"
+# alias cd="z"
 
 # add bat as an alias for cat
 # if bat command is detected alias it to cat, otherwise alias batcat

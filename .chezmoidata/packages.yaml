@@ -110,6 +110,8 @@ packages:
       - gammastep
       - difftastic
       - python-pywal16
+      - swaync
+      - cryptomator
   ubuntu:
     packages:
       - git
