@@ -1,0 +1,29 @@
+---
+- name: Setup Terminal Environment
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Display numbered menu
+    pause:
+      prompt: |
+        Choose the tasks to execute (comma-separated):
+        1. Install OS-specific packages
+        2. Install Miniconda
+        3. Install Neovim
+        4. Restore Dotfiles
+    register: user_selection
+
+  - name: Map user choices to task names
+    set_fact:
+      selected_tasks:
+        "1": "install_os_packages.yml"
+        "2": "install_miniconda.yml"
+        "3": "install_neovim.yml"
+        "4": "setup_dotfiles.yml"
+
+  - name: Execute selected tasks
+    include_tasks: "{{ selected_tasks[item] }}"
+    loop: "{{ user_selection.user_input.split(',') | map('int') | map('trim') }}"
+    when: user_selection.user_input.split(',') | intersect(selected_tasks.keys() | map('int') | map('trim')) | length > 0
+

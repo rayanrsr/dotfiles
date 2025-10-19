@@ -1,0 +1,167 @@
+# This is a demo config to show some of the most important commands more easily.
+# This is meant to be changed and configured, as it is intentionally kept sparse.
+# For a more advanced configuration example see my dotfiles:
+# https://github.com/FelixKratz/dotfiles
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+# Use FiraCode Nerd Font for icons
+FONT="FiraCode Nerd Font"
+SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null" # The script that is run for clicking on space components
+POPUP_CLICK_SCRIPT="sketchybar -m --set \"\$NAME\" popup.drawing=toggle" # The script that toggles the popup windows
+
+##### Bar Appearance #####
+# Configuring the general appearance of the bar, these are only some of the
+# options available. For all options see:
+# https://felixkratz.github.io/SketchyBar/config/bar
+# If you are looking for other colors, see the color picker:
+# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+TRANSPARENT=0x00000000
+
+# General bar colors
+ICON_COLOR=$WHITE  # Color of all icons
+LABEL_COLOR=$WHITE # Color of all labels
+
+ITEM_DIR="$HOME/.config/sketchybar/items"
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+FONT="JetBrainsMono Nerd Font"
+
+PADDINGS=3
+
+POPUP_BORDER_WIDTH=2
+POPUP_CORNER_RADIUS=11
+POPUP_BACKGROUND_COLOR=$BLACK
+POPUP_BORDER_COLOR=$COMMENT
+
+CORNER_RADIUS=15
+BORDER_WIDTH=2
+
+SHADOW=on
+
+sketchybar --bar height=30 \
+	color="$BAR_COLOR" \
+	shadow="$SHADOW" \
+	position=top \
+	sticky=on \
+	padding_right=0 \
+	padding_left=3 \
+	corner_radius="$CORNER_RADIUS" \
+	y_offset=5 \
+	margin=5 \
+	blur_radius=20 \
+	notch_width=200 \
+	--default updates=when_shown \
+	icon.font="$FONT:Bold:13.5" \
+	icon.color="$ICON_COLOR" \
+	icon.padding_left="$PADDINGS" \
+	icon.padding_right="$PADDINGS" \
+	label.font="$FONT:Bold:13.0" \
+	label.color="$LABEL_COLOR" \
+	label.padding_left="$PADDINGS" \
+	label.padding_right="$PADDINGS" \
+	background.padding_right="$PADDINGS" \
+	background.padding_left="$PADDINGS" \
+	popup.background.border_width=1 \
+	popup.background.corner_radius=11 \
+	popup.background.border_color="$POPUP_BORDER_COLOR" \
+	popup.background.color="$POPUP_BACKGROUND_COLOR" \
+	popup.background.shadow.drawing="$SHADOW"
+
+
+##### Changing Defaults #####
+# We now change some default values that are applied to all further items
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+sketchybar --default icon.font="Hack Nerd Font:Bold:17.0"  \
+                     icon.color=0xffffffff                 \
+                     label.font="FiraCode Nerd Font:Bold:14.0" \
+                     label.color=0xffffffff                \
+                     padding_left=5                        \
+                     padding_right=5                       \
+                     label.padding_left=4                  \
+                     label.padding_right=4                 \
+                     icon.padding_left=4                   \
+                     icon.padding_right=4
+
+##### Adding Mission Control Space Indicators #####
+# Now we add some mission control spaces:
+# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+# to indicate active and available mission control spaces
+
+SPACE_ICONS=(
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    " ",
+    "",
+    "",
+    "",
+    ""
+)
+
+
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid=$(($i+1))
+  sketchybar --add space space.$sid left                                 \
+             --set space.$sid space=$sid                                 \
+                              icon=${SPACE_ICONS[i]}                     \
+                              label=$sid                                 \
+                              background.color=#198754             \
+                              background.corner_radius=5                 \
+                              background.height=20                       \
+                              background.drawing=off                     \
+                              label.drawing=on                          \
+                              script="$PLUGIN_DIR/space.sh"              \
+                              click_script="yabai -m space --focus $sid"
+done
+
+##### Adding Left Items #####
+# We add some regular items to the left side of the bar
+# only the properties deviating from the current defaults need to be set
+
+sketchybar --add item space_separator left                         \
+           --set space_separator icon=                            \
+                                 padding_left=10                   \
+                                 padding_right=10                  \
+                                 label.drawing=off                 \
+                                                                   \
+           --add item front_app left                               \
+           --set front_app       script="$PLUGIN_DIR/front_app.sh" \
+                                 icon.drawing=on                  \
+           --subscribe front_app front_app_switched
+
+##### Adding Right Items #####
+# In the same way as the left items we can add items to the right side.
+# Additional position (e.g. center) are available, see:
+# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+
+# Some items refresh on a fixed cycle, e.g. the clock runs its script once
+# every 10s. Other items respond to events they subscribe to, e.g. the
+# volume.sh script is only executed once an actual change in system audio
+# volume is registered. More info about the event system can be found here:
+# https://felixkratz.github.io/SketchyBar/config/events
+
+sketchybar --add item clock right                              \
+           --set clock   update_freq=10                        \
+                         icon=                                \
+                         script="$PLUGIN_DIR/clock.sh"         \
+                                                               \
+           --add item volume right                             \
+           --set volume  script="$PLUGIN_DIR/volume.sh"        \
+           --subscribe volume volume_change                    \
+                                                               \
+           --add item battery right                            \
+           --set battery script="$PLUGIN_DIR/battery.sh"       \
+                         update_freq=120                       \
+           --subscribe battery system_woke power_source_change
+
+##### Finalizing Setup #####
+# The below command is only needed at the end of the initial configuration to
+# force all scripts to run the first time, it should never be run in an item script.
+sketchybar --hotload true
+sketchybar --update

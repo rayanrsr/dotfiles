@@ -1,0 +1,53 @@
+---
+- name: Print current working directory
+  command: "pwd"
+  args:
+    chdir: "{{ playbook_dir | dirname }}"
+  register: pwd_output
+
+- name: Debug pwd output
+  debug:
+    var: pwd_output.stdout_lines
+
+- name: Link dotfiles with stow (adopt existing files)
+  command: "stow -t $HOME --adopt -R dotfiles"
+  args:
+    chdir: "{{ playbook_dir | dirname }}"
+  become: no
+
+- name: Clone zsh-autosuggestions plugin
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  become: no
+  when: not ansible_check_mode
+- name: Clone zsh-syntax-highlighting plugin
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+  when: not ansible_check_mode
+  become: no
+- name: Clone fzf-zsh-plugin plugin
+  git:
+    repo: https://github.com/Aloxaf/fzf-tab.git
+    dest: ~/.oh-my-zsh/custom/plugins/fzf-tab
+  when: not ansible_check_mode
+  become: no
+- name: Clone powerlevel10k theme
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
+  when: not ansible_check_mode
+  become: no
+- name: Clone fzf-zsh-plugin plugin
+  git:
+    repo: https://github.com/unixorn/fzf-zsh-plugin.git
+    dest: ~/.oh-my-zsh/custom/plugins/fzf-zsh-plugin
+  when: not ansible_check_mode
+  become: no
+- name: Clone tmux-plugins/tpm repository
+  git:
+    repo: https://github.com/tmux-plugins/tpm.git
+    dest: ~/.tmux/plugins/tpm
+  when: not ansible_check_mode  # Only clone if not in check mode
+
