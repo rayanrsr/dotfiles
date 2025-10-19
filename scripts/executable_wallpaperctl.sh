@@ -4,13 +4,34 @@ set -euo pipefail
 
 WALLPAPER_DIR="${WALLPAPER_DIR:-$HOME/wallpapers}"
 INTERVAL_SECONDS="${INTERVAL_SECONDS:-600}"
+SHUFFLE_PLAYLIST="${SHUFFLE_PLAYLIST:-0}"   # set to 1 to shuffle order at startup
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hyprpaper"
 STATE_FILE="$STATE_DIR/index"
+PLAYLIST_FILE="$STATE_DIR/playlist"
 
 mkdir -p "$STATE_DIR"
 
 discover_wallpapers() {
-  mapfile -t wallpapers < <(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) | sort)
+  # If a persisted playlist exists, load from it to keep order stable across this session
+  if [ -f "$PLAYLIST_FILE" ]; then
+    mapfile -t wallpapers < "$PLAYLIST_FILE"
+    return
+  fi
+
+  # Build playlist from disk, optionally shuffled, then persist for this session
+  if [ "$SHUFFLE_PLAYLIST" = "1" ] || [ "$SHUFFLE_PLAYLIST" = "true" ]; then
+    mapfile -t wallpapers < <(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) | shuf)
+  else
+    mapfile -t wallpapers < <(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) | sort)
+  fi
+  printf '%s\n' "${wallpapers[@]}" > "$PLAYLIST_FILE"
+}
+
+# Force-rebuild playlist (optionally shuffled) and reset index to 0
+rebuild_playlist() {
+  rm -f "$PLAYLIST_FILE"
+  discover_wallpapers
+  save_index 0
 }
 
 discover_wallpapers
@@ -101,7 +122,7 @@ current_wall() {
 }
 
 daemon() {
-  # Ensure all wallpapers are preloaded first
+  # Ensure all wallpapers are preloaded first (from persisted or newly created playlist)
   preload_all
   # Start by setting current wallpaper
   set_wallpaper "$(current_wall)"
@@ -111,24 +132,36 @@ daemon() {
   done
 }
 
+# Apply current wallpaper once and exit
+apply_once() {
+  preload_all
+  set_wallpaper "$(current_wall)"
+}
+
 usage() {
   cat <<EOF
 Usage: $(basename "$0") [command]
 Commands:
-  start          Run daemon to auto-rotate wallpapers
+  start          Apply current wallpaper once and exit
+  daemon         Run daemon to auto-rotate wallpapers
   next           Switch to next wallpaper
   prev           Switch to previous wallpaper
   preload-all    Preload all PNG wallpapers in directory
   current        Print current wallpaper path
+  reshuffle      Rebuild a shuffled playlist and reset index to 0
 Env:
   WALLPAPER_DIR      Directory containing wallpapers (default: $HOME/wallpapers)
   INTERVAL_SECONDS   Rotation interval for start (default: 600)
+  SHUFFLE_PLAYLIST   1 to shuffle playlist at startup (default: 0)
 EOF
 }
 
 cmd="${1:-start}"
 case "$cmd" in
   start)
+    apply_once
+    ;;
+  daemon)
     daemon &
     ;;
   next)
@@ -142,6 +175,9 @@ case "$cmd" in
     ;;
   current)
     current_wall
+    ;;
+  reshuffle)
+    SHUFFLE_PLAYLIST=1 rebuild_playlist
     ;;
   *)
     usage
