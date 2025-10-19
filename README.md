@@ -28,13 +28,30 @@ _ArchLinux Setup_
 
 </div>
 
-# Get Started with one command (Linux and MacOS only)
+# Get Started with one command
+
+**Automated installation (Linux and MacOS):**
 
 ```bash
-# install chezmoi  (https://chezmoi.io)
+curl -fsSL https://raw.githubusercontent.com/rayanramoul/dotfiles/main/install.sh | bash
+```
+
+**Manual installation:**
+
+```bash
+# Install chezmoi (https://chezmoi.io)
+# Arch Linux
 sudo pacman -S chezmoi
+
+# Ubuntu/Debian
+sudo apt install chezmoi
+
+# MacOS
+brew install chezmoi
+
+# Then apply dotfiles
 chezmoi init --apply https://github.com/rayanramoul/dotfiles
-# or if you have the permission
+# or if you have SSH access
 chezmoi init --apply git@github.com:rayanramoul/dotfiles
 ```
 

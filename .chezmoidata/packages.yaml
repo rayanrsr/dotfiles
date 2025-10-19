@@ -112,6 +112,7 @@ packages:
       - python-pywal16
       - swaync
       - cryptomator
+      - imagemagick
   ubuntu:
     packages:
       - git
