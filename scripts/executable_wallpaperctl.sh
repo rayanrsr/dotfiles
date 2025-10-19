@@ -61,6 +61,10 @@ set_wallpaper() {
   # Apply to all monitors using hyprpaper runtime command
   preload_if_needed "$path"
   hyprctl hyprpaper wallpaper ", $path" >/dev/null 2>&1 || true
+  # Update system colors via pywal if available
+  if command -v wal >/dev/null 2>&1; then
+    wal -i "$path" >/dev/null 2>&1 &
+  fi
 }
 
 next_wall() {
