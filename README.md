@@ -1,9 +1,6 @@
 <div align="center">
 
-<img width="200" src="https://github.com/rayanramoul/dotfiles/blob/main/assets/logo.png?raw=true">
-</img>
 <h1>RayTerm</h1>
-<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="400" />
 <h6 align="center">
   <a href="https://github.com/rayanramoul/dotfiles/blob/main/docs/Neovim.md">Neovim</a>
   ·
