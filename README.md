@@ -61,7 +61,7 @@ It is :
 
 The idea is to have one main key associated with each part of the system
 
-- `Alt` for the window manager.
+- `SUPER` for the window manager.
 - `Ctrl` for the terminal.
 - `Ctrl + b` for tmux.
 - `Ctrl` and `Space` for neovim.
