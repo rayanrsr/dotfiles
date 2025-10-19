@@ -45,7 +45,6 @@
         "mpd",
         "wireplumber",
         "bluetooth",
-        "custom/notification",
         "tray",
         "custom/power"
     ],
@@ -288,12 +287,7 @@
         "on-click-right": "ghostty -e ncmpcpp"
     },
 
-    "custom/notification": {
-        "format": "🔔 {}",
-        "exec": "swaync-client -swb",
-        "on-click": "swaync-client -t -sw",
-        "escape": true
-    },
+    
 
     "custom/vpn": {
         "format": "🔒 VPN",
