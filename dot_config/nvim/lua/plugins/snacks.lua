@@ -46,7 +46,7 @@ return {
     {
       "<leader><space>",
       function()
-        Snacks.picker.files({ hiden = true })
+        Snacks.picker.files({ hidden = true })
       end,
       desc = "Find Files",
     },
@@ -75,7 +75,7 @@ return {
     {
       "<C-p>",
       function()
-        Snacks.picker.files({ hiden = true })
+        Snacks.picker.files({ hidden = true })
       end,
       desc = "Find Files",
     },
@@ -312,7 +312,7 @@ return {
     {
       "<leader><space>",
       function()
-        Snacks.picker.files({ hiden = true })
+        Snacks.picker.files({ hidden = true })
       end,
       desc = "Find Files",
     },
@@ -341,7 +341,7 @@ return {
     {
       "<C-p>",
       function()
-        Snacks.picker.files({ hiden = true })
+        Snacks.picker.files({ hidden = true })
       end,
       desc = "Find Files",
     },
