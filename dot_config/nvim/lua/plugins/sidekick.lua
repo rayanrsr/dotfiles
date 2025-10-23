@@ -20,12 +20,14 @@ return {
     {
       "<tab>",
       function()
-        if not require("sidekick").nes_jump_or_apply() then
-          return "<Tab>"
+        local ok, sk = pcall(require, "sidekick")
+        if ok and sk.next_jump_or_apply and sk.next_jump_or_apply() then
+          return ""
         end
+        return "<Tab>"
       end,
       expr = true,
-      mode = { "n", "i" },
+      mode = { "n" },
       desc = "Goto/Apply Next Edit Suggestion",
     },
     {
