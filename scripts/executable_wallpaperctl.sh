@@ -8,7 +8,7 @@ log_error() { echo "[ERROR] $*" >&2; }
 
 WALLPAPER_DIR="${WALLPAPER_DIR:-$HOME/wallpapers}"
 INTERVAL_SECONDS="${INTERVAL_SECONDS:-600}"
-SHUFFLE_PLAYLIST="${SHUFFLE_PLAYLIST:-0}"   # set to 1 to shuffle order at startup
+SHUFFLE_PLAYLIST="${SHUFFLE_PLAYLIST:-0}" # set to 1 to shuffle order at startup
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/hyprpaper"
 STATE_FILE="$STATE_DIR/index"
 PLAYLIST_FILE="$STATE_DIR/playlist"
@@ -46,19 +46,19 @@ discover_wallpapers() {
 
   # If a persisted playlist exists, prefer it, but refresh if stale
   if [ -f "$PLAYLIST_FILE" ]; then
-    mapfile -t wallpapers < "$PLAYLIST_FILE"
+    mapfile -t wallpapers <"$PLAYLIST_FILE"
     # If counts differ or any file is missing, rebuild the playlist
     if [ ${#wallpapers[@]} -ne ${#fresh[@]} ]; then
       log_info "playlist is stale (${#wallpapers[@]} cached vs ${#fresh[@]} on disk); rebuilding"
       wallpapers=("${fresh[@]}")
-      printf '%s\n' "${wallpapers[@]}" > "$PLAYLIST_FILE"
+      printf '%s\n' "${wallpapers[@]}" >"$PLAYLIST_FILE"
       return
     fi
     for wp in "${wallpapers[@]}"; do
       if [ ! -f "$wp" ]; then
         log_info "playlist contains missing file; rebuilding"
         wallpapers=("${fresh[@]}")
-        printf '%s\n' "${wallpapers[@]}" > "$PLAYLIST_FILE"
+        printf '%s\n' "${wallpapers[@]}" >"$PLAYLIST_FILE"
         return
       fi
     done
@@ -67,7 +67,7 @@ discover_wallpapers() {
 
   # No persisted playlist; persist fresh snapshot
   wallpapers=("${fresh[@]}")
-  printf '%s\n' "${wallpapers[@]}" > "$PLAYLIST_FILE"
+  printf '%s\n' "${wallpapers[@]}" >"$PLAYLIST_FILE"
 }
 
 # Force-rebuild playlist (optionally shuffled) and reset index to 0
@@ -93,7 +93,7 @@ load_index() {
 }
 
 save_index() {
-  echo "$1" > "$STATE_FILE"
+  echo "$1" >"$STATE_FILE"
 }
 
 # Check if a given image path is already loaded in hyprpaper
@@ -137,9 +137,10 @@ set_wallpaper() {
     log_error "failed to set wallpaper $path: $out"
   fi
   # Update system colors via pywal if available
-  if command -v wal >/dev/null 2>&1; then
-    wal -i "$path" >/dev/null 2>&1 &
-  fi
+  # TODO: enable if you want automatic switch of TERM colors
+  # if command -v wal >/dev/null 2>&1; then
+  #   wal -i "$path" >/dev/null 2>&1 &
+  # fi
 }
 
 next_wall() {
@@ -151,7 +152,7 @@ next_wall() {
   fi
   preload_all
   local idx=$(load_index)
-  idx=$(( (idx + 1) % ${#wallpapers[@]} ))
+  idx=$(((idx + 1) % ${#wallpapers[@]}))
   save_index "$idx"
   set_wallpaper "${wallpapers[$idx]}"
 }
@@ -165,7 +166,7 @@ prev_wall() {
   fi
   preload_all
   local idx=$(load_index)
-  idx=$(( (idx - 1 + ${#wallpapers[@]}) % ${#wallpapers[@]} ))
+  idx=$(((idx - 1 + ${#wallpapers[@]}) % ${#wallpapers[@]}))
   save_index "$idx"
   set_wallpaper "${wallpapers[$idx]}"
 }
@@ -212,31 +213,29 @@ EOF
 
 cmd="${1:-start}"
 case "$cmd" in
-  start)
-    apply_once
-    ;;
-  daemon)
-    daemon &
-    ;;
-  next)
-    next_wall
-    ;;
-  prev)
-    prev_wall
-    ;;
-  preload-all)
-    preload_all
-    ;;
-  current)
-    current_wall
-    ;;
-  reshuffle)
-    SHUFFLE_PLAYLIST=1 rebuild_playlist
-    ;;
-  *)
-    usage
-    exit 1
-    ;;
+start)
+  apply_once
+  ;;
+daemon)
+  daemon &
+  ;;
+next)
+  next_wall
+  ;;
+prev)
+  prev_wall
+  ;;
+preload-all)
+  preload_all
+  ;;
+current)
+  current_wall
+  ;;
+reshuffle)
+  SHUFFLE_PLAYLIST=1 rebuild_playlist
+  ;;
+*)
+  usage
+  exit 1
+  ;;
 esac
-
-
