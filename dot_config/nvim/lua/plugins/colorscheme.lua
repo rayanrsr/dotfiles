@@ -3,13 +3,13 @@ return {
     -- "folke/tokyonight.nvim",
     -- "nyoom-engineering/oxocarbon.nvim",
     -- "rose-pine/neovim",
-    "catppuccin/nvim",
-    -- "tiagovla/tokyodark.nvim",
+    -- "catppuccin/nvim",
+    "tiagovla/tokyodark.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      require("catppuccin").setup({
-        transparent_background = false,
+      require("tokyodark").setup({
+        -- transparent_background = false,
       })
     end,
   },
@@ -17,7 +17,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin-latte",
+      colorscheme = "tokyodark",
     },
   },
 }

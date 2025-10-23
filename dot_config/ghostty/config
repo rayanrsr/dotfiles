@@ -1,6 +1,6 @@
 # To Reload config:
 # Ctrl + Shift + ,
-theme = Catppuccin Latte
+theme = CGA
 mouse-hide-while-typing = true
 mouse-scroll-multiplier = 0.5
 macos-titlebar-style = transparent
