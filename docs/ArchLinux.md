@@ -247,6 +247,7 @@ Install arandr (GUI for xrandr)
 ### Yuri's Revenge
 
 Create launcher with Lutris then install with winetricks : xna40 and dotnet40
+And/Or activate dgvoodoo in lutris settings
 
 ### Playing VR
 
