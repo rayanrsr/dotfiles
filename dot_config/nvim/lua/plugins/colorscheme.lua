@@ -11,7 +11,7 @@ return {
     config = function()
       require("kanagawa").setup({
         -- transparent_background = false,
-        transparent = true,
+        -- transparent = true,
       })
     end,
   },
