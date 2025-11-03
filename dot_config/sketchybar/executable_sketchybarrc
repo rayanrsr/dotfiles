@@ -1,21 +1,33 @@
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 ##### Bar Appearance #####
-sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
+# Sleek black bar with blur
+sketchybar --bar position=top \
+                 height=37 \
+                 blur_radius=30 \
+                 color=0xe0000000 \
+                 shadow=off \
+                 sticky=on \
+                 padding_left=8 \
+                 padding_right=8 \
+                 y_offset=0 \
+                 margin=0 \
+                 corner_radius=0
 
 ##### Default Item Appearance #####
 default=(
   padding_left=5
   padding_right=5
-  icon.font="FiraCode Nerd Font Mono:Bold:17.0"
-  label.font="FiraCode Nerd Font Mono:Bold:14.0"
-
+  icon.font="FiraCode Nerd Font Mono:Bold:15.0"
+  label.font="FiraCode Nerd Font Mono:Regular:13.0"
   icon.color=0xffffffff
   label.color=0xffffffff
-  icon.padding_left=4
+  icon.padding_left=8
   icon.padding_right=4
   label.padding_left=4
-  label.padding_right=4
+  label.padding_right=8
+  background.corner_radius=6
+  background.height=24
 )
 sketchybar --default "${default[@]}"
 
@@ -48,34 +60,74 @@ for sid in $(aerospace list-workspaces --all); do
     --set space.$sid \
       label="$label" \
       icon="$icon" \
-      background.color=0x44ffffff \
-      background.corner_radius=5 \
-      background.height=20 \
-      background.drawing=on \
+      icon.font="FiraCode Nerd Font Mono:Bold:14.0" \
+      icon.color=0xccffffff \
+      label.color=0xccffffff \
+      icon.padding_left=10 \
+      icon.padding_right=4 \
+      label.padding_left=4 \
+      label.padding_right=10 \
+      background.color=0x30ffffff \
+      background.corner_radius=6 \
+      background.height=26 \
+      background.drawing=off \
       click_script="aerospace workspace $sid" \
       script="$PLUGIN_DIR/aerospace.sh $sid"
 done
 
 ##### Left Side Items #####
 sketchybar --add item chevron left \
-           --set chevron icon= label.drawing=off
+           --set chevron icon=│ \
+                         label.drawing=off \
+                         background.drawing=off \
+                         icon.color=0x50ffffff \
+                         padding_left=5 \
+                         padding_right=5
 
 sketchybar --add item front_app left \
-           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+           --set front_app icon.drawing=off \
+                          background.drawing=off \
+                          label.color=0xaaffffff \
+                          label.font="FiraCode Nerd Font Mono:Medium:13.0" \
+                          padding_left=8 \
+                          script="$PLUGIN_DIR/front_app.sh" \
            --subscribe front_app front_app_switched
 
 ##### Right Side Items #####
 sketchybar --add item clock right \
-           --set clock update_freq=10 icon= script="$PLUGIN_DIR/clock.sh"
+           --set clock update_freq=10 \
+                      icon= \
+                      icon.color=0xffffffff \
+                      label.color=0xffffffff \
+                      background.color=0x30ffffff \
+                      background.corner_radius=6 \
+                      background.height=26 \
+                      padding_left=5 \
+                      padding_right=5 \
+                      script="$PLUGIN_DIR/clock.sh"
 
 sketchybar --add item volume right \
-           --set volume script="$PLUGIN_DIR/volume.sh" \
+           --set volume icon.color=0xffffffff \
+                       label.color=0xffffffff \
+                       background.color=0x30ffffff \
+                       background.corner_radius=6 \
+                       background.height=26 \
+                       padding_left=5 \
+                       padding_right=5 \
+                       script="$PLUGIN_DIR/volume.sh" \
            --subscribe volume volume_change
 
 sketchybar --add item battery right \
-           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+           --set battery update_freq=120 \
+                        icon.color=0xffffffff \
+                        label.color=0xffffffff \
+                        background.color=0x30ffffff \
+                        background.corner_radius=6 \
+                        background.height=26 \
+                        padding_left=5 \
+                        padding_right=5 \
+                        script="$PLUGIN_DIR/battery.sh" \
            --subscribe battery system_woke power_source_change
 
 ##### Force Initial Update #####
 sketchybar --update
-
