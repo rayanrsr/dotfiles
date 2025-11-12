@@ -16,4 +16,18 @@ return {
       },
     },
   },
+  keys = {
+    {
+      "<tab>",
+      function()
+        -- jump to the next edit if available, otherwise apply it; fallback to literal <Tab>
+        if not require("sidekick").nes_jump_or_apply() then
+          return "<Tab>"
+        end
+      end,
+      expr = true,
+      mode = { "n" },
+      desc = "Goto/Apply Next Edit Suggestion",
+    },
+  },
 }
