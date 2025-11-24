@@ -102,7 +102,7 @@ packages:
       - difftastic
       - python-pywal16
       - swaync
-      - imagemagick
+
   ubuntu:
     packages:
       - git
