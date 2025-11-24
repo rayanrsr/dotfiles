@@ -53,7 +53,6 @@ packages:
       - luarocks
       - jre-openjdk
       - tectonic
-      - bitwarden-cli
       - archlinux-xdg-menu
 
     # Packages only for non-WSL Arch Linux systems (GUI applications, games, etc.)
@@ -64,8 +63,6 @@ packages:
       - docker
       - waybar
       - steam
-      - heroic-games-launcher-bin
-      - discord
       - obsidian
       - vlc
       - wine
@@ -82,7 +79,6 @@ packages:
       - stremio
       - sunshine
       - ollama
-      - open-webui
       - libreoffice-fresh
       - prismlauncher-qt5
       - ttf-meslo-nerd
@@ -99,7 +95,6 @@ packages:
       - vesktop
       - opencode
       - lutris
-      - heroic-games-launcher-bin
       - cursor-cli
       - cursor-bin
       - lxappearance
@@ -107,7 +102,6 @@ packages:
       - difftastic
       - python-pywal16
       - swaync
-      - cryptomator
       - imagemagick
   ubuntu:
     packages:
