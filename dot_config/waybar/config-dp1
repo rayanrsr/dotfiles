@@ -62,7 +62,7 @@
         "sort-by-number": true,
         "active-only": false,
         "persistent-workspaces": {
-            "DP-1": [1, 3, 5]
+            "DP-1": [1, 3]
         }
     },
 
