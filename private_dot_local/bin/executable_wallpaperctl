@@ -133,7 +133,9 @@ set_wallpaper() {
   preload_if_needed "$path"
   log_info "loading wallpaper $path"
   local out
-  if ! out=$(hyprctl hyprpaper wallpaper ", $path" 2>&1); then
+  # Empty monitor name before the comma = all monitors.
+  # NOTE: there must be NO space after the comma.
+  if ! out=$(hyprctl hyprpaper wallpaper ",$path" 2>&1); then
     log_error "failed to set wallpaper $path: $out"
   fi
   # Update system colors via pywal if available
