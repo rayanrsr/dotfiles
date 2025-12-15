@@ -58,10 +58,10 @@ packages:
     # Packages only for non-WSL Arch Linux systems (GUI applications, games, etc.)
     non_wsl_packages:
       - bitwarden-bin
-      - ulauncher
+      - vicinae
       - swww
       - docker
-      - waybar
+      - ags-hyprpanel-git
       - steam
       - obsidian
       - vlc
