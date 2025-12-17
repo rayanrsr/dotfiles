@@ -12,6 +12,11 @@ return {
       },
       ui_select = true, -- replace `vim.ui.select` with the snacks picker
       replace_netrw = true,
+      sources = {
+        explorer = {
+          diagnostics = false, -- avoids occasional "Invalid buffer id" from stale diagnostics
+        },
+      },
     },
   },
   keys = {

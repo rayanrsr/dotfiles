@@ -60,6 +60,7 @@ packages:
       - bitwarden-bin
       - vicinae
       - swww
+      - awww
       - docker
       - ags-hyprpanel-git
       - steam
@@ -99,7 +100,6 @@ packages:
       - gammastep
       - difftastic
       - python-pywal16
-      - swaync
 
   ubuntu:
     packages:
