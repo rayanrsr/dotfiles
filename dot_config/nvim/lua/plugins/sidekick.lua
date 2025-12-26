@@ -11,7 +11,7 @@ return {
       tools = {
         cursor = {
           -- Cursor CLI agent binary; ensure it's installed and on PATH
-          cmd = { "cursor-agent" },
+          cmd = { "opencode" },
         },
       },
     },
