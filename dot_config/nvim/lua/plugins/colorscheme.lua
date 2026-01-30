@@ -1,47 +1,16 @@
 return {
-  -- Configure LazyVim to load rose-pine
+  -- Configure LazyVim to load tokyodark
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "tiagovla/tokyodark.nvim",
     opts = {
-      term_colors = true,
-      transparent_background = false,
-      styles = {
-        comments = {},
-        conditionals = {},
-        loops = {},
-        functions = {},
-        keywords = {},
-        strings = {},
-        variables = {},
-        numbers = {},
-        booleans = {},
-        properties = {},
-        types = {},
-      },
-      color_overrides = {
-        mocha = {
-          base = "#000000",
-          mantle = "#000000",
-          crust = "#000000",
-        },
-      },
-      integrations = {
-        telescope = {
-          enabled = true,
-          style = "nvchad",
-        },
-        dropbar = {
-          enabled = true,
-          color_mode = true,
-        },
-      },
+      -- custom options here
+      transparent_background = true,
     },
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "tokyodark",
     },
   },
 }
