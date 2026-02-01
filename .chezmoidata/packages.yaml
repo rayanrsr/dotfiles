@@ -20,6 +20,7 @@ packages:
   arch:
     # Common packages for all Arch Linux systems (including WSL)
     packages:
+      - cryptomator
       - git
       - cargo
       - neovim-git
