@@ -1,6 +1,7 @@
 packages:
   darwin:
     brews:
+      - just
       - git
       - neovim
       - eza
@@ -20,6 +21,7 @@ packages:
   arch:
     # Common packages for all Arch Linux systems (including WSL)
     packages:
+      - just
       - cryptomator
       - git
       - cargo
@@ -104,6 +106,7 @@ packages:
 
   ubuntu:
     packages:
+      - just
       - git
       - neovim
       - python3-pip
