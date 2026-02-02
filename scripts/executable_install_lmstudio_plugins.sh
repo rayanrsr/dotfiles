@@ -4,6 +4,7 @@ set -euo pipefail
 PLUGINS=(
   "danielsig/duckduckgo"
   "lmstudio/wikipedia"
+  "danielsig/visit-website"
 )
 
 ensure_path() {
