@@ -27,6 +27,7 @@ packages:
       - adw-gtk-theme 
       - nwg-look
       - wlsunset
+      - copyq
       - wl-clipboard
       - just
       - cryptomator
@@ -37,7 +38,6 @@ packages:
       - bpytop
       - zsh
       - tmux
-      - copyq
       - git
       - lazygit
       - lazydocker
