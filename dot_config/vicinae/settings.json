@@ -9,9 +9,10 @@
 // Learn more about configuration at https://docs.vicinae.com/config
 
 {
+   "$schema": "https://vicinae.com/schemas/config.json",
    "theme": {
       "dark": {
-         "name": "vicinae-dark"
+         "name": "noctalia"
       }
    },
    "providers": {
