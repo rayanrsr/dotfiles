@@ -26,6 +26,8 @@ packages:
       - millennium
       - adw-gtk-theme 
       - nwg-look
+      - wlsunset
+      - wl-clipboard
       - just
       - cryptomator
       - git
