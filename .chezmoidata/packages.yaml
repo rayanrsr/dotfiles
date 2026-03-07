@@ -22,7 +22,7 @@ packages:
     # Common packages for all Arch Linux systems (including WSL)
     packages:
       - lmstudio-bin
-      - caelestia-shell
+      - noctalia-shell   
       - just
       - cryptomator
       - git
