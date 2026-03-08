@@ -242,7 +242,7 @@
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
-        "predefinedScheme": "Rosepine",
+        "predefinedScheme": "Rose Pine",
         "schedulingMode": "off",
         "useWallpaperColors": false
     },
@@ -307,7 +307,7 @@
         }
     },
     "desktopWidgets": {
-        "enabled": true,
+        "enabled": false,
         "gridSnap": false,
         "monitorWidgets": [
             {
