@@ -1,0 +1,8 @@
+# Global workmux defaults. Project overrides go in a repo's .workmux.yaml
+# (`workmux init`). Full documented reference: `workmux config reference`.
+
+# Matches the pane layout the old tmux-agent-sidebar used: left, 15% wide.
+# Default is 10%, clamped to 25-50 columns; explicit values are not clamped.
+sidebar:
+  position: left
+  width: "15%"

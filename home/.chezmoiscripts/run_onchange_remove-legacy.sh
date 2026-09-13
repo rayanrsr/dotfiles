@@ -32,6 +32,12 @@ cleanups=(
   "$HOME/.claude/skills/peon-ping-use"
   "$HOME/.openpeon"
   "$HOME/.config/opencode/peon-ping"
+
+  # tmux-agent-sidebar: replaced by workmux, which covers agent status plus the
+  # worktree/parallel-agent workflow the sidebar only partly had.
+  "$HOME/.tmux/plugins/tmux-agent-sidebar"
+  "$HOME/.claude/plugins/cache/hiroppy"
+  "$HOME/.claude/plugins/marketplaces/hiroppy"
 )
 
 for path in "${cleanups[@]}"; do

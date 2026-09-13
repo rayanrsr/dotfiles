@@ -52,7 +52,7 @@ input_radius = 6.0
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
-show_password_hint = true
+show_unlock_hint = true
 
 [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
 box_height = 70.0
@@ -73,7 +73,7 @@ input_radius = 6.0
 show_caps_lock = true
 show_keyboard_layout = true
 show_login_button = true
-show_password_hint = true
+show_unlock_hint = true
 
 [notification]
 scale = 1.2000000104308128

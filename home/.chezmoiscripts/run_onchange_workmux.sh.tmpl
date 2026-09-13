@@ -1,0 +1,63 @@
+#!/bin/bash
+# Install workmux (git worktrees + tmux windows for parallel agents) and its
+# opencode status plugin.
+#
+# Not in the Arch repos or the AUR, so it can't live in .chezmoidata/packages.yaml.
+# The upstream installer and `workmux update` both self-update outside any package
+# manager, which would drift between machines — so the version is pinned here and
+# the release tarball is checksum-verified instead.
+#
+# Claude Code needs nothing here: workmux ships a plugin, registered declaratively
+# through enabledPlugins/extraKnownMarketplaces in ~/.claude/settings.json.
+# opencode has no equivalent, so its plugin file is fetched at the same tag to
+# keep it in lockstep with the binary.
+#
+# Sorts after run_onchange_install-packages (i < w) so curl and tar are present.
+set -e
+
+VERSION="v0.1.260"
+BIN="$HOME/.local/bin/workmux"
+OC_PLUGIN="$HOME/.config/opencode/plugins/workmux-status.ts"
+
+if [ "$($BIN --version 2>/dev/null | awk '{print $2}')" = "${VERSION#v}" ] && [ -f "$OC_PLUGIN" ]; then
+  echo "workmux: ${VERSION} already installed"
+  exit 0
+fi
+
+case "$(uname -s)" in
+  Linux) os=linux ;;
+  Darwin) os=darwin ;;
+  *) echo "workmux: unsupported OS $(uname -s), skipping"; exit 0 ;;
+esac
+case "$(uname -m)" in
+  x86_64|amd64) arch=amd64 ;;
+  arm64|aarch64) arch=arm64 ;;
+  *) echo "workmux: unsupported arch $(uname -m), skipping"; exit 0 ;;
+esac
+
+base="https://github.com/raine/workmux/releases/download/${VERSION}"
+# The checksum asset drops the .tar.gz: workmux-linux-amd64.sha256.
+stem="workmux-${os}-${arch}"
+asset="${stem}.tar.gz"
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+
+echo "workmux: fetching ${VERSION} ${os}-${arch}"
+curl -fsSL -o "$tmp/$asset" "$base/$asset"
+curl -fsSL -o "$tmp/${stem}.sha256" "$base/${stem}.sha256"
+
+want="$(awk '{print $1}' "$tmp/${stem}.sha256")"
+got="$(sha256sum "$tmp/$asset" | awk '{print $1}')"
+if [ "$want" != "$got" ]; then
+  echo "workmux: CHECKSUM MISMATCH, refusing to install" >&2
+  exit 1
+fi
+
+tar xzf "$tmp/$asset" -C "$tmp"
+install -Dm755 "$tmp/workmux" "$BIN"
+echo "workmux: installed $("$BIN" --version)"
+
+# opencode auto-discovers *.ts in this directory; no config entry needed.
+curl -fsSL --create-dirs -o "$OC_PLUGIN" \
+  "https://raw.githubusercontent.com/raine/workmux/${VERSION}/resources/opencode/plugins/workmux-status.ts"
+echo "workmux: installed opencode status plugin"
