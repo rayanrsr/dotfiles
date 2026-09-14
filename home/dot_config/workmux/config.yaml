@@ -6,3 +6,15 @@
 sidebar:
   position: left
   width: "15%"
+
+# Written by workmux on first run.
+nerdfont: true
+
+# Each worktree gets its own named tmux session instead of a window in the
+# current one.
+mode: session
+
+# Single pane running claude in the worktree directory.
+panes:
+  - command: <agent>
+    focus: true
