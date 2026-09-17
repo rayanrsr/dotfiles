@@ -31,6 +31,9 @@ application/x-extension-shtml=zen-twilight.desktop
 application/xhtml+xml=zen-twilight.desktop
 application/x-extension-xhtml=zen-twilight.desktop
 application/x-extension-xht=zen-twilight.desktop
+inode/directory=org.kde.dolphin.desktop
+x-directory/normal=org.kde.dolphin.desktop
+x-scheme-handler/file=org.kde.dolphin.desktop
 
 [Added Associations]
 application/pdf=org.pwmt.zathura.desktop;
@@ -47,3 +50,6 @@ application/x-extension-shtml=zen-twilight.desktop;
 application/xhtml+xml=zen-twilight.desktop;
 application/x-extension-xhtml=zen-twilight.desktop;
 application/x-extension-xht=zen-twilight.desktop;
+inode/directory=org.kde.dolphin.desktop;
+x-directory/normal=org.kde.dolphin.desktop;
+x-scheme-handler/file=org.kde.dolphin.desktop;
