@@ -3,9 +3,18 @@
 Running a 1,800-mod Skyrim SE modlist under Proton. The pack is Windows-only by design and assumes
 ENB; this documents every Linux-specific thing that breaks and the configuration that actually works.
 
-**Status: playable.** Native 4K, 1,802 mods, 1,928 plugins, Community Shaders + Effects 11 doing the
+**Status: retired 2026-09-20.** Superseded by [`../skyrim-tuxborn-linux/`](../skyrim-tuxborn-linux/).
+The install was deleted and the base game moved to 1.6.1170 for Tuxborn; nothing here is live any more.
+Kept because the Linux-specific findings apply to any Windows-only modlist under Proton.
+
+It *was* playable — native 4K, 1,802 mods, 1,928 plugins, Community Shaders + Effects 11 doing the
 post-processing ENB was meant to. Established empirically on one machine — RTX 5070 Ti (16 GB),
 Ryzen 7 5700X3D, 62 GB RAM, driver 610.57.04, CachyOS/Hyprland. Paths are that machine's; adjust them.
+
+**Why it was abandoned:** the pack's identity is its ENB preset, and ENB never rendered in-game under
+Proton. Community Shaders is a working substitute but cannot reproduce the preset's grading — the
+`.fx` files are KIEFX-encrypted and only ENB can decrypt them. See
+[ENB under Proton](#enb-under-proton-what-was-actually-ruled-out) for what was eliminated.
 
 ---
 
@@ -326,12 +335,47 @@ loading over a running session; avoid repeated reloads in one sitting. If it bec
 restricting the game to fewer cores during load (`taskset`) targets the race directly at the price of
 slower loads — untested here.
 
-**ENB itself is not viable.** It loads, initialises, compiles shaders and renders the main menu, then
-leaks VRAM to 13–14.5 GB regardless of *every* lever: texture tier, render resolution (−64 % pixels
-bought 7 %), per-frame effects, per-object loaders, `ShaderCache`, `SpeedHack`, `ENBLITE`,
-`LinuxVersion=true`, proxy off, and four Proton versions. Consumption is invariant to everything ENB
-exposes, i.e. a leak in the ENB↔DXVK path. Don't spend an evening on effect toggles as I did — measure
-VRAM first. The wrapper is kept as `d3d11.dll.enb-disabled` if a future build ever fixes it.
+## ENB under Proton: what was actually ruled out
+
+**Verdict: ENB renders the main menu correctly and never updates the 3D scene in-game.** Tested to
+exhaustion on Proton 10. The wrapper is kept as `d3d11.dll.enb-disabled`.
+
+Two settings are real finds and worth carrying to any other setup:
+
+| Setting | Value | Why |
+|---|---|---|
+| `ENBLITE` | **`false`** | It is the cut-down AMD/Steam-Deck path. Left `true` on an **NVIDIA** card, ENB spins at 207 % CPU with the GPU idle at 14 %/37 °C and never reaches a menu. Setting it `false` produced a correct 60 fps main menu immediately. |
+| `LinuxVersion` | `true` | `[GLOBAL]`. Windows and Linux ENB are one binary now; this selects the Linux paths. |
+
+With those set, ENB reaches the menu and still fails in-game. Eliminated, each independently:
+
+- **VRAM** — 8.5 GB used of 16 GB, 4.7 GB free, GPU 14 % at 37 °C. Not exhaustion.
+- **Shader cache** — deleted; rebuilt from empty to a byte-identical size. `dataps.enbc` caches the
+  *game's* shaders ENB intercepts, not the preset's `.fx`, so a stale cache was never the problem.
+- **The preset's encrypted shaders** — swapped ENB's stock example `.fx` in. Still static. So it is
+  ENB itself, not KIEFX/Kitsuune, and **no other ENB preset will work either**.
+- **The published Linux reference config** — `DeblurGameTAA=false`, `VSyncSkipNumFrames=0`,
+  `SpeedHack=true`, `InitProxyFunctions=true`, `EnablePrepass=false`, `UsePerformanceMode=true`.
+- **Proxy DXVK** — `EnableProxyLibrary=true` against the pack's bundled `d3d11_dxvkasync1_10_3.dll`.
+
+**Untested, and the one thing left:** [Jackify's docs](https://github.com/Omni-guides/Jackify) state
+**GE-Proton 10-14** is the version to use for ENB and that *anything newer breaks it*. All of the above
+ran on official Proton 10; GE-Proton 10-14 was never tried. If you revisit ENB, start there.
+
+**Two false leads that cost the most time.** A frozen image is *not* evidence of a hang: check
+`nvidia-smi` first — high CPU with an idle GPU means a spin, not starvation. And DXVK reporting 56 fps
+with a live frametime graph only proves *something* is being presented; the scene can still be static.
+
+### `.fx` and `.fx.ini` move together
+
+Swapping shader sets without their parameter files produces a colour cast — a preset's `.fx.ini`
+applied to different `.fx` silently misassigns values (this is what turned the game blue, and the
+purple cast before it). Use [`scripts/thana-khan-enb`](scripts/thana-khan-enb), which switches
+`d3d11.dll`, the four `.fx`, their four `.fx.ini` and Community Shaders' Effects11 as one unit:
+
+```bash
+thana-khan-enb on|off|status
+```
 
 ---
 

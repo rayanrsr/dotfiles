@@ -272,7 +272,9 @@ Outside-the-stack reference material lives in [`docs/cheatsheets/`](docs/cheatsh
 
 ## Gaming
 
-[`docs/skyrim-thana-khan-linux/`](docs/skyrim-thana-khan-linux/) documents getting the Thana Khan Modspack v8.4 (1,800 mods, Windows-only by design) running on CachyOS under Proton — every Linux-specific failure and its fix, plus the launcher, deploy and audit scripts.
+[`docs/skyrim-tuxborn-linux/`](docs/skyrim-tuxborn-linux/) — current Skyrim setup. Tuxborn (1,371 mods) installed with Jackify, the Linux replacement for Wabbajack. Covers the AE/Creation Club requirements, the 1.6.1170 downgrade, and the six places the install actually breaks.
+
+[`docs/skyrim-thana-khan-linux/`](docs/skyrim-thana-khan-linux/) — retired, kept for reference. Getting the Thana Khan Modspack v8.4 (1,800 mods, Windows-only by design) running under Proton: MO2/usvfs, non-ASCII mod names, Microsoft runtime DLLs, Community Shaders in place of ENB, plus launcher, deploy and audit scripts. Includes what was ruled out about ENB under Proton.
 
 ## ❤️ If RayTerm has been helpful
 

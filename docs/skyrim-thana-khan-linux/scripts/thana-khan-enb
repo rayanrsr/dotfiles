@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# Switch the render pipeline between ENB (the pack's real look) and Community Shaders.
+# Both halves must move together: the .fx shaders, their .fx.ini parameter files, the
+# d3d11 wrapper, and CS's Effects11. Swapping shaders without their params produces a
+# colour cast, which is how this went wrong by hand.
+set -euo pipefail
+
+G="/home/rayanramoul/MegaDrive/SteamLibrary/steamapps/common/Skyrim Special Edition"
+ENC="$G/enbseries/_encrypted-backup"
+STOCK="$G/enbseries/_stock-example-shaders-parked"
+PARAMS="$G/enbseries/_preset-params-backup"
+CS="$G/Data/SKSE/Plugins/CommunityShaders/SettingsUser.json"
+FX=(enbeffect.fx enbbloom.fx enbeffectpostpass.fx enbadaptation.fx)
+INI=(enbadaptation.fx.ini enbbloom.fx.ini enbeffect.fx.ini enbeffectpostpass.fx.ini)
+
+effects11() {  # $1 = true (disable at boot) | false
+	python3 - "$CS" "$1" <<'PY'
+import json, sys, pathlib
+p, disable = pathlib.Path(sys.argv[1]), sys.argv[2] == "true"
+d = json.loads(p.read_text())
+dab = d.setdefault("Disable at Boot", {})
+if disable: dab["Effects11"] = True
+else: dab.pop("Effects11", None)
+p.write_text(json.dumps(d, indent=2))
+PY
+}
+
+case "${1:-status}" in
+on)
+	[ -f "$G/d3d11.dll.enb-disabled" ] && mv -f "$G/d3d11.dll.enb-disabled" "$G/d3d11.dll"
+	for n in "${FX[@]}"; do cp -f "$ENC/$n" "$G/$n"; cp -f "$ENC/$n" "$G/enbseries/$n"; done
+	for n in "${INI[@]}"; do cp -f "$PARAMS/$n" "$G/$n"; cp -f "$PARAMS/$n" "$G/enbseries/$n"; done
+	effects11 true
+	echo "ENB ON  - preset shaders + params restored, Effects11 off"
+	;;
+off)
+	[ -f "$G/d3d11.dll" ] && mv -f "$G/d3d11.dll" "$G/d3d11.dll.enb-disabled"
+	for n in "${FX[@]}"; do cp -f "$STOCK/root/$n" "$G/$n"; cp -f "$STOCK/enbseries/$n" "$G/enbseries/$n"; done
+	for n in "${INI[@]}"; do rm -f "$G/$n" "$G/enbseries/$n"; done
+	effects11 false
+	echo "ENB OFF - Community Shaders path, mismatched params removed"
+	;;
+status)
+	if [ -f "$G/d3d11.dll" ]; then echo "ENB ON"; else echo "ENB OFF"; fi
+	printf '  enbeffect.fx  %s  (KIEFX = preset, //+++ = stock)\n' "$(head -c5 "$G/enbeffect.fx")"
+	printf '  preset .fx.ini in load paths: %s (want 8 on, 0 off)\n' \
+		"$(ls "$G"/{enbeffect,enbbloom,enbeffectpostpass,enbadaptation}.fx.ini \
+		     "$G/enbseries"/{enbeffect,enbbloom,enbeffectpostpass,enbadaptation}.fx.ini 2>/dev/null | wc -l)"
+	python3 -c "
+import json,pathlib
+d=json.loads(pathlib.Path('$CS').read_text())
+print('  Effects11 disabled at boot:', 'Effects11' in d.get('Disable at Boot',{}))"
+	;;
+*) echo "usage: thana-khan-enb [on|off|status]" >&2; exit 1 ;;
+esac
