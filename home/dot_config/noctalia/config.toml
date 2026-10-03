@@ -158,6 +158,8 @@ scale = 0.90000000000000002
 enabled = false
 
 [widget.workspaces]
+label_source = "name"
+max_label_chars = 20
 active_pill_size = 3.2000000000000002
 empty_color = "on_primary"
 focused_color = "error"

@@ -36,7 +36,8 @@ hl.window_rule({ match = { class = "^Bitwarden$" }, workspace = "6" })
 each_class({ "^(obsidian|Obsidian)$" }, { workspace = "6" })
 each_class({ "^(Gimp|gimp|Inkscape)$" }, { workspace = "6" })
 
--- Media: music + streaming
+-- Hermes (+ music + streaming)
+hl.window_rule({ match = { class = "^Hermes$" }, workspace = "7" })
 each_class({
 	"^(Supersonic|supersonic|supersonic-desktop)$",
 	"^(Stremio|stremio|com\\.stremio\\.Stremio)$",
