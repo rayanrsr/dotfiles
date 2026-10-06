@@ -69,6 +69,8 @@ gcp.json
 .config/nvim/lua/matugen.lua
 .config/qt5ct/colors/noctalia.conf
 .config/qt6ct/colors/noctalia.conf
+.local/share/color-schemes/noctalia.colors
+.local/share/icons/Papirus-Noctalia-*
 .config/telegram-desktop/themes/noctalia.tdesktop-theme
 .config/vesktop/themes/noctalia*.css
 .config/vesktop/themes/discord-system24.css

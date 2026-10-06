@@ -124,6 +124,11 @@ pure_black_dark = true
 builtin_ids = ["alacritty", "btop", "foot", "gtk3", "gtk4", "ghostty", "hyprland", "mango", "qt"]
 community_ids = ["zen-browser", "neovim", "obsidian", "zed", "discord", "heroiclauncher", "lazygit", "steam", "telegram", "yazi", "hyprtoolkit"]
 
+[theme.templates.user.kde]
+input_path = "/usr/share/noctalia/assets/templates/kde/kcolorscheme.colors"
+output_path = "~/.local/share/color-schemes/noctalia.colors"
+post_hook = "bash ~/.config/noctalia/templates/kde-apply.sh ~/.local/share/color-schemes/noctalia.colors"
+
 [wallpaper]
 directory = "~/.local/share/chezmoi/wallpapers"
 

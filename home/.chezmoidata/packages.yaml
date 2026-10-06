@@ -42,6 +42,7 @@ packages:
       - alsa-utils # ALSA audio tools
       - archlinux-xdg-menu # XDG application menus
       - brightnessctl # Screen brightness control
+      - breeze # Qt style Dolphin uses to follow the noctalia KDE color scheme
       - faugus-launcher # Game launcher
       - cargo # Rust package manager
       - dive # Docker image layer explorer
@@ -62,6 +63,7 @@ packages:
       - pipewire-alsa # ALSA support for PipeWire
       - pipewire-pulse # PulseAudio support for PipeWire
       - playerctl # Media player control CLI
+      - plasma-integration # KDE Qt platform theme so Dolphin reads kdeglobals colors/icons
       - presenterm # Terminal slide presenter
       - python-pip # Python package installer
       - python-prompt_toolkit # Python prompt library

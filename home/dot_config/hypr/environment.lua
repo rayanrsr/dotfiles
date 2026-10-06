@@ -1,7 +1,8 @@
 -- Cursor / Qt / menu prefix
 hl.env("XCURSOR_SIZE", "32")
 -- qt6ct drives Qt6 apps; QT_STYLE_OVERRIDE=kvantum forces Kvantum styling
--- on Qt5+Qt6 so dolphin/Bitwarden/etc. follow the rose-pine theme.
+-- on Qt5+Qt6 so Bitwarden/etc. follow the theme. Dolphin overrides both (see
+-- systemd/user/plasma-dolphin.service.d) to follow the noctalia KDE color scheme.
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("QT_STYLE_OVERRIDE", "kvantum")
 hl.env("XDG_MENU_PREFIX", "arch-")
