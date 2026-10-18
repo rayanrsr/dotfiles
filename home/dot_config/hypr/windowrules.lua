@@ -125,6 +125,16 @@ local gaming = {
 }
 each_class(gaming, { workspace = "5" })
 
+-- League of Legends via darling-lol (Xwayland): Riot Client, its launcher, the
+-- League client UI and the in-game window all belong on the games workspace.
+each_class({
+	"^Riot Client$",
+	"^RiotClientServices$",
+	"^LeagueClient$",
+	"^LeagueClientUx$",
+	"^LeagueofLegends$",
+}, { workspace = "5" })
+
 -- Steam: tile the main "Steam" window. Popups/menus float on their own
 -- requests, so no inverse rule needed (and RE2 has no negative lookahead).
 hl.window_rule({

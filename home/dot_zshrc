@@ -221,3 +221,6 @@ fi
 
 autoload -Uz bashcompinit && bashcompinit
 
+
+# Refresh WAYLAND_DISPLAY etc. from tmux so panes outlive a compositor restart
+[[ -n $TMUX ]] && eval "$(tmux show-environment -s)"
