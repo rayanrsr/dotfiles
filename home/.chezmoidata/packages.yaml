@@ -25,6 +25,7 @@ packages:
       - dive # Docker image layer explorer
       - fd # Fast find replacement
       - gh # GitHub CLI
+      - herdr # Terminal multiplexer for coding agents
       - onefetch # Git repository summary
       - presenterm # Terminal slide presenter
       - python # Python runtime
@@ -49,6 +50,7 @@ packages:
       - dolphin # KDE file manager
       - fd # Fast find replacement
       - github-cli # GitHub CLI
+      - herdr-bin # Terminal multiplexer for coding agents
       - kvantum # Qt theme engine
       - lazydocker # Terminal Docker UI
       - lazygit # Terminal Git UI

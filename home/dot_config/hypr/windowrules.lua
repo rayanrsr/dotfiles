@@ -142,12 +142,21 @@ hl.window_rule({
 	tile = true,
 })
 
--- Steam-launched games: float fullscreen, no border
+-- Steam-launched games: float, no border. No forced `fullscreen`: every window
+-- of a Proton game shares the steam_app_<id> class, so it would also blow up
+-- launchers and dialogs. Games request fullscreen themselves.
 hl.window_rule({
 	match = { class = "^steam_app.*$" },
 	float = true,
-	fullscreen = true,
 	border_size = 0,
+})
+
+-- Wine apps (Battle.net, Lutris games): class is the lowercased exe name. Wine
+-- rarely sets dialog hints, so on ws5 (dwindle, no gaps/border) its popups get
+-- tiled edge-to-edge and look fullscreen. Float them at their requested size.
+hl.window_rule({
+	match = { class = "^(.*[Ww]ine.*|.*\\.exe)$" },
+	float = true,
 })
 
 -- Borderless / shadowless portal chrome

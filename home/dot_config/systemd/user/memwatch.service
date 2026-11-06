@@ -1,0 +1,6 @@
+[Unit]
+Description=Log top memory consumers
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/memwatch

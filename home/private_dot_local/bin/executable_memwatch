@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Snapshot of top memory consumers (RSS + swap) to find what triggers systemd-oomd session kills.
+set -euo pipefail
+
+log="${XDG_STATE_HOME:-$HOME/.local/state}/memwatch.log"
+mkdir -p "$(dirname "$log")"
+
+{
+	free -m | awk -v ts="$(date -Is)" '/^Mem/{r=$3} /^Swap/{s=$3} END{printf "=== %s ram_used=%dM swap_used=%dM\n", ts, r, s}'
+	for d in /proc/[0-9]*; do
+		awk -v pid="${d#/proc/}" '/^VmRSS/{r=$2} /^VmSwap/{s=$2} END{if (r+s > 0) print r+s, r, s, pid}' "$d/status" 2>/dev/null || true
+	done | sort -rn | head -10 | while read -r total rss swap pid; do
+		cmd=$(tr '\0' ' ' <"/proc/$pid/cmdline" 2>/dev/null | cut -c1-150) || cmd="?"
+		printf "%7dM rss=%dM swap=%dM pid=%s %s\n" $((total / 1024)) $((rss / 1024)) $((swap / 1024)) "$pid" "$cmd"
+	done
+} >>"$log"
+
+# Keep roughly the last 3 days (12 lines per minute).
+if (($(wc -l <"$log") > 60000)); then
+	tail -n 50000 "$log" >"$log.tmp" && mv "$log.tmp" "$log"
+fi
