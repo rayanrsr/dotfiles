@@ -107,6 +107,8 @@ packages:
 
       - nm-connection-editor # NetworkManager GUI
       - noctalia-git # Desktop shell UI
+      - noctalia-greeter # Login screen matching noctalia (runs on greetd)
+      - greetd # Login manager daemon for noctalia-greeter
       - noto-fonts # Noto font family
       - noto-fonts-emoji # Emoji font support
       - obsidian # Markdown notes app

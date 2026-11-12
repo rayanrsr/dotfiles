@@ -89,6 +89,9 @@ avatar_path = "~/.local/share/chezmoi/assets/avatar.png"
 corner_radius_scale = 1.0500000156462193
 font_family = "JetBrainsMono NF"
 
+[shell.greeter_sync]
+auto_sync = true
+
 [shell.launcher]
 categories = false
 
