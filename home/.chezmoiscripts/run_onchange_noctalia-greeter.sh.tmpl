@@ -1,0 +1,72 @@
+{{- if and (eq .chezmoi.os "linux") (stat "/etc/arch-release") -}}
+#!/bin/bash
+# Make noctalia-greeter (on greetd) the login screen.
+# Everything here is outside $HOME, so it can't be a managed file. Packages come
+# from packages.yaml; this script sorts after run_onchange_install-packages (n > i).
+# Undo from a TTY: sudo systemctl disable greetd && sudo systemctl enable <old dm>
+set -euo pipefail
+
+if grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then exit 0; fi
+if ! command -v noctalia-greeter >/dev/null || [ ! -d /etc/greetd ]; then
+  echo "noctalia-greeter: greetd or noctalia-greeter not installed, skipping"
+  exit 0
+fi
+
+SESSION_NAME="Hyprland" # start-hyprland, not uwsm
+cfg=/var/lib/noctalia-greeter/greeter.toml
+pam=/etc/pam.d/greetd
+
+# Set key = value inside [section], creating the section if missing.
+toml_set() {
+  local file="$1" section="$2" key="$3" value="$4" tmp
+  tmp="$(mktemp)"
+  sudo awk -v sec="[$section]" -v key="$key" -v val="$value" '
+    function emit() { print key " = " val; done = 1 }
+    /^[[:space:]]*\[/ { if (insec && !done) emit(); insec = ($0 == sec); if (insec) seen = 1 }
+    insec && $0 ~ "^[[:space:]]*#?[[:space:]]*" key "[[:space:]]*=" { if (!done) emit(); next }
+    { print }
+    END { if (insec && !done) emit(); if (!seen) { print ""; print sec; print key " = " val } }
+  ' "$file" >"$tmp"
+  sudo install -m 0644 -o greeter -g greeter "$tmp" "$file"
+  rm -f "$tmp"
+}
+
+[ -f "$cfg" ] || sudo /usr/share/noctalia-greeter/setup_greeter_system.sh
+
+sudo tee /etc/greetd/config.toml >/dev/null <<'EOF'
+[terminal]
+vt = 1
+
+[default_session]
+command = "/usr/bin/noctalia-greeter-session"
+user = "greeter"
+EOF
+
+# Unlock gnome-keyring and kwallet at login, like plasmalogin does.
+sudo grep -q pam_gnome_keyring "$pam" || sudo tee -a "$pam" >/dev/null <<'EOF'
+-auth       optional     pam_gnome_keyring.so
+-auth       optional     pam_kwallet5.so
+-session    optional     pam_gnome_keyring.so auto_start
+-session    optional     pam_kwallet5.so auto_start
+EOF
+
+toml_set "$cfg" session default "\"${SESSION_NAME}\""
+toml_set "$cfg" keyboard layout '"us"'
+
+# If greetd crash-loops, bring plasmalogin back automatically.
+if [ -f /usr/lib/systemd/system/plasmalogin.service ]; then
+  sudo mkdir -p /etc/systemd/system/greetd.service.d
+  printf '[Unit]\nOnFailure=plasmalogin.service\n' | sudo tee /etc/systemd/system/greetd.service.d/fallback.conf >/dev/null
+fi
+
+# Lets noctalia's [shell.greeter_sync] auto_sync push wallpaper/theme without a password.
+sudo noctalia-greeter passwordless-sync enable "$USER"
+
+current="$(readlink -f /etc/systemd/system/display-manager.service || true)"
+if [ "$current" != /usr/lib/systemd/system/greetd.service ]; then
+  [ -n "$current" ] && sudo systemctl disable "${current##*/}"
+  sudo systemctl enable greetd.service
+  echo "noctalia-greeter: greetd is now the display manager (takes effect on next boot)"
+fi
+sudo systemctl daemon-reload
+{{- end }}

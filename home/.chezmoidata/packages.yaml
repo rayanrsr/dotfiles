@@ -87,6 +87,11 @@ packages:
       - zathura-pdf-mupdf # PDF backend for Zathura
 
       - tuicr # Review PRs in Terminal
+      - ani-cli # Stream anime from the terminal
+      - msr-tools # Read CPU MSRs (boost/P-state diagnosis)
+      - nushell # Structured-data shell
+      - sbctl # Secure Boot key manager (EAC kernel)
+      - yt-dlp # Video downloader
 
     # Packages only for non-WSL Arch Linux systems (GUI applications, games, etc.)
     non_wsl_packages:
@@ -124,6 +129,37 @@ packages:
       - steamtinkerlaunch # Steam launch tweaker
 
       - sunshine # Game streaming host
+      - awakened-poe-trade-git # Path of Exile price checker
+      - cryptomator # Encrypted cloud vaults
+      - discord # Chat app
+      - feishin-bin # Music streaming client
+      - firefox # Web browser
+      - flameshot # Screenshot tool
+      - gamemode # Game performance daemon
+      - gamescope # Gaming micro-compositor
+      - ghidra # Reverse engineering suite
+      - gimp # Image editor
+      - google-cloud-cli # gcloud CLI
+      - heroic-games-launcher # Epic/GOG launcher
+      - jagex-launcher # RuneScape launcher
+      - jetbrains-toolbox # JetBrains IDE manager
+      - lib32-gamemode # 32-bit gamemode for Proton games
+      - lib32-mangohud # 32-bit MangoHud for Proton games
+      - llama-swap-bin # Hot-swap llama.cpp models
+      - llama.cpp-cuda # GPU local LLM inference
+      - lmstudio-bin # Local LLM GUI
+      - localsend # LAN file sharing
+      - mangohud # In-game performance overlay
+      - miniflux-bin # RSS reader server
+      - path-of-building-community-git # Path of Exile build planner
+      - prismlauncher # Minecraft launcher
+      - proton-mail-bin # Proton Mail desktop
+      - proton-vpn-gtk-app # Proton VPN client
+      - runelite # RuneScape client
+      - stremio # Media streaming
+      - telegram-desktop # Messaging app
+      - ventoy-bin # Multi-ISO USB creator
+      - vkbasalt # Vulkan post-processing
 
       - ttf-material-symbols-variable-git # Material Symbols font
       - ttf-meslo-nerd # Meslo Nerd Font
